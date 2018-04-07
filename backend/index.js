@@ -6,3 +6,7 @@ const bluebird = require("bluebird");
 const fs = require('fs');
 const im = require('imagemagick');
 // var base64Img = require('base64-img');
+
+http.listen(3001, function() {
+    console.log('listening on :3001');
+});
