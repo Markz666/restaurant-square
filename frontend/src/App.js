@@ -1,19 +1,51 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  NavLink,
+  Redirect
+} from "react-router-dom";
+import { Grid, Row, Nav, Navbar, NavItem } from "react-bootstrap";
+import Home from "./Home";
 
 class App extends Component {
+  
+  constructor(props) {
+    super(props);
+  }
+
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
+      <Router>
+        <div className="App">
+        <header>
+          <Navbar inverse collapseOnSelect>
+            <Navbar.Header>
+              <Navbar.Brand>
+              <a href="/"><img src='https://cdn.vectorstock.com/i/1000x1000/09/91/hat-chef-logo-vector-19810991.jpg'  alt="logo" height='20px'/></a>
+              </Navbar.Brand>
+              <Navbar.Toggle />
+            </Navbar.Header>
+          </Navbar>
         </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
+        <Grid>
+          <Row>
+            <div>
+            <NavLink to={`/home`} className="nav-link">Home</NavLink>
+            </div>
+          </Row>
+        </Grid>
+          <div className="App-body">
+            <Switch>
+              <Route path="/home" component={Home} />
+
+              <Redirect from="/" to="/home"/>
+            </Switch>
+          </div>
+        </div>
+      </Router>
     );
   }
 }
