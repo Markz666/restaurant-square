@@ -1,10 +1,9 @@
 # restaurant-square-website
-- In frontend folder: run
+Start the react app along with the electron in frontend folder:
 ```bash
 npm run dev
 ``` 
-to start the react app along with the electron
-- In backend folder: run
+Start the backend, in backend folder
 ```bash
 npm start
 ``` 
