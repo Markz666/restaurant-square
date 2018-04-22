@@ -9,6 +9,8 @@ import {
 } from "react-router-dom";
 import { Grid, Row, Nav, Navbar, NavItem } from "react-bootstrap";
 import Home from "./Home";
+import NotFound from "./NotFound";
+
 
 class App extends Component {
   
@@ -40,6 +42,7 @@ class App extends Component {
           <div className="App-body">
             <Switch>
               <Route path="/home" component={Home} />
+              <Route path="*" component={NotFound} />
 
               <Redirect from="/" to="/home"/>
             </Switch>
