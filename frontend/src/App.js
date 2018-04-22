@@ -43,11 +43,13 @@ class App extends Component {
             <Switch>
               <Route path="/home" component={Home} />
               <Route path="*" component={NotFound} />
+              
 
               <Redirect from="/" to="/home"/>
             </Switch>
           </div>
         </div>
+        
       </Router>
     );
   }
