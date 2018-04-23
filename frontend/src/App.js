@@ -26,7 +26,7 @@ class App extends Component {
           <Navbar inverse collapseOnSelect>
             <Navbar.Header>
               <Navbar.Brand>
-              <a href="/"><img src='https://cdn.vectorstock.com/i/1000x1000/09/91/hat-chef-logo-vector-19810991.jpg'  alt="logo" height='20px'/></a>
+              <a href="/home"><img src='https://cdn.vectorstock.com/i/1000x1000/09/91/hat-chef-logo-vector-19810991.jpg'  alt="logo" height='20px'/></a>
               </Navbar.Brand>
               <Navbar.Toggle />
             </Navbar.Header>
@@ -41,11 +41,10 @@ class App extends Component {
         </Grid>
           <div className="App-body">
             <Switch>
+              <Route path="/" component={Home}/>
               <Route path="/home" component={Home} />
               <Route path="*" component={NotFound} />
               
-
-              <Redirect from="/" to="/home"/>
             </Switch>
           </div>
         </div>
