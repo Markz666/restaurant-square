@@ -10,6 +10,8 @@ import {
 import { Grid, Row, Nav, Navbar, NavItem } from "react-bootstrap";
 import Home from "./Home";
 import NotFound from "./NotFound";
+import Signup from './Users/Signup';
+import Login from './Users/Login';
 
 
 class App extends Component {
@@ -26,7 +28,7 @@ class App extends Component {
           <Navbar inverse collapseOnSelect>
             <Navbar.Header>
               <Navbar.Brand>
-              <a href="/home"><img src='https://cdn.vectorstock.com/i/1000x1000/09/91/hat-chef-logo-vector-19810991.jpg'  alt="logo" height='20px'/></a>
+              <a href="/"><img src='https://cdn.vectorstock.com/i/1000x1000/09/91/hat-chef-logo-vector-19810991.jpg'  alt="logo" height='20px'/></a>
               </Navbar.Brand>
               <Navbar.Toggle />
             </Navbar.Header>
@@ -35,14 +37,15 @@ class App extends Component {
         <Grid>
           <Row>
             <div>
-            <NavLink to={`/home`} className="nav-link">Home</NavLink>
+            <NavLink to={`/`} className="nav-link">Home</NavLink>
             </div>
           </Row>
         </Grid>
           <div className="App-body">
             <Switch>
-              <Route path="/" component={Home}/>
-              <Route path="/home" component={Home} />
+              <Route exact path="/" component={Home}/>
+              <Route path="/signup" component={Signup}/>
+              <Route path="/login" component={Login}/>
               <Route path="*" component={NotFound} />
               
             </Switch>

@@ -9,25 +9,21 @@ let muiTheme = getMuiTheme({
     fontFamily: 'Microsoft YaHei'
 });
 
-class Login extends Component {
+class Signup extends Component {
     constructor(props) {
         super(props);
         this.state = {
             userName: "",
-            password: ""
+            password1: "",
+            password2: ""
         };
     }
 
-    handleLogin(event) {
+    handleSignup(event) {
         event.preventDefault();
         axios.post("api/users", {user: this.state});
     }
 
-    handleRegister(event) {
-        event.preventDefault();
-        axios.get("signup");
-
-    }
     render() {
         return (
             <MuiThemeProvider muiTheme={muiTheme}>
@@ -41,16 +37,18 @@ class Login extends Component {
                 <TextField
                     hintText='Please enter password'
                     type='password'
-                    value={this.state.password}
+                    value={this.state.password1}
+                    onChange={(event) => {this.setState({password: event.target.value})}}/>
+                <TextField
+                    hintText='Please enter password again'
+                    type='password'
+                    value={this.state.password2}
                     onChange={(event) => {this.setState({password: event.target.value})}}/>
 
                 <div style={styles.buttons_container}>
                     <RaisedButton
-                        label="Login" primary={true}
-                        onClick={this.handleLogin.bind(this)}/>
-                    <RaisedButton
-                        label="Register" primary={false} style={{marginLeft: 60}}
-                        onClick={this.handleRegister.bind(this)}/>
+                        label="Signup" primary={true}
+                        onClick={this.handleSignup.bind(this)}/>
                 </div>
             </div>
             </MuiThemeProvider>
@@ -84,4 +82,4 @@ const styles = {
         justifyContent: 'center'
     }
 };
-export default Login;
+export default Signup;

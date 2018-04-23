@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import  Login  from './Users/Login';
+
 
 class Home extends Component {
   render() {
     return (
-      <Login/> 
+      <h1>Hello!</h1>
+
     );
   }
 }
