@@ -4,6 +4,13 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import io from 'socket.io-client';
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  NavLink,
+  Redirect
+} from "react-router-dom";
 
 const socket = io('http://localhost:3001');
 
@@ -33,8 +40,14 @@ class Login extends Component {
     handleRegister(event) {
         event.preventDefault();
         // axios.get("signup");
+        this.setState({redirect: true});
     }
     render() {
+        if (this.state.redirect)
+        {
+            return <Redirect to="/signup" />;
+        }
+
         return (
             <MuiThemeProvider muiTheme={muiTheme}>
             <div style={styles.root}>
