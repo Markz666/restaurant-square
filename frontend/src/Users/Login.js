@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import axios from "axios";
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import io from 'socket.io-client';
+
 const socket = io('http://localhost:3001');
 
 let muiTheme = getMuiTheme({
@@ -32,8 +32,7 @@ class Login extends Component {
 
     handleRegister(event) {
         event.preventDefault();
-        axios.get("signup");
-
+        // axios.get("signup");
     }
     render() {
         return (
