@@ -32,6 +32,10 @@ app.use(function(req,res,next){
 // }
 // });
 
+app.get("/api/users", (req, res) => {
+    res.sendStatus(200);
+})
+
 io.on('connection', socket => {
     console.log('User connected');
     socket.on('login', async(userInfo) => {
