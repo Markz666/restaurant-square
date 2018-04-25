@@ -4,6 +4,8 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
+import io from 'socket.io-client';
+const socket = io('http://localhost:3001');
 
 let muiTheme = getMuiTheme({
     fontFamily: 'Microsoft YaHei'
