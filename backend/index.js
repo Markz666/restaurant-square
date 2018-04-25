@@ -17,23 +17,26 @@ app.use(function(req,res,next){
     next();
 })
 
-require('socketio-auth')(io, {
-authenticate: function (socket, data, callback) {
-    //get credentials sent by the client 
-    const username = data.username;
-    const password = data.password;
+// require('socketio-auth')(io, {
+// authenticate: function (socket, data, callback) {
+//     //get credentials sent by the client 
+//     const username = data.username;
+//     const password = data.password;
 
-    usersAPI.getUserByUsername('User', {username:username}, function(err, user) {
+//     usersAPI.getUserByUsername('User', {username:username}, function(err, user) {
 
-    //inform the callback of auth success/failure 
-    if (err || !user) return callback(new Error("User not found"));
-    return callback(null, user.password == password);
-    });
-}
-});
+//     //inform the callback of auth success/failure 
+//     if (err || !user) return callback(new Error("User not found"));
+//     return callback(null, user.password == password);
+//     });
+// }
+// });
 
 io.on('connection', socket => {
     console.log('User connected');
+    socket.on('login', async(userInfo) => {
+        console.log(userInfo);
+    })
     
     socket.on('disconnect', () => {
       console.log('user disconnected');
