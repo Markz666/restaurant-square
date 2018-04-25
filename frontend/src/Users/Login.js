@@ -44,8 +44,7 @@ class Login extends Component {
         this.setState({redirect: true});
     }
     render() {
-        if (this.state.redirect)
-        {
+        if (this.state.redirect) {
             return <Redirect to="/signup" />;
         }
 
