@@ -34,8 +34,6 @@ class Login extends Component {
             password: this.state.password
         };
         socket.emit('login', userInfo);
-
-        this.setState({redirect: true});
     }
 
     handleRegister(event) {

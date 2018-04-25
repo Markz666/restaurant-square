@@ -5,6 +5,16 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import io from 'socket.io-client';
+
+
+import {
+    BrowserRouter as Router,
+    Route,
+    Switch,
+    NavLink,
+    Redirect
+  } from "react-router-dom";
+
 const socket = io('http://localhost:3001');
 let muiTheme = getMuiTheme({
     fontFamily: 'Microsoft YaHei'
@@ -54,9 +64,22 @@ class Signup extends Component {
         } else {
             socket.emit('signup', userInfo);
         }
+        socket.on('loggedIn', async(status) => {
+            this.setState({redirect: status});
+        });
+        socket.on('signup_err', async(status) => {
+            this.setState({redirect: status});
+        });
+
     }
 
     render() {
+        if (this.state.redirect == "success") {
+            return <Redirect to="/" />;
+        }
+        if (this.state.redirect == "failed") {
+            return <Redirect to="/404" />;
+        }
         return (
             <MuiThemeProvider muiTheme={muiTheme}>
             <div style={styles.root}>

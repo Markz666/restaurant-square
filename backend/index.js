@@ -6,11 +6,18 @@ const bluebird = require("bluebird");
 const fs = require('fs');
 const im = require('imagemagick');
 const bcrypt = require("bcrypt");
+const bodyParser = require('body-parser');
+const session = require('express-session');
 // const base64Img = require('base64-img');
 const usersAPI = require("./db/users.js");
 
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(session({
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: false
+}));
+app.use(bodyParser.json());
 
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
@@ -52,7 +59,8 @@ io.on('connection', socket => {
         } catch (e) {
             const user = await usersAPI.getUserByUsername(userInfo.userName);
             if (user) {
-                res.redirect('/signup_err');
+                status = "failed";
+                socket.emit("signup_err", status);
             }
         }
     });

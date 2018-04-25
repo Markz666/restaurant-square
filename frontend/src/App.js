@@ -13,7 +13,6 @@ import NotFound from "./NotFound";
 import Signup from './Users/Signup';
 import Login from './Users/Login';
 
-
 class App extends Component {
   
   constructor(props) {
@@ -51,7 +50,6 @@ class App extends Component {
             </Switch>
           </div>
         </div>
-        
       </Router>
     );
   }
