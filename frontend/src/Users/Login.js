@@ -20,18 +20,8 @@ class Login extends Component {
         };
     }
 
-
-    // login(userName, password) {
-    //     let userInfo = {
-    //         userName: this.state.userName,
-    //         password: this.state.password
-    //     };
-    //     socket.emit('login', userInfo);
-    // }
-
     handleLogin(event) {
         event.preventDefault();
-        // axios.post("api/users", {user: this.state});
         let userInfo = {
             userName: this.state.userName,
             password: this.state.password

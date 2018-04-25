@@ -15,7 +15,7 @@ app.use(function(req,res,next){
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
-})
+});
 
 // require('socketio-auth')(io, {
 // authenticate: function (socket, data, callback) {
@@ -36,7 +36,11 @@ io.on('connection', socket => {
     console.log('User connected');
     socket.on('login', async(userInfo) => {
         console.log(userInfo);
-    })
+    });
+
+    socket.on("signup", async(userInfo) => {
+        console.log(userInfo);
+    });
     
     socket.on('disconnect', () => {
       console.log('user disconnected');
