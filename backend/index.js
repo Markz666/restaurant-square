@@ -32,6 +32,10 @@ authenticate: function (socket, data, callback) {
 }
 });
 
+app.get("/api/users", (req, res) => {
+    res.sendStatus(200);
+})
+
 io.on('connection', socket => {
     console.log('User connected');
     
