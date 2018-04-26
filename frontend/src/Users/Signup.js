@@ -6,14 +6,7 @@ import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import io from 'socket.io-client';
 
-
-import {
-    BrowserRouter as Router,
-    Route,
-    Switch,
-    NavLink,
-    Redirect
-  } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 
 const socket = io('http://localhost:3001');
 let muiTheme = getMuiTheme({

@@ -44,6 +44,15 @@ io.on('connection', socket => {
     console.log('User connected');
     socket.on('login', async(userInfo) => {
         console.log(userInfo);
+        const user = await usersAPI.getUserByUsername(userInfo.userName);
+        const isMatch = await bcrypt.compare(userInfo.password, user.hashed_password);
+        let status = "Invalid username of password";
+        if (!user || !isMatch) {
+            socket.emit("login_err", status);
+        } else {
+            socket.emit("loggedIn", "success");
+        }
+        
     });
 
     socket.on("signup", async(userInfo) => {

@@ -4,13 +4,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import io from 'socket.io-client';
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-  NavLink,
-  Redirect
-} from "react-router-dom";
+import { Redirect } from "react-router-dom";
 
 const socket = io('http://localhost:3001');
 
@@ -33,17 +27,25 @@ class Login extends Component {
             userName: this.state.userName,
             password: this.state.password
         };
-        socket.emit('login', userInfo);
+        if (this.state.userName !== undefined && this.setState.password !== undefined) {
+            socket.emit('login', userInfo);
+        }
+        socket.on("login_err", async(status) => {
+            this.setState({redirect: status});
+        });
     }
 
     handleRegister(event) {
         event.preventDefault();
         // axios.get("signup");
-        this.setState({redirect: true});
+        this.setState({redirect: "register"});
     }
     render() {
-        if (this.state.redirect) {
+        if (this.state.redirect === "register") {
             return <Redirect to="/signup" />;
+        }
+        if (this.state.redirect === "Invalid username of password") {
+            return <Redirect to = "/404"/>;
         }
 
         return (
