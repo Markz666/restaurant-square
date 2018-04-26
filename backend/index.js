@@ -25,6 +25,10 @@ app.use(function(req, res, next) {
     next();
 });
 
+app.get('/api/hello', (req, res) => {
+    res.send({ express: 'Hello From Express' });
+  });
+
 // require('socketio-auth')(io, {
 // authenticate: function (socket, data, callback) {
 //     //get credentials sent by the client 

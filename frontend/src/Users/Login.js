@@ -30,6 +30,9 @@ class Login extends Component {
         if (this.state.userName !== undefined && this.setState.password !== undefined) {
             socket.emit('login', userInfo);
         }
+        socket.on('loggedIn', async(status) => {
+            this.setState({redirect: status});
+        });
         socket.on("login_err", async(status) => {
             this.setState({redirect: status});
         });

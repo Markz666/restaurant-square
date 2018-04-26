@@ -67,7 +67,7 @@ class Container extends Component{
                     </div>
 
                     <div class="restaurant_content_container">
-                        <span id="title" class="name">天下无敌餐馆</span>
+                        <span id="title" class="name">Popeyes</span>
                         <table >
                         </table>
                         <div class="title">hot</div>
@@ -120,8 +120,7 @@ class Container extends Component{
                         <table ></table>
                         <span id="t" class="content">introduction</span>
                         <table ></table>
-                        <span id="intro" class="content">少女伊西亚（塞伊拉·沃西 Zaira Wasim 饰）拥有着一副天生的好嗓子，对唱歌充满了热爱的她做梦都想成为一名歌星。然而，伊西亚生活在一个不自由的家庭之中，母亲娜吉玛（梅·维贾 Meher Vij 饰）常常遭到性格爆裂独断专横的父亲法鲁克（拉杰·阿晶 Raj Arjun 饰）的拳脚相向，伊西亚知道，想让父亲支持自己的音乐梦想是完全不可能的事情。 
-　　某日，母亲卖掉了金项链给伊西亚买了一台电脑，很快，伊西亚便发现，虽然无法再现实里实现梦想，但是网络中存在着更广阔的舞台。伊西亚录制了一段蒙着脸自弹自唱的视屏上传到了优兔网上，没想到收获了异常热烈的反响，著名音乐人夏克提（阿米尔·汗 Aamir Khan 饰）亦向她抛出了橄榄枝。</span>
+                        <span id="intro" class="content">It is literally weird that you eat popeyes every single day!</span>
                     
                         <span id="comment" class="content">recent comment:</span>
                         <table ></table>
