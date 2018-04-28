@@ -2,7 +2,7 @@ import React, { Component } from "react";
 class LoginError extends Component {
     render() {
         return (
-        <h1>Please provide the correct username and password!</h1>
+        <h1>The username and password didn't match!</h1>
         )
     }
 

@@ -61,6 +61,7 @@ class Login extends Component {
 
                 <TextField
                     hintText='Please enter username'
+                    type='text'
                     value={this.state.userName}
                     onChange={(event) => {this.setState({userName: event.target.value})}}/>
                 <TextField
