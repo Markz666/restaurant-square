@@ -11,6 +11,7 @@ const session = require('express-session');
 // const base64Img = require('base64-img');
 const usersAPI = require("./db/users.js");
 
+
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(session({
     secret: 'keyboard cat',
@@ -27,6 +28,8 @@ app.use(function(req, res, next) {
 
 app.get('/api/hello', (req, res) => {
     res.send({ express: 'Hello From Express' });
+    // const url = React.renderToString(<RestaurantPanel/>);
+    // res.send(url);
   });
 
 // require('socketio-auth')(io, {

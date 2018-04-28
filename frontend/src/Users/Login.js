@@ -27,9 +27,9 @@ class Login extends Component {
             userName: this.state.userName,
             password: this.state.password
         };
-        if (this.state.userName !== undefined && this.setState.password !== undefined) {
-            socket.emit('login', userInfo);
-        }
+
+        socket.emit('login', userInfo);
+        
         socket.on('loggedIn', async(status) => {
             this.setState({redirect: status});
         });
@@ -48,7 +48,10 @@ class Login extends Component {
             return <Redirect to="/signup" />;
         }
         if (this.state.redirect === "Invalid username of password") {
-            return <Redirect to = "/404"/>;
+            return <Redirect to = "/login_err"/>;
+        }
+        if (this.state.redirect === "success") {
+            return <Redirect to = "/" />;
         }
 
         return (

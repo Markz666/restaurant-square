@@ -12,6 +12,7 @@ import Home from "./Home";
 import NotFound from "./NotFound";
 import Signup from './Users/Signup';
 import Login from './Users/Login';
+import Login_Error from './Users/Login_err';
 import RestaurantPanel from './Display/RestaurantPanel';
 
 class App extends Component {
@@ -63,6 +64,7 @@ class App extends Component {
               <Route exact path="/" component={Home}/>
               <Route path="/signup" component={Signup}/>
               <Route path="/login" component={Login}/>
+              <Route path="/login_err" component={Login_Error}/>
               <Route path="/display" component={RestaurantPanel}/>
               <Route path="*" component={NotFound} />
               
