@@ -32,6 +32,14 @@ app.get('/api/hello', (req, res) => {
     // res.send(url);
   });
 
+app.get('/api/getRestaurantInfo', (req, res) => {
+    console.log("-------------/api/getRestaurantInfo-------------");
+    let data = {"src":"popeyes", "title":"popeyes", "renqi":23, "pingfen":33, "favorite":30, "good":20, "bad":100, "category":"popeyes", "location":"popeyes", "introduction":"popeyes"};
+    let str = JSON.stringify(data);
+    console.log(str);
+    res.send(str);
+});
+
 app.post('/api/login', async (req, res) => {
     console.log(req.body);
   
