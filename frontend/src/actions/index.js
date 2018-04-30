@@ -9,10 +9,10 @@ import {
 
 const ROOT_URL = 'http://localhost:3001';
 
-export function signinUser({ email, password }) {
+export function signinUser({ username, password }) {
   return function(dispatch) {
     // Submit email/password to the server
-    axios.post(`${ROOT_URL}/signin`, { email, password })
+    axios.post(`${ROOT_URL}/signin`, { username, password })
       .then(response => {
         // If request is good...
         // - Update state to indicate user is authenticated
@@ -30,9 +30,9 @@ export function signinUser({ email, password }) {
   }
 }
 
-export function signupUser({ email, password }) {
+export function signupUser({ username, password }) {
   return function(dispatch) {
-    axios.post(`${ROOT_URL}/signup`, { email, password })
+    axios.post(`${ROOT_URL}/signup`, { username, password })
       .then(response => {
         dispatch({ type: AUTH_USER });
         localStorage.setItem('token', response.data.token);

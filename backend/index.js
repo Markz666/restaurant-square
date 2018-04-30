@@ -48,6 +48,22 @@ app.post('/api/login', async (req, res) => {
     }
 })
 
+app.post('/api/signup', async (req, res) => {
+    console.log(req.body);
+    try {
+        const saltRounds = 4;
+        let hashed_password = await bcrypt.hash(req.body.password1, saltRounds);
+        await usersAPI.addUser(req.body.userName, hashed_password, req.body.email, req.body.phone);
+        console.log("Create user success!");
+        res.send({status: 'create user success'});
+    } catch (e) {
+        const user = await usersAPI.getUserByUsername(req.body.userName);
+        if (user) {
+            res.sendStatus(400);
+        }
+    }
+})
+
 // require('socketio-auth')(io, {
 // authenticate: function (socket, data, callback) {
 //     //get credentials sent by the client 

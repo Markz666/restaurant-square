@@ -39,13 +39,13 @@ class Signup extends Component {
         const email = this.state.email;
         const phone = this.state.phone;
 
-        let userInfo = {
-            userName: userName,
-            password1: password1,
-            password2: password2,
-            email: email,
-            phone: phone
-        };
+        // let userInfo = {
+        //     userName: userName,
+        //     password1: password1,
+        //     password2: password2,
+        //     email: email,
+        //     phone: phone
+        // };
         if (userName.length === 0 || password1.length === 0 || email.length === 0 || phone.length === 0) {
             alert("Please fill in all the info");
         } else if (password1 !== password2) {
@@ -55,14 +55,38 @@ class Signup extends Component {
         } else if (phone.length < 10 || phone.length > 11) {
             alert("The phone number should be 10-11 digits.")
         } else {
-            socket.emit('signup', userInfo);
+            fetch('api/signup', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    userName: userName,
+                    password1: password1,
+                    password2: password2,
+                    email: email,
+                    phone: phone
+                })
+            })
+            .then((response) => {
+                const status = response.status;
+                if (status == '400') {
+                    this.setState({redirect: 'failed'});
+                } else {
+                    this.setState({redirect: 'success'});
+                }
+            }) 
+            .catch(error => {
+                console.log(error);
+            })
         }
-        socket.on('loggedIn', async(status) => {
-            this.setState({redirect: status});
-        });
-        socket.on('signup_err', async(status) => {
-            this.setState({redirect: status});
-        });
+        // socket.on('loggedIn', async(status) => {
+        //     this.setState({redirect: status});
+        // });
+        // socket.on('signup_err', async(status) => {
+        //     this.setState({redirect: status});
+        // });
 
     }
 
@@ -102,7 +126,7 @@ class Signup extends Component {
                     hintText='Please enter your phone number'
                     type='text'
                     value={this.state.phone}
-                    onChange={(event) => {this.setState({phone: event.target.value})}}/>
+                    onChange={(event) => {this.setState({phone: event.target.value})}}/>    
 
                 <div style={styles.buttons_container}>
                     <RaisedButton
