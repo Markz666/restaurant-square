@@ -41,24 +41,7 @@ class App extends Component {
     return (
       <Router>
         <div className="App">
-        <header>
-          <Navbar inverse collapseOnSelect>
-            <Navbar.Header>
-              <Navbar.Brand>
-              <a href="/"><img src='https://cdn.vectorstock.com/i/1000x1000/09/91/hat-chef-logo-vector-19810991.jpg'  alt="logo" height='20px'/></a>
-              </Navbar.Brand>
-              <Navbar.Toggle />
-            </Navbar.Header>
-          </Navbar>
-        </header>
         <p className="App-intro">{this.state.response}</p>
-        <Grid>
-          <Row>
-            <div>
-            <NavLink to={`/`} className="nav-link">Home</NavLink>
-            </div>
-          </Row>
-        </Grid>
           <div className="App-body">
             <Switch>
               <Route exact path="/" component={Home}/>

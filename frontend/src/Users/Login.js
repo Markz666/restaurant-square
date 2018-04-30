@@ -5,6 +5,7 @@ import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import io from 'socket.io-client';
 import { Redirect } from "react-router-dom";
+import { error } from "util";
 
 const socket = io('http://localhost:3001');
 
@@ -23,19 +24,39 @@ class Login extends Component {
 
     handleLogin(event) {
         event.preventDefault();
-        let userInfo = {
-            userName: this.state.userName,
-            password: this.state.password
-        };
+        fetch('api/login', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                userName: this.state.userName,
+                password: this.state.password
+            })
 
-        socket.emit('login', userInfo);
+        })
+        .then(response => response.text())
+        .then(responseText => {
+            alert(responseText);
+        })
+        .catch(error => {
+            console.log(error);
+        })
+
+        // let userInfo = {
+        //     userName: this.state.userName,
+        //     password: this.state.password
+        // };
+
+        // socket.emit('login', userInfo);
         
-        socket.on('loggedIn', async(status) => {
-            this.setState({redirect: status});
-        });
-        socket.on("login_err", async(status) => {
-            this.setState({redirect: status});
-        });
+        // socket.on('loggedIn', async(status) => {
+        //     this.setState({redirect: status});
+        // });
+        // socket.on("login_err", async(status) => {
+        //     this.setState({redirect: status});
+        // });
     }
 
     handleRegister(event) {

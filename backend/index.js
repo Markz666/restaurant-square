@@ -32,6 +32,17 @@ app.get('/api/hello', (req, res) => {
     // res.send(url);
   });
 
+app.post('/api/login', async (req, res) => {
+    console.log(req.body);
+    const user = await usersAPI.getUserByUsername(req.body.userName);
+    const isMatch = await bcrypt.compare(req.body.password, user.hashed_password);
+    if (!user || !isMatch) {
+        res.send({status: 'invalid username or password'});
+    } else {
+        res.send({status: 'login success'});
+    }
+})
+
 // require('socketio-auth')(io, {
 // authenticate: function (socket, data, callback) {
 //     //get credentials sent by the client 
@@ -59,7 +70,6 @@ io.on('connection', socket => {
         } else {
             socket.emit("loggedIn", "success");
         }
-        
     });
 
     socket.on("signup", async(userInfo) => {

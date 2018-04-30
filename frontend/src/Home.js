@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
-
+// import Header from './Header';
 
 class Home extends Component {
   render() {
     return (
-      <h1>Hello!</h1>
-
+      <div>
+        {/* <Header /> */}
+        {this.props.children}
+      </div>
     );
   }
 }
