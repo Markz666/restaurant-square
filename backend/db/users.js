@@ -168,7 +168,7 @@ module.exports.getUserById = async (id) => {
 module.exports.getUserByUsername = async (user_name) => {
     const userCollection = await users();
     const user = await userCollection.findOne({user_name: user_name});
-    if (!user)
-        throw "User not found";
+    // if (!user)
+    //     return "User not found";
     return user;
 };

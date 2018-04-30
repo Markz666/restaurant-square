@@ -34,12 +34,17 @@ app.get('/api/hello', (req, res) => {
 
 app.post('/api/login', async (req, res) => {
     console.log(req.body);
+  
     const user = await usersAPI.getUserByUsername(req.body.userName);
-    const isMatch = await bcrypt.compare(req.body.password, user.hashed_password);
-    if (!user || !isMatch) {
-        res.send({status: 'invalid username or password'});
+    if (!user) {
+        res.sendStatus(401);
     } else {
-        res.send({status: 'login success'});
+        const isMatch = await bcrypt.compare(req.body.password, user.hashed_password);
+        if (!isMatch) {
+            res.sendStatus(401);
+        } else {
+            res.send({status: 'login success'});
+        }
     }
 })
 
@@ -64,7 +69,7 @@ io.on('connection', socket => {
         console.log(userInfo);
         const user = await usersAPI.getUserByUsername(userInfo.userName);
         const isMatch = await bcrypt.compare(userInfo.password, user.hashed_password);
-        let status = "Invalid username of password";
+        let status = "Invalid username or password";
         if (!user || !isMatch) {
             socket.emit("login_err", status);
         } else {

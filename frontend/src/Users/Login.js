@@ -34,12 +34,15 @@ class Login extends Component {
                 userName: this.state.userName,
                 password: this.state.password
             })
-
         })
-        .then(response => response.text())
-        .then(responseText => {
-            alert(responseText);
-        })
+        .then((response) => {
+            const status = response.status;
+            if (status == '401') {
+                this.setState({redirect: 'Invalid username or password'});
+            } else {
+                this.setState({redirect: 'success'});
+            }
+        }) 
         .catch(error => {
             console.log(error);
         })
@@ -68,7 +71,7 @@ class Login extends Component {
         if (this.state.redirect === "register") {
             return <Redirect to="/signup" />;
         }
-        if (this.state.redirect === "Invalid username of password") {
+        if (this.state.redirect === "Invalid username or password") {
             return <Redirect to = "/login_err"/>;
         }
         if (this.state.redirect === "success") {
