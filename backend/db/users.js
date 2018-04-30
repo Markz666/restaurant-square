@@ -16,17 +16,17 @@ module.exports.addUser = async (user_name, hashed_password, email, phone) => {
         favorites: []
     };
 
-    try {
-        await this.getUserByUsername(user_name);
-    } catch (e) {
+    const userName = await this.getUserByUsername(user_name);
+    if (!userName) {
         const userCollection = await users();
         const newInsertInfo = await userCollection.insertOne(newUser);
         const userId = await newInsertInfo.insertedId;
-
+        console.log(userId);
         return await this.getUserById(userId);
+    } else {
+        throw "User already exists";
     }
-
-    throw "User already exists";
+    
 };
 
 module.exports.addComment = async (user_id, comment_id) => {
@@ -160,8 +160,8 @@ module.exports.getAllUsers = async () => {
 module.exports.getUserById = async (id) => {
     const userCollection = await users();
     const user = await userCollection.findOne({_id: id});
-    if (!user)
-        throw "User not found";
+    // if (!user)
+    //     throw "User not found";
     return user;
 };
 

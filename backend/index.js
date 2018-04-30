@@ -53,9 +53,10 @@ app.post('/api/signup', async (req, res) => {
     try {
         const saltRounds = 4;
         let hashed_password = await bcrypt.hash(req.body.password1, saltRounds);
+        // console.log(hashed_password);
         await usersAPI.addUser(req.body.userName, hashed_password, req.body.email, req.body.phone);
         console.log("Create user success!");
-        res.send({status: 'create user success'});
+        res.sendStatus(200);
     } catch (e) {
         const user = await usersAPI.getUserByUsername(req.body.userName);
         if (user) {
