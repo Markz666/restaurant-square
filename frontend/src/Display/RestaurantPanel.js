@@ -73,7 +73,7 @@ class Container extends Component{
                         <span id="t" className="content">introduction</span>
                         <table ></table>
                         <span id="intro" className="content">It is literally weird that you eat popeyes every single day!</span>
-                    
+                        <table ></table>
                         <span id="comment" className="content">recent comment:</span>
                         <table ></table>
                         <span id="comment1" className="content">haohaohaohaohao    09/07/2016</span>
@@ -136,12 +136,11 @@ function updateComponent(response)
     bad.innerHTML = response.bad;
     category.innerHTML = response.category;
     location.innerHTML = response.location;
-    intro.innerHTML = response.intro;
+    intro.innerHTML = response.introduction;
 }
 
 async function updatePage(imgID)
 {
-    //event.preventDefault();
     const response = await fetch('api/getRestaurantInfo?id=' + imgID);
     const body = await response.json();
     console.log(body);
