@@ -6,6 +6,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import io from 'socket.io-client';
 import { Redirect } from "react-router-dom";
 import { error } from "util";
+import {updateUserInfo, checkAuthenticated, getUserInfo} from '../Auth/UserLoginInfo'
 
 const socket = io('http://localhost:3001');
 
@@ -37,10 +38,14 @@ class Login extends Component {
         })
         .then((response) => {
             const status = response.status;
+            const retCode = response.retCode;
             if (status == '401') {
                 this.setState({redirect: 'Invalid username or password'});
+                updateUserInfo({}, false);
             } else {
                 this.setState({redirect: 'success'});
+
+                updateUserInfo({token:retCode}, true);
             }
         }) 
         .catch(error => {

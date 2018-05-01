@@ -6,7 +6,6 @@ var token={
         var obj2={
             data:obj,//payload
             created:parseInt(Date.now()/1000),//token生成的时间的，单位秒
-            exp:parseInt(timeout)||10//token有效期
         };
 
         //payload信息

@@ -10,7 +10,7 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 // const base64Img = require('base64-img');
 const usersAPI = require("./db/users.js");
-
+const token = require("./Auth/token.js");
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(session({
@@ -41,9 +41,8 @@ app.get('/api/getRestaurantInfo', (req, res) => {
 });
 
 app.post('/api/login', async (req, res) => {
-    console.log(req.body);
-  
     const user = await usersAPI.getUserByUsername(req.body.userName);
+    
     if (!user) {
         res.sendStatus(401);
     } else {
@@ -51,7 +50,8 @@ app.post('/api/login', async (req, res) => {
         if (!isMatch) {
             res.sendStatus(401);
         } else {
-            res.send({status: 'login success'});
+            let tokenCode = token.createToken(req.body);
+            res.send({status: 'login success', retCode: tokenCode});
         }
     }
 })
