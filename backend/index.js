@@ -104,25 +104,6 @@ io.on('connection', socket => {
             socket.emit("loggedIn", "success");
         }
     });
-
-    socket.on("signup", async(userInfo) => {
-        console.log(userInfo);
-        try {
-            const saltRounds = 4;
-            let hashed_password = await bcrypt.hash(userInfo.password1, saltRounds);
-            await usersAPI.addUser(userInfo.userName, hashed_password, userInfo.email, userInfo.phone);
-            console.log("Create user success!");
-            // res.render('body/private');
-            let status = "success";
-            socket.emit("loggedIn", status);
-        } catch (e) {
-            const user = await usersAPI.getUserByUsername(userInfo.userName);
-            if (user) {
-                status = "failed";
-                socket.emit("signup_err", status);
-            }
-        }
-    });
     
     socket.on('disconnect', () => {
       console.log('user disconnected');
