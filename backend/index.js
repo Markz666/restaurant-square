@@ -42,14 +42,17 @@ app.get('/api/getRestaurantInfo', (req, res) => {
 
 app.post('/api/login', async (req, res) => {
     const user = await usersAPI.getUserByUsername(req.body.userName);
-    
+    console.log("/api/login");
     if (!user) {
+        console.log("/api/login no user");
         res.sendStatus(401);
     } else {
         const isMatch = await bcrypt.compare(req.body.password, user.hashed_password);
         if (!isMatch) {
+            console.log("/api/login no match");
             res.sendStatus(401);
         } else {
+            console.log("/api/login match");
             let tokenCode = token.createToken(req.body);
             res.send({status: 'login success', retCode: tokenCode});
         }

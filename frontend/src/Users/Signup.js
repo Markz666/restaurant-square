@@ -5,6 +5,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import io from 'socket.io-client';
+import {updateUserInfo, checkAuthenticated, getUserInfo} from '../Auth/UserLoginInfo'
 
 import { Redirect } from "react-router-dom";
 
@@ -74,8 +75,14 @@ class Signup extends Component {
                 console.log(status);
                 if (status == '400') {
                     this.setState({redirect: 'failed'});
+                    updateUserInfo({}, false);
                 } else {
                     this.setState({redirect: 'success'});
+
+                    var func = response.json();
+                    func.then(function(result){
+                        updateUserInfo({token:result.retCode}, true);
+                    })
                 }
             }) 
             .catch(error => {
@@ -92,6 +99,11 @@ class Signup extends Component {
     }
 
     render() {
+        if (checkAuthenticated())
+        {
+            return <Redirect to = "/" />;
+        }
+
         if (this.state.redirect == "success") {
             return <Redirect to="/" />;
         }

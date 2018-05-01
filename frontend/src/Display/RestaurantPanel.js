@@ -95,7 +95,7 @@ class Container extends Component{
 
 class RestaurantPanel extends Component {
     componentWillMount() {
-
+        init();
     }
 
   render() {
@@ -143,11 +143,11 @@ async function updatePage(imgID)
 {
     const response = await fetch('api/getRestaurantInfo?id=' + imgID);
     const body = await response.json();
-    console.log(body);
+
     if (response.status !== 200) throw Error(body.message);
     updateComponent(body);
 }
 
-init();
+
 
 export default RestaurantPanel;

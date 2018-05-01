@@ -45,7 +45,10 @@ class Login extends Component {
             } else {
                 this.setState({redirect: 'success'});
 
-                updateUserInfo({token:retCode}, true);
+                var func = response.json();
+                func.then(function(result){
+                    updateUserInfo({token:result.retCode}, true);
+                })
             }
         }) 
         .catch(error => {
@@ -73,6 +76,11 @@ class Login extends Component {
         this.setState({redirect: "register"});
     }
     render() {
+        if (checkAuthenticated())
+        {
+            return <Redirect to = "/" />;
+        }
+
         if (this.state.redirect === "register") {
             return <Redirect to="/signup" />;
         }
