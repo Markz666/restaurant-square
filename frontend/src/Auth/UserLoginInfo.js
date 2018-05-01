@@ -1,5 +1,4 @@
 import { createStore, applyMiddleware } from 'redux';
-import { Router } from 'react-router';
 import reduxThunk from 'redux-thunk';
 
 import reducers from './Reducer';

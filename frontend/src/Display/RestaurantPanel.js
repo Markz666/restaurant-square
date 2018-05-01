@@ -4,6 +4,7 @@ import favImg from '../img/fav.png';
 import goodImg from '../img/good.png';
 import badImg from '../img/bad.png';
 import {updateUserInfo, checkAuthenticated} from '../Auth/UserLoginInfo';
+import {fetchRestaurantList} from '../data/restaurantList'
 // 
 class Container extends Component{
     handleClick(){
@@ -113,6 +114,11 @@ async function init() {
 	const id = urls[1];
 	
     await updatePage(id);
+    await fetchRestaurantList(function(result){
+        console.log(result);
+    }, function(error){
+        console.log(error);
+    });
 }
 
 function updateComponent(response) {

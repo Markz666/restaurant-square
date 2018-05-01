@@ -1,15 +1,20 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import * as actions from '../actions';
+import {updateUserInfo, checkAuthenticated} from '../Auth/UserLoginInfo';
+import { Redirect } from "react-router-dom";
 
-class Signout extends Component {
+class Logout extends Component {
   componentWillMount() {
-    this.props.signoutUser();
+  	console.log("-------logout");
+  	updateUserInfo({}, false);
   }
 
   render() {
+  	if (!checkAuthenticated())
+  		return <Redirect to="/login" />;
+
     return <div>Sorry to see you go...</div>;
   }
 }
 
-export default connect(null, actions)(Signout);
+export default Logout;

@@ -3,7 +3,7 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
-import { Redirect } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 import { error } from "util";
 import {updateUserInfo, checkAuthenticated, getUserInfo} from '../Auth/UserLoginInfo'
 
@@ -36,6 +36,7 @@ class Login extends Component {
         .then((response) => {
             const status = response.status;
             const retCode = response.retCode;
+
             if (status == '401') {
                 this.setState({redirect: 'Invalid username or password'});
                 updateUserInfo({}, false);
@@ -74,7 +75,7 @@ class Login extends Component {
     }
     render() {
         if (checkAuthenticated()) {
-            return <Redirect to = "/" />;
+            return <Redirect to="/" />;
         }
 
         if (this.state.redirect === "register") {
@@ -84,7 +85,7 @@ class Login extends Component {
             return <Redirect to = "/login_err"/>;
         }
         if (this.state.redirect === "success") {
-            return <Redirect to = "/" />;
+            return <Redirect to="/" />;
         }
 
         return (

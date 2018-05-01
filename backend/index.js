@@ -11,6 +11,7 @@ const session = require('express-session');
 // const base64Img = require('base64-img');
 const usersAPI = require("./db/users.js");
 const token = require("./Auth/token.js");
+var request = require('request');
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(session({
@@ -38,6 +39,27 @@ app.get('/api/getRestaurantInfo', (req, res) => {
     let str = JSON.stringify(data);
     console.log(str);
     res.send(str);
+});
+
+app.get('/api/getRestaurantsList', (req, res) => {
+    console.log("----------------------getRestaurantsList----------------------");
+    var base_url = 'https://api.yelp.com/v3/businesses/search';
+    var authOptions = {
+      url: base_url + '?latitude=' + req.query.lat + "&longitude=" + req.query.lng,
+      headers: {
+        'Authorization': "Bearer 7tqgwNq05Ewf75JbrdOwtEqF5p1TvkM2-szTe4rTHmDTEu5MXmdImw84wdejue3AAlxl5ku_wQheVB7_EkSnmafVmqJHtC-bzp_-DWHSyDJzUsI7EsZw8oFcpuzWWXYx",
+      },
+      grant_type: 'client_credentials',
+      json: true
+    };
+
+    request.get(authOptions, function(error, response, body) {
+        if (!error && response.statusCode === 200) {
+            res.send(body);
+        }
+        else
+            res.send({retCode:400, message:'invalid parameters'});
+    });
 });
 
 app.post('/api/login', async (req, res) => {
