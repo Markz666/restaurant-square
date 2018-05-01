@@ -22,6 +22,12 @@
   font-size: large;
 }
 
+@media (min-width:768px) {
+  .navbar {
+   height:110px;
+  }
+ }
+
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
