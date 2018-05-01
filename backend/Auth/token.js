@@ -15,17 +15,17 @@ const token = {
         const secret = "tech ninja";
         const hash = crypto.createHmac('sha256',secret);
             hash.update(base64Str);
-        const signature=hash.digest('base64');
-        return  base64Str+"."+signature;
+        const signature = hash.digest('base64');
+        return  base64Str + "." + signature;
     },
-    decodeToken:function(token) {
+    decodeToken: function(token) {
         const decArr = token.split(".");
         if (decArr.length < 2) {
             //token invalid
             return false;
         }
 
-        const payload={};
+        const payload = {};
         // parse payload json as an object
         try {
             payload = JSON.parse(Buffer.from(decArr[0],"base64").toString("utf8"));
@@ -36,13 +36,13 @@ const token = {
         //check the signature
         const secret = "tech ninja";        
         const hash = crypto.createHmac('sha256', secret);
-            hash.update(decArr[0]);
+        hash.update(decArr[0]);
         const checkSignature = hash.digest('base64');
 
         return {
-            payload:payload,
-            signature:decArr[1],
-            checkSignature:checkSignature
+            payload: payload,
+            signature: decArr[1],
+            checkSignature: checkSignature
         }
     },
     checkToken: function(token) {
