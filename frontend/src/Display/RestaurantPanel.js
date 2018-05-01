@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import './RestaurantPanel.css';
-import favImg from '../img/fav.png'
-import goodImg from '../img/good.png'
-import badImg from '../img/bad.png'
-import {updateUserInfo, checkAuthenticated, getUserInfo} from '../Auth/UserLoginInfo'
-
+import favImg from '../img/fav.png';
+import goodImg from '../img/good.png';
+import badImg from '../img/bad.png';
+import {updateUserInfo, checkAuthenticated} from '../Auth/UserLoginInfo';
+// 
 class Container extends Component{
     handleClick(){
 
@@ -107,27 +107,25 @@ class RestaurantPanel extends Component {
   }
 }
 
-async function init()
-{
-	var url = window.location.href;
-	var urls = url.split("?");
-	var id = urls[1];
+async function init() {
+	const url = window.location.href;
+	const urls = url.split("?");
+	const id = urls[1];
 	
     await updatePage(id);
 }
 
-function updateComponent(response)
-{
-    var img = document.getElementById("restaurant_img");
-    var title = document.getElementById("title");
-    var renqi = document.getElementById("renqi");
-    var pingfen = document.getElementById("pingfen");
-    var favorite = document.getElementById("favorite");
-    var good = document.getElementById("good");
-    var bad = document.getElementById("bad");
-    var category = document.getElementById("category");
-    var location = document.getElementById("location");
-    var intro = document.getElementById("intro");
+function updateComponent(response) {
+    const img = document.getElementById("restaurant_img");
+    const title = document.getElementById("title");
+    const renqi = document.getElementById("renqi");
+    const pingfen = document.getElementById("pingfen");
+    const favorite = document.getElementById("favorite");
+    const good = document.getElementById("good");
+    const bad = document.getElementById("bad");
+    const category = document.getElementById("category");
+    const location = document.getElementById("location");
+    const intro = document.getElementById("intro");
 
     img.src = response.src;
     title.innerHTML = response.title;
@@ -139,8 +137,7 @@ function updateComponent(response)
     intro.innerHTML = response.introduction;
 }
 
-async function updatePage(imgID)
-{
+async function updatePage(imgID) {
     const response = await fetch('api/getRestaurantInfo?id=' + imgID);
     const body = await response.json();
 

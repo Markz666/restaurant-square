@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
-// import Header from './Header';
-
 class Home extends Component {
   render() {
     return (
       <div>
-        {/* <Header /> */}
-        {this.props.children}
+        <h1>Hello</h1>
       </div>
     );
   }

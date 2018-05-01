@@ -76,8 +76,7 @@ class Login extends Component {
         this.setState({redirect: "register"});
     }
     render() {
-        if (checkAuthenticated())
-        {
+        if (checkAuthenticated()) {
             return <Redirect to = "/" />;
         }
 

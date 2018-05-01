@@ -14,6 +14,7 @@ import Signup from './Users/Signup';
 import Login from './Users/Login';
 import Login_Error from './Users/Login_err';
 import RestaurantPanel from './Display/RestaurantPanel';
+import Header from './Header';
 
 class App extends Component {
   
@@ -39,9 +40,11 @@ class App extends Component {
 
   render() {
     return (
+      <div>
+      <Header />
       <Router>
         <div className="App">
-        <p className="App-intro">{this.state.response}</p>
+        {/* <p className="App-intro">{this.state.response}</p> */}
           <div className="App-body">
             <Switch>
               <Route exact path="/" component={Home}/>
@@ -55,6 +58,7 @@ class App extends Component {
           </div>
         </div>
       </Router>
+      </div>
     );
   }
 }

@@ -3,7 +3,7 @@
   color: #FFFFFF;
 } */
 
-.App {
+/* .App {
   text-align: center;
   width: 400;
   font-family: 'Open Sans', sans-serif;
@@ -34,10 +34,10 @@
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
-}
+} */
 
 /* Full-width input fields */
-input[type=text], input[type=password] {
+/* input[type=text], input[type=password] {
     width: 100%;
     padding: 12px 20px;
     margin: 8px 0;
@@ -48,11 +48,11 @@ input[type=text], input[type=password] {
 
 search_title  {
     text-align: right;
-}
+} */
 
 
 /* Set a style for all buttons */
-button {
+/* button {
     background-color: #4CAF50;
     color: white;
     padding: 14px 20px;
@@ -72,7 +72,7 @@ button:hover {
 .w3-light-grey, .w3-hover-light-grey:hover, .w3-light-gray, .w3-hover-light-gray:hover {
     color: #000!important;
     background-color: #f1f1f1!important;
-}
+} */
 
 .w3-padding-16 {
     padding-top: 20px!important;
@@ -163,7 +163,7 @@ span.psw {
     animation: animatezoom 0.6s
 }
 
-@-webkit-keyframes animatezoom {
+/* @-webkit-keyframes animatezoom {
     from {-webkit-transform: scale(0)} 
     to {-webkit-transform: scale(1)}
 }
@@ -171,10 +171,10 @@ span.psw {
 @keyframes animatezoom {
     from {transform: scale(0)} 
     to {transform: scale(1)}
-}
+} */
 
 /* Change styles for span and cancel button on extra small screens */
-@media screen and (max-width: 300px) {
+/* @media screen and (max-width: 300px) {
     span.psw {
        display: block;
        float: none;
@@ -187,12 +187,12 @@ span.psw {
 .signIn {
   float:right;
   margin-right: 100px;
-}
+} */
 
 /**
  * top header
  */
-.top-header {
+/* .top-header {
   text-align: left;
   align-items: center;
   background: rgb(75, 122, 223);
@@ -216,7 +216,7 @@ content {
 space {
   background: rgb(75, 122, 223);
   visibility:hidden;
-}
+} */
 
 .avatar {
   background: #FFFFFF;
@@ -255,7 +255,7 @@ space {
 /**
  * main header
  */
-.container>header {
+/* .container>header {
   align-items: center;
   background:
     url('http://prophoto.com.cy/wp-content/galleries/food/food-restaurant-photographer-cyprus-10.jpg')
@@ -309,7 +309,7 @@ space {
    color: black;
    font-size: 14px;
    
-}
+} */
 
 .name{
     float: left;

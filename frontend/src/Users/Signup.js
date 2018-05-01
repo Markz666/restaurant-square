@@ -1,15 +1,12 @@
 import React, { Component } from "react";
-import axios from "axios";
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
-import io from 'socket.io-client';
 import {updateUserInfo, checkAuthenticated, getUserInfo} from '../Auth/UserLoginInfo'
 
 import { Redirect } from "react-router-dom";
 
-const socket = io('http://localhost:3001');
 let muiTheme = getMuiTheme({
     fontFamily: 'Microsoft YaHei'
 });
@@ -73,7 +70,7 @@ class Signup extends Component {
             .then((response) => {
                 const status = response.status;
                 console.log(status);
-                if (status == '400') {
+                if (status === '400') {
                     this.setState({redirect: 'failed'});
                     updateUserInfo({}, false);
                 } else {
@@ -104,16 +101,16 @@ class Signup extends Component {
             return <Redirect to = "/" />;
         }
 
-        if (this.state.redirect == "success") {
+        if (this.state.redirect === "success") {
             return <Redirect to="/" />;
         }
-        if (this.state.redirect == "failed") {
+        if (this.state.redirect === "failed") {
             return <Redirect to="/404" />;
         }
         return (
             <MuiThemeProvider muiTheme={muiTheme}>
             <div style={styles.root}>
-                <img style={styles.icon} src={require('../img/login.png')}/> 
+                <img style={styles.icon} alt='login' src={require('../img/login.png')}/> 
 
                 <TextField
                     hintText='Please enter username'
