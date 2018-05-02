@@ -35,8 +35,6 @@ class Login extends Component {
         })
         .then((response) => {
             const status = response.status;
-            const retCode = response.retCode;
-            console.log("the props is " + this.props);
 
             if (status == '401') {
                 this.setState({redirect: 'Invalid username or password'});
@@ -46,7 +44,6 @@ class Login extends Component {
 
                 const func = response.json();
                 func.then(function(result) {
-                    console.log("this is the result code that I want " + result.retCode);
                     updateUserInfo({token: result.retCode}, true);
                 })
             }

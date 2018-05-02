@@ -69,7 +69,7 @@ class Signup extends Component {
             })
             .then((response) => {
                 const status = response.status;
-                console.log(status);
+                // console.log(status);
                 if (status === '400') {
                     this.setState({redirect: 'failed'});
                     updateUserInfo({}, false);
