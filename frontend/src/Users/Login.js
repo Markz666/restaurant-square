@@ -35,8 +35,6 @@ class Login extends Component {
         })
         .then((response) => {
             const status = response.status;
-            const retCode = response.retCode;
-            console.log("the props is " + this.props);
 
             if (status == '401') {
                 this.setState({redirect: 'Invalid username or password'});
@@ -77,7 +75,8 @@ class Login extends Component {
     }
     render() {
         if (checkAuthenticated()) {
-            return <Redirect to="/display" />;
+            //return <Redirect to="/display" />;
+            window.location.href="/display";
         }
 
         if (this.state.redirect === "register") {
@@ -87,7 +86,7 @@ class Login extends Component {
             return <Redirect to = "/login_err"/>;
         }
         if (this.state.redirect === "success") {
-            return <Redirect to="/display" />;
+            window.location.href="/display";//return <Redirect to="/display" />;
         }
 
         return (
