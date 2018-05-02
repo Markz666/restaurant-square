@@ -43,9 +43,9 @@ class Login extends Component {
             } else {
                 this.setState({redirect: 'success'});
 
-                var func = response.json();
-                func.then(function(result){
-                    updateUserInfo({token:result.retCode}, true);
+                const func = response.json();
+                func.then(function(result) {
+                    updateUserInfo({token: result.retCode}, true);
                 })
             }
         }) 
@@ -75,7 +75,7 @@ class Login extends Component {
     }
     render() {
         if (checkAuthenticated()) {
-            return <Redirect to="/" />;
+            return <Redirect to="/display" />;
         }
 
         if (this.state.redirect === "register") {
@@ -85,7 +85,7 @@ class Login extends Component {
             return <Redirect to = "/login_err"/>;
         }
         if (this.state.redirect === "success") {
-            return <Redirect to="/" />;
+            return <Redirect to="/display" />;
         }
 
         return (
