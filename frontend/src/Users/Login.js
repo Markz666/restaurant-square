@@ -74,8 +74,7 @@ class Login extends Component {
     }
     render() {
         if (checkAuthenticated()) {
-            //return <Redirect to="/display" />;
-            window.location.href="/display";
+            window.location.href="/display"  
         }
 
         if (this.state.redirect === "register") {
@@ -85,7 +84,7 @@ class Login extends Component {
             return <Redirect to = "/login_err"/>;
         }
         if (this.state.redirect === "success") {
-            window.location.href="/display";//return <Redirect to="/display" />;
+            window.location.href="/display"  
         }
 
         return (
