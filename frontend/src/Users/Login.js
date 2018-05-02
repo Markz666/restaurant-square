@@ -44,7 +44,6 @@ class Login extends Component {
 
                 const func = response.json();
                 func.then(function(result) {
-                    console.log("this is the result code that I want " + result.retCode);
                     updateUserInfo({token: result.retCode}, true);
                 })
             }
