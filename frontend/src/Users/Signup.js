@@ -98,11 +98,11 @@ class Signup extends Component {
     render() {
         if (checkAuthenticated())
         {
-            return <Redirect to = "/display" />;
+            window.location.href="/display";
         }
 
         if (this.state.redirect === "success") {
-            return <Redirect to="/display" />;
+            window.location.href="/display";
         }
         if (this.state.redirect === "failed") {
             return <Redirect to="/404" />;

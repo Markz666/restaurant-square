@@ -1,248 +1,3 @@
-/* body{
-  background: #434343;
-  color: #FFFFFF;
-} */
-
-/* .App {
-  text-align: center;
-  width: 400;
-  font-family: 'Open Sans', sans-serif;
-  font-weight: 300;
-  font-size: 0.9em;
-}
-
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
-}
-
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
-}
-
-.App-title {
-  font-size: 1.5em;
-}
-
-.App-intro {
-  font-size: large;
-}
-
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-} */
-
-/* Full-width input fields */
-/* input[type=text], input[type=password] {
-    width: 100%;
-    padding: 12px 20px;
-    margin: 8px 0;
-    display: inline-block;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
-}
-
-search_title  {
-    text-align: right;
-} */
-
-
-/* Set a style for all buttons */
-/* button {
-    background-color: #4CAF50;
-    color: white;
-    padding: 14px 20px;
-    margin-top: 15px;
-    margin-bottom: 12px;
-    border: none;
-    cursor: pointer;
-}
-
-button:hover {
-    opacity: 0.8;
-}
-.remember {
-    color: black;
-}
-
-.w3-light-grey, .w3-hover-light-grey:hover, .w3-light-gray, .w3-hover-light-gray:hover {
-    color: #000!important;
-    background-color: #f1f1f1!important;
-} */
-
-.w3-padding-16 {
-    padding-top: 20px!important;
-    padding-bottom: 80px!important;
-}
-
-.w3-border-top {
-    border-top: 1px solid #ccc!important;
-}
-
-
-.w3-container, .w3-panel {
-    padding: 0.01em 16px;
-    height: 40px;
-}
-
-/* Extra styles for the cancel button */
-.cancelbtn {
-    width: 20em;
-    padding: 14px 20px;
-    background-color: #f44336;
-    margin: 0px 0px;
-}
-
-/* Center the image and position the close button */
-.imgcontainer {
-    text-align: center;
-    position: relative;
-}
-
-img.avatar {
-    width: 40%;
-    border-radius: 50%;
-}
-
-.form-container {
-    padding: 35px;
-}
-
-span.psw {
-    float: right;
-    padding-top: 16px;
-}
-
-/* The Modal (background) */
-.modal {
-    text-align: left;
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
-    left: 0;
-    top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-    padding-top: 60px;
-}
-
-/* Modal Content/Box */
-.modal-content {
-    background-color: #fefefe;
-    margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
-    border: 1px solid #888;
-    width: 80%; /* Could be more or less, depending on screen size */
-}
-
-/* The Close Button (x) */
-.close {
-    position: absolute;
-    right: 25px;
-    top: 0;
-    color: #000;
-    font-size: 35px;
-    font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-    color: red;
-    cursor: pointer;
-}
-
-/* Add Zoom Animation */
-.animate {
-    -webkit-animation: animatezoom 0.6s;
-    animation: animatezoom 0.6s
-}
-
-/* @-webkit-keyframes animatezoom {
-    from {-webkit-transform: scale(0)} 
-    to {-webkit-transform: scale(1)}
-}
-    
-@keyframes animatezoom {
-    from {transform: scale(0)} 
-    to {transform: scale(1)}
-} */
-
-/* Change styles for span and cancel button on extra small screens */
-/* @media screen and (max-width: 300px) {
-    span.psw {
-       display: block;
-       float: none;
-    }
-    .cancelbtn {
-       width: 100%;
-    }
-}
-
-.signIn {
-  float:right;
-  margin-right: 100px;
-} */
-
-/**
- * top header
- */
-/* .top-header {
-  text-align: left;
-  align-items: center;
-  background: rgb(75, 122, 223);
-  box-shadow: 0px 2px 10px #333333;
-  display: flex;
-  height: 60px;
-  position: fixed;
-  top: 0;
-  width: 100%;
-  z-index: 1;
-}
-
-content {
-    text-align: left;
-    align-items: center;
-    display: flex;
-    position: fixed;
-    top:60px;
-}
-
-space {
-  background: rgb(75, 122, 223);
-  visibility:hidden;
-} */
-
-.avatar {
-  background: #FFFFFF;
-  border-radius: 50%;
-  color: #333C4D;
-  height: 40px;
-  margin-right: 20px;
-  padding-left: 9px;
-  padding-top: 5px;
-  width: 40px;
-}
-
-/**
- * top navigation
- */
-.top-nav {
-  flex: 1;
-}
-
-.top-nav a {
-  color: #F9F9F9;
-  font-weight: 400;
-  margin-left: 20px;
-  text-decoration: none;
-}
-
 /**
  * main container
  */
@@ -255,7 +10,8 @@ space {
 /**
  * main header
  */
-/* .container>header {
+
+ .container>header {
   align-items: center;
   background:
     url('http://prophoto.com.cy/wp-content/galleries/food/food-restaurant-photographer-cyprus-10.jpg')
@@ -296,7 +52,6 @@ space {
     width: 100%;
     height: 600px;
     background-image:url('http://prophoto.com.cy/wp-content/galleries/food/food-restaurant-photographer-cyprus-10.jpg');
-    src: 'http://prophoto.com.cy/wp-content/galleries/food/food-restaurant-photographer-cyprus-10.jpg';
 }
 
 .Review{
@@ -309,7 +64,7 @@ space {
    color: black;
    font-size: 14px;
    
-} */
+}
 
 .name{
     float: left;
