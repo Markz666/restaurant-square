@@ -15,16 +15,19 @@ const getCollection = (collection) => {
 
 module.exports = {
     users: getCollection("users"),
+    restaurants: getCollection('restaurants'), 
 
     initCollections: async () => {
         const db = await dbConnection();
         await db.createCollection("users");
+        await db.createCollection("restaurants");
     },
 
     dropAllCollections: async () => {
         const db = await dbConnection();
         try {
             await db.collection("users").drop();
+            await db.collection("restaurants").drop();
         } catch (e) {
 
         }
@@ -35,5 +38,7 @@ module.exports = {
         db.close();
         console.log("You are no longer connected");
     }
+
+
 };
 
