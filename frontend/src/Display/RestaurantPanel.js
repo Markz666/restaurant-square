@@ -5,6 +5,7 @@ import goodImg from '../img/good.png';
 import badImg from '../img/bad.png';
 import {updateUserInfo, checkAuthenticated} from '../Auth/UserLoginInfo';
 import {fetchRestaurantList} from '../data/restaurantList'
+import { Redirect } from "react-router-dom";
 // 
 class Container extends Component{
     handleClick(){
@@ -12,6 +13,10 @@ class Container extends Component{
     }
 
     render() {
+        if (!checkAuthenticated()) {
+            return <Redirect to="/"/>;
+        }
+
         return (
             <div className="container">
                 <div>
@@ -82,6 +87,7 @@ class Container extends Component{
                         <span id="comment2" className="content">asdasdasdqwdw    09/07/2016</span>
                         <table ></table>
                         <span id="comment3" className="content">AAAAAAAAAAAAAAAA    09/07/2016</span>
+                        <table ></table>
                         <textarea defaultValue="please enter your comment" id="bbxi" name="bbxi" col="100" rows="8"></textarea>
                         <table ></table>
                         <button align="center" id="review" type="button">review</button>
@@ -123,24 +129,28 @@ async function init() {
 
 function updateComponent(response) {
     const img = document.getElementById("restaurant_img");
-    const title = document.getElementById("title");
-    const renqi = document.getElementById("renqi");
-    const pingfen = document.getElementById("pingfen");
-    const favorite = document.getElementById("favorite");
-    const good = document.getElementById("good");
-    const bad = document.getElementById("bad");
-    const category = document.getElementById("category");
-    const location = document.getElementById("location");
-    const intro = document.getElementById("intro");
 
-    img.src = response.src;
-    title.innerHTML = response.title;
-    favorite.innerHTML = response.favorite;
-    good.innerHTML = response.good;
-    bad.innerHTML = response.bad;
-    category.innerHTML = response.category;
-    location.innerHTML = response.location;
-    intro.innerHTML = response.introduction;
+    if (img)
+    {
+        const title = document.getElementById("title");
+        const renqi = document.getElementById("renqi");
+        const pingfen = document.getElementById("pingfen");
+        const favorite = document.getElementById("favorite");
+        const good = document.getElementById("good");
+        const bad = document.getElementById("bad");
+        const category = document.getElementById("category");
+        const location = document.getElementById("location");
+        const intro = document.getElementById("intro");
+
+        img.src = response.src;
+        title.innerHTML = response.title;
+        favorite.innerHTML = response.favorite;
+        good.innerHTML = response.good;
+        bad.innerHTML = response.bad;
+        category.innerHTML = response.category;
+        location.innerHTML = response.location;
+        intro.innerHTML = response.introduction;
+    }
 }
 
 async function updatePage(imgID) {
