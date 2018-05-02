@@ -6,22 +6,39 @@ class Header extends Component {
   renderLinks() {
     if (checkAuthenticated()) {
       return (
-        <Nav pullRight>
+        <Navbar.Collapse>
+          <Nav>
+            <NavItem eventKey={1} href="about">
+              About
+            </NavItem>
+            <NavItem eventKey={2} href="display">
+              Restaurant
+            </NavItem>
+          </Nav>
+          <Nav pullRight>
             <NavItem eventKey={1} href='logout'>
               Logout
             </NavItem>
-        </Nav>
+          </Nav>
+        </Navbar.Collapse>  
       )
     } else {
       return (
-        <Nav pullRight>
+        <Navbar.Collapse>
+          <Nav>
+            <NavItem eventKey={1} href="about">
+              About
+            </NavItem>
+          </Nav>
+          <Nav pullRight>
             <NavItem eventKey={1} href='login'>
               Login
             </NavItem>
             <NavItem eventKey={2} href='signup'>
               Signup
             </NavItem>
-        </Nav>
+          </Nav>
+        </Navbar.Collapse>
       )
     }
   }
@@ -35,17 +52,7 @@ class Header extends Component {
           </Navbar.Brand>
           <Navbar.Toggle />
         </Navbar.Header>
-        <Navbar.Collapse>
-          <Nav>
-            <NavItem eventKey={1} href="about">
-              About
-            </NavItem>
-            <NavItem eventKey={2} href="display">
-              Restaurant
-            </NavItem>
-          </Nav>
-          {this.renderLinks()}
-        </Navbar.Collapse>
+        {this.renderLinks()}
       </Navbar>
     );
   }
