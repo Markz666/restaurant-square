@@ -21,6 +21,10 @@
 .App-intro {
   font-size: large;
 }
+.form-control {
+  margin: auto;
+  width: 26%;
+}
 
 @media (min-width:768px) {
   .navbar {

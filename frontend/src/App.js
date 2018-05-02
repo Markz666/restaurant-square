@@ -19,6 +19,7 @@ import RestaurantPanel from './Display/RestaurantPanel';
 import RestaurantListPanel from './Display/RestaurantListPanel';
 import Header from './Header';
 import About from './About';
+import SearchPage from './Restaurant/SearchPage';
 
 class App extends Component {
   
@@ -56,6 +57,7 @@ class App extends Component {
                 <Route path="/login" component={Login}/>
                 <Route path="/logout" component={Logout}/>
                 <Route path="/login_err" component={Login_Error}/>
+                <Route path='/search' component={SearchPage}/>
                 <Route path="/display" component={RestaurantPanel}/>
                 <Route path="/restaurant_list" component={RestaurantListPanel}/>
                 <Route path="/about" component={About}/>
