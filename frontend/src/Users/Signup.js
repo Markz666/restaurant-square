@@ -96,11 +96,9 @@ class Signup extends Component {
     }
 
     render() {
-        if (checkAuthenticated())
-        {
+        if (checkAuthenticated()) {
             window.location.href="/display";
         }
-
         if (this.state.redirect === "success") {
             window.location.href="/display";
         }
