@@ -30,7 +30,7 @@ async function onPositionUpdated(position) {
     console.log(response);
     const body = await response.json();
 
-    if (response.status !== 200) throw failedFunc(body.message);
+    if (response.retCode == 400) throw failedFunc(body.message);
     updatedFunc(body);
 }
 

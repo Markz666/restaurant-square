@@ -16,6 +16,7 @@ import Login from './Users/Login';
 import Logout from './Users/Logout';
 import Login_Error from './Users/Login_err';
 import RestaurantPanel from './Display/RestaurantPanel';
+import RestaurantListPanel from './Display/RestaurantListPanel';
 import Header from './Header';
 import About from './About';
 
@@ -56,6 +57,7 @@ class App extends Component {
                 <Route path="/logout" component={Logout}/>
                 <Route path="/login_err" component={Login_Error}/>
                 <Route path="/display" component={RestaurantPanel}/>
+                <Route path="/restaurant_list" component={RestaurantListPanel}/>
                 <Route path="/about" component={About}/>
                 <Route path="*" component={NotFound} />
                         
