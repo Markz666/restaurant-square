@@ -18,9 +18,8 @@ export function updateUserInfo(data, authenticated) {
 		let userStr = JSON.stringify(data);
 		localStorage.setItem("user", userStr);
 	}
-	else{
+	else {
 		store.dispatch({type:"UNAUTH_USER"});
-
 		localStorage.clear();
 	}
 }
@@ -39,7 +38,7 @@ export function checkAuthenticated(data) {
 
 export function getUserInfo(data) {
 	const user = JSON.parse(localStorage.getItem('user'));
-	if (user){
+	if (user) {
 		return user;
 	}
 }

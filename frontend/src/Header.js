@@ -7,7 +7,7 @@ class Header extends Component {
     if (checkAuthenticated()) {
       return (
         <Nav pullRight>
-            <NavItem eventKey={1} href='login'>
+            <NavItem eventKey={1} href='logout'>
               Logout
             </NavItem>
         </Nav>
