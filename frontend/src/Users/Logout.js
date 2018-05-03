@@ -10,8 +10,9 @@ class Logout extends Component {
   }
 
   render() {
-  	if (!checkAuthenticated())
-  		return <Redirect to="/login" />;
+  	if (!checkAuthenticated()) {
+      window.location.href = "/login";
+    }
 
     return <div>Sorry to see you go...</div>;
   }
