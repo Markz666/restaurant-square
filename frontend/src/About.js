@@ -3,7 +3,10 @@ import React, { Component } from 'react';
 class About extends Component {
     render() {
         return (
-            <h2>About us</h2>
+            <div>
+            <h1>We are <b>Tech Ninjas</b></h1>
+            <p className="text-gray text-center mb-6">We’re working hard to build a supportive, welcoming place for foodies.<br /></p>
+            </div>                   
         )
     }
 }
