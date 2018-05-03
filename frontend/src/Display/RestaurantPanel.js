@@ -130,8 +130,7 @@ async function init() {
 function updateComponent(response) {
     const img = document.getElementById("restaurant_img");
 
-    if (img)
-    {
+    if (img) {
         const title = document.getElementById("title");
         const renqi = document.getElementById("renqi");
         const pingfen = document.getElementById("pingfen");
