@@ -36,9 +36,9 @@ class SearchForm extends Component {
                       className="form-control"
                       id="restaurantName"
                       aria-describedby="restaurantHelp"
-                      placeholder="Track..."
+                      placeholder="Restaurant or location..."
                     />
-                    <small id="trakcHelp" className="form-text text-muted">
+                    <small id="restaurantHelp" className="form-text text-muted">
                     Every one has a favorite restaurant; which do you want to search for?
                     </small>
                 </div>

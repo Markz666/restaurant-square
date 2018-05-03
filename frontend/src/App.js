@@ -20,6 +20,7 @@ import RestaurantListPanel from './Display/RestaurantListPanel';
 import Header from './Header';
 import About from './About';
 import SearchPage from './Restaurant/SearchPage';
+import RestaurantListContainer from './Restaurant/RestaurantListContainer';
 
 class App extends Component {
   
@@ -27,21 +28,28 @@ class App extends Component {
     super(props);
   }
   state = {
-    response: ''
+    response: '',
+    restaurant: ''
   };
 
-  componentDidMount() {
-    this.callApi().then(res => this.setState({response: res.express}))
-    .catch(err => console.log(err));
-  }
+  // componentDidMount() {
+  //   this.callApi().then(res => this.setState({response: res.express}))
+  //   .catch(err => console.log(err));
+  // }
 
-  callApi = async() => {
-    const response = await fetch('api/hello');
-    const body = await response.json();
+  // callApi = async() => {
+  //   const response = await fetch('api/hello');
+  //   const body = await response.json();
 
-    if (response.status !== 200) throw Error(body.message);
-    return body;
-  }
+  //   if (response.status !== 200) throw Error(body.message);
+  //   return body;
+  // }
+
+  onSearch = (searchQuery) => {
+    this.setState({
+      restaurant: searchQuery
+    });
+  };
 
   render() {
     return (
@@ -58,6 +66,10 @@ class App extends Component {
                 <Route path="/logout" component={Logout}/>
                 <Route path="/login_err" component={Login_Error}/>
                 <Route path='/search' component={SearchPage}/>
+                <Route
+                  path="/search/:restaurantName"
+                  component={RestaurantListContainer}
+                />
                 <Route path="/display" component={RestaurantPanel}/>
                 <Route path="/restaurant_list" component={RestaurantListPanel}/>
                 <Route path="/about" component={About}/>

@@ -13,7 +13,8 @@ class RestaurantListContainer extends Component {
         const { match } = this.props;
         const restaurant = match.params.restaurantName;
         if (restaurant) {
-            const matches = await searchForTracks(authOptions, restaurant);
+            const matches = await fetch('api/getRestaurants?term=' + restaurant);
+            const body = await matches.json();
             this.setState({
                 listOfMatchingRestaurants: matches
             });
@@ -28,7 +29,7 @@ class RestaurantListContainer extends Component {
         const newMatch = newProps.match;
         const newRestaurants = newMatch.params.restaurantName;
         if (newRestaurants && newRestaurants !== currentRestaurants) {
-            const matches = await searchForTracks(authOptions, newRestaurants);
+            const matches = await fetch('api/getRestaurants?id=' + newRestaurants);
             console.log(matches);
             this.setState({
                 listOfMatchingRestaurants: matches

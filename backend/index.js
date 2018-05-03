@@ -62,6 +62,8 @@ app.get('/api/getRestaurantsList', (req, res) => {
 
 app.get('/api/getRestaurants', (req, res) => {
     console.log("----------------------getRestaurants----------------------");
+    console.log("this is the request body: " + req.body);
+    console.log("this is the request query: " + req.query);
     const base_url = 'https://api.yelp.com/v3/businesses/search';
     const token = '7tqgwNq05Ewf75JbrdOwtEqF5p1TvkM2-szTe4rTHmDTEu5MXmdImw84wdejue3AAlxl5ku_wQheVB7_EkSnmafVmqJHtC-bzp_-DWHSyDJzUsI7EsZw8oFcpuzWWXYx';
     const authOptions = {
