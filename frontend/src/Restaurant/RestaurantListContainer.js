@@ -15,14 +15,14 @@ class RestaurantListContainer extends Component {
         console.log(match.params);
         const restaurant = match.params.restaurantInfo;
         const restaurantInfo = restaurant.split('&');
-        const restaurantName = restaurantInfo[0];
+        const restaurantName = restaurantInfo[0].replace(':', '');
         const location = restaurantInfo[1];
         console.log("---------restaurant: " + restaurantName);
         console.log("location is: " + location);
         if (restaurant) {
-            fetch('/api/getRestaurants?term=' + restaurantName + "&location" + location)
+            fetch('/api/getRestaurants?term=' + restaurantName + "&location=" + location)
             .then(response => {
-                console.log(response.body);
+                console.log(response.json());
             })
         }
         // if (restaurant) {
