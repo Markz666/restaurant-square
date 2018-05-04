@@ -13,12 +13,14 @@ class RestaurantListContainer extends Component {
     	console.log("---------componentDidMount");
         const { match } = this.props;
         console.log(match.params);
-        const restaurant = match.params.restaurantName;
-        const location = match.params.restaurantLocation;
-        console.log("---------restaurant:" + restaurant);
+        const restaurant = match.params.restaurantInfo;
+        const restaurantInfo = restaurant.split('&');
+        const restaurantName = restaurantInfo[0];
+        const location = restaurantInfo[1];
+        console.log("---------restaurant: " + restaurantName);
         console.log("location is: " + location);
         if (restaurant) {
-            fetch('/api/getRestaurants?term=' + restaurant + "&location" + location)
+            fetch('/api/getRestaurants?term=' + restaurantName + "&location" + location)
             .then(response => {
                 console.log(response.body);
             })

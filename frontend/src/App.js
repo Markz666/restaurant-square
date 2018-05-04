@@ -69,7 +69,7 @@ class App extends Component {
                 <Route path="/login_err" component={Login_Error}/>
                 <Route path='/searchPage' component={SearchPage}/>
                 <Route
-                  path="/search/:restaurantName"
+                  path="/search/:restaurantInfo"
                   component={RestaurantListContainer}
                 />
                 <Route path="/display" component={RestaurantPanel}/>
