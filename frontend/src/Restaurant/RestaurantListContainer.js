@@ -62,9 +62,13 @@ class RestaurantListContainer extends Component {
         if (!this.props.match.params.restaurantName) {
             return <h1>Search for restaurants</h1>;
         }
+        
         const restaurants = this.state.listOfMatchingRestaurants;
-        // console.log(tracks);
-        return <RestaurantList restaurantList={restaurants} />;
+        if (restaurants && restaurants.businesses){
+            return <RestaurantList restaurantList={restaurants.businesses} />;
+        }else{
+            return <h1>Search for restaurants</h1>;
+        }
     }
 }
 
