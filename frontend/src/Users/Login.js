@@ -84,7 +84,7 @@ class Login extends Component {
             return <Redirect to = "/login_err"/>;
         }
         if (this.state.redirect === "success") {
-            window.location.href = "/search";
+            window.location.href = "/searchPage";
         }
 
         return (

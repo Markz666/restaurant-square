@@ -14,15 +14,15 @@ class RestaurantListContainer extends Component {
         const { match } = this.props;
         console.log(match);
         const restaurant = match.params.restaurantName;
-        console.log("---------restaurant:"+restaurant);
-        if (restaurant) {
-            const matches = await fetch('api/getRestaurants?term=' + restaurant);
-            const body = await matches.json();
-            console.log("---------componentDidMount:"+body);
-            this.setState({
-                listOfMatchingRestaurants: body
-            });
-        }
+        console.log("---------restaurant:" + restaurant);
+        // if (restaurant) {
+        //     const matches = await fetch('api/getRestaurants?term=' + restaurant);
+        //     const body = await matches.json();
+        //     console.log("---------componentDidMount:"+body);
+        //     this.setState({
+        //         listOfMatchingRestaurants: body
+        //     });
+        // }
     };
  
 
