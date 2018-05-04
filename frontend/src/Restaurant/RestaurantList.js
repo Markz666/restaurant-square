@@ -10,7 +10,7 @@ class RestaurantList extends Component {
                 return (
                     <div className="col-xs-4" key={restaurant.id}>
                       <ul>
-                        <Link key={restaurant.id} to={`/restaurant/${restaurant.id}`}>
+                        <Link key={restaurant.id} to={`/display/${restaurant.id}`}>
                           {restaurant.name}
                         </Link>
                         <h5><b>categories: </b></h5>
