@@ -12,6 +12,7 @@ class SearchForm extends Component {
     onSubmit = e => {
         e.preventDefault();
         if (this.state.searchQuery) {
+            console.log("on submit");
             this.props.onSearch(this.state.searchQuery);
         }
     };
