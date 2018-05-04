@@ -3,7 +3,6 @@ import RestaurantList from "./RestaurantList";
 class RestaurantListContainer extends Component {
     constructor(props) {
         super(props);
-
         this.state = {
             listOfMatchingRestaurants: []
         };
@@ -23,21 +22,21 @@ class RestaurantListContainer extends Component {
         if (restaurant) {
             const matches = await fetch('/api/getRestaurants?term=' + restaurantName + "&location=" + location);
             const body = await matches.json();
-            console.log(body);
+            console.log(body.businesses);
             this.setState({
                 listOfMatchingRestaurants: body
-            });
+            })
         }
     };
 
     render() {
-        if (!this.props.match.params.restaurantName) {
+        if (!this.props.match.params.restaurantInfo) {
             return <h1>Search for restaurants</h1>;
         }
         
         const restaurants = this.state.listOfMatchingRestaurants;
-        if (restaurants && restaurants.businesses){
-            return <RestaurantList restaurantList={restaurants.businesses} />;
+        if (restaurants && restaurants.businesses) {
+            return <RestaurantList restaurantList = {restaurants.businesses} />;
         } else {
             return <h1>Search for restaurants</h1>;
         }
