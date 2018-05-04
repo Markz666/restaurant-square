@@ -19,24 +19,15 @@ class RestaurantListContainer extends Component {
         const location = restaurantInfo[1];
         console.log("---------restaurant: " + restaurantName);
         console.log("location is: " + location);
+
         if (restaurant) {
-            fetch('/api/getRestaurants?term=' + restaurantName + "&location=" + location)
-            .then(response => {
-                console.log(response.json());
-                const body = response.json();
-                this.setState({
-                    listOfMatchingRestaurants: body
-                });
-            })
+            const matches = await fetch('/api/getRestaurants?term=' + restaurantName + "&location=" + location);
+            const body = await matches.json();
+            console.log(body);
+            this.setState({
+                listOfMatchingRestaurants: body
+            });
         }
-        // if (restaurant) {
-        //     const matches = await fetch('api/getRestaurants?term=' + restaurant);
-        //     const body = await matches.json();
-        //     console.log("---------componentDidMount:" + body);
-        //     this.setState({
-        //         listOfMatchingRestaurants: body
-        //     });
-        // }
     };
 
     render() {
