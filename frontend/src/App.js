@@ -65,7 +65,7 @@ class App extends Component {
                 <Route path="/login" component={Login}/>
                 <Route path="/logout" component={Logout}/>
                 <Route path="/login_err" component={Login_Error}/>
-                <Route path='/search' component={SearchPage}/>
+                <Route path='/searchPage' component={SearchPage}/>
                 <Route
                   path="/search/:restaurantName"
                   component={RestaurantListContainer}

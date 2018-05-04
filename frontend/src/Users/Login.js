@@ -74,7 +74,7 @@ class Login extends Component {
     }
     render() {
         if (checkAuthenticated()) {
-            window.location.href = "/search";  
+            window.location.href = "/searchPage";  
         }
 
         if (this.state.redirect === "register") {
