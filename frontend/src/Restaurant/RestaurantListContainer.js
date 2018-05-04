@@ -10,9 +10,11 @@ class RestaurantListContainer extends Component {
     }
 
     componentDidMount = async() => {
+    	console.log("---------componentDidMount");
         const { match } = this.props;
         console.log(match);
         const restaurant = match.params.restaurantName;
+        console.log("---------restaurant:"+restaurant);
         if (restaurant) {
             const matches = await fetch('api/getRestaurants', {
                 body: JSON.stringify({
@@ -21,6 +23,7 @@ class RestaurantListContainer extends Component {
                 })
             })
             const body = await matches.json();
+            console.log("---------componentDidMount:"+body);
             this.setState({
                 listOfMatchingRestaurants: body
             });
