@@ -23,40 +23,21 @@ class RestaurantListContainer extends Component {
             fetch('/api/getRestaurants?term=' + restaurantName + "&location=" + location)
             .then(response => {
                 console.log(response.json());
+                const body = response.json();
+                this.setState({
+                    listOfMatchingRestaurants: body
+                });
             })
         }
         // if (restaurant) {
         //     const matches = await fetch('api/getRestaurants?term=' + restaurant);
         //     const body = await matches.json();
-        //     console.log("---------componentDidMount:"+body);
+        //     console.log("---------componentDidMount:" + body);
         //     this.setState({
         //         listOfMatchingRestaurants: body
         //     });
         // }
     };
- 
-
-    componentWillReceiveProps = async newProps => {
-        const currentMatch = this.props.match;
-        const currentRestaurants = currentMatch.params.restaurantName;
-
-        const newMatch = newProps.match;
-        const newRestaurants = newMatch.params.restaurantName;
-        if (newRestaurants && newRestaurants !== currentRestaurants) {
-            const matches = await fetch('api/getRestaurants', {
-                body: JSON.stringify({
-                    term: newRestaurants,
-                    location: 'jersey city, nj'
-                })
-            })
-            const body = await matches.json();
-            this.setState({
-                listOfMatchingRestaurants: body
-            });
-        }
-    };
-
-    
 
     render() {
         if (!this.props.match.params.restaurantName) {
@@ -66,7 +47,7 @@ class RestaurantListContainer extends Component {
         const restaurants = this.state.listOfMatchingRestaurants;
         if (restaurants && restaurants.businesses){
             return <RestaurantList restaurantList={restaurants.businesses} />;
-        }else{
+        } else {
             return <h1>Search for restaurants</h1>;
         }
     }
