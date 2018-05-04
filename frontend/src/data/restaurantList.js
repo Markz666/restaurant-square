@@ -24,8 +24,8 @@ async function onPositionUpdated(position) {
     let lat = position.coords.latitude;
     let lng = position.coords.longitude;
 
-    console.log("lat:"+lat);
-    console.log("lng:"+lng);
+    console.log("lat:" + lat);
+    console.log("lng:" + lng);
     const response = await fetch('api/getRestaurantsList?lat=' + lat + "&lng=" + lng);
     console.log(response);
     const body = await response.json();

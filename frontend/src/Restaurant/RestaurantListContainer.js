@@ -22,7 +22,7 @@ class RestaurantListContainer extends Component {
             })
             const body = await matches.json();
             this.setState({
-                listOfMatchingRestaurants: matches
+                listOfMatchingRestaurants: body
             });
         }
     };
@@ -35,10 +35,15 @@ class RestaurantListContainer extends Component {
         const newMatch = newProps.match;
         const newRestaurants = newMatch.params.restaurantName;
         if (newRestaurants && newRestaurants !== currentRestaurants) {
-            const matches = await fetch('api/getRestaurants?id=' + newRestaurants);
-            console.log(matches);
+            const matches = await fetch('api/getRestaurants', {
+                body: JSON.stringify({
+                    term: newRestaurants,
+                    location: 'jersey city, nj'
+                })
+            })
+            const body = await matches.json();
             this.setState({
-                listOfMatchingRestaurants: matches
+                listOfMatchingRestaurants: body
             });
         }
     };
