@@ -11,9 +11,15 @@ class RestaurantListContainer extends Component {
 
     componentDidMount = async() => {
         const { match } = this.props;
+        console.log(match);
         const restaurant = match.params.restaurantName;
         if (restaurant) {
-            const matches = await fetch('api/getRestaurants?term=' + restaurant);
+            const matches = await fetch('api/getRestaurants', {
+                body: JSON.stringify({
+                    term: restaurant,
+                    location: 'jersey city, nj'
+                })
+            })
             const body = await matches.json();
             this.setState({
                 listOfMatchingRestaurants: matches

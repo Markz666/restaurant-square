@@ -86,7 +86,6 @@ app.get('/api/getRestaurants', (req, res) => {
 
 app.post('/api/login', async (req, res) => {
     const user = await usersAPI.getUserByUsername(req.body.userName);
-    console.log("/api/login");
     if (!user) {
         console.log("/api/login no user");
         res.sendStatus(401);
