@@ -8,15 +8,15 @@ class Header extends Component {
       return (
         <Navbar.Collapse>
           <Nav>
-            <NavItem eventKey={1} href="about">
+            <NavItem eventKey={1} href="/about">
               About
             </NavItem>
-            <NavItem eventKey={2} href="searchPage">
+            <NavItem eventKey={2} href="/searchPage">
               Restaurant
             </NavItem>
           </Nav>
           <Nav pullRight>
-            <NavItem eventKey={1} href='logout'>
+            <NavItem eventKey={1} href='/logout'>
               Logout
             </NavItem>
           </Nav>
@@ -26,15 +26,15 @@ class Header extends Component {
       return (
         <Navbar.Collapse>
           <Nav>
-            <NavItem eventKey={1} href="about">
+            <NavItem eventKey={1} href="/about">
               About
             </NavItem>
           </Nav>
           <Nav pullRight>
-            <NavItem eventKey={1} href='login'>
+            <NavItem eventKey={1} href='/login'>
               Login
             </NavItem>
-            <NavItem eventKey={2} href='signup'>
+            <NavItem eventKey={2} href='/signup'>
               Signup
             </NavItem>
           </Nav>
