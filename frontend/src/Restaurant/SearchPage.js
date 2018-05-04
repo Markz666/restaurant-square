@@ -3,7 +3,7 @@ import SearchForm from "./SearchForm";
 
 class SearchPage extends Component {
     onSearch = (searchQuery) => {
-        this.props.history.push(`/search/${searchQuery}`);
+        window.location.href = "search/:" + searchQuery;
     };
 
     render() {

@@ -67,7 +67,7 @@ app.get('/api/getRestaurants', (req, res) => {
     const base_url = 'https://api.yelp.com/v3/businesses/search';
     const token = '7tqgwNq05Ewf75JbrdOwtEqF5p1TvkM2-szTe4rTHmDTEu5MXmdImw84wdejue3AAlxl5ku_wQheVB7_EkSnmafVmqJHtC-bzp_-DWHSyDJzUsI7EsZw8oFcpuzWWXYx';
     const authOptions = {
-      url: base_url + '?term=' + req.query.term + "&location=" + req.query.location,
+      url: base_url + '?term=' + req.query.term,
       headers: {
         'Authorization': 'Bearer ' + token,
       },
