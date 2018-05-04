@@ -153,7 +153,7 @@ function updateComponent(response) {
 }
 
 async function updatePage(imgID) {
-    const response = await fetch('api/getRestaurantInfo?id=' + imgID);
+    const response = await fetch('/api/getRestaurantInfo?id=' + imgID);
     const body = await response.json();
 
     if (response.status !== 200) throw Error(body.message);

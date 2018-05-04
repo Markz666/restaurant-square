@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import SearchForm from "./SearchForm";
 
 class SearchPage extends Component {
-    onSearch = (searchQuery) => {
-        window.location.href = "/search/:" + searchQuery;
+    onSearch = (nameQuery, locationQuery) => {
+        window.location.href = "/search/" + nameQuery + '&' + locationQuery;
     };
 
     render() {

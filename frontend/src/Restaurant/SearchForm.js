@@ -5,23 +5,30 @@ class SearchForm extends Component {
         super(props);
         
         this.state = {
-            searchQuery: "",
+            nameQuery: "",
+            locationQuery: ""
         };
     }
 
     onSubmit = e => {
         e.preventDefault();
-        if (this.state.searchQuery) {
+        if (this.state.nameQuery && this.state.locationQuery) {
             console.log("on submit");
-            this.props.onSearch(this.state.searchQuery);
+            this.props.onSearch(this.state.nameQuery, this.state.locationQuery);
         }
     };
 
-    onSearchQueryChange = e => {
+    onNameQueryChange = e => {
         this.setState({
-            searchQuery: e.target.value
+            nameQuery: e.target.value
         });
     };
+
+    onLocationQueryChange = e => {
+        this.setState({
+            locationQuery: e.target.value
+        })
+    }
 
     render() {
         return (
@@ -30,15 +37,25 @@ class SearchForm extends Component {
                     <label htmlFor="restaurantName">
                     Which restaurant or position do you wanna search for?
                     </label>
+                    <div className="searchInputs">
                     <input
                       type="text"
-                      value={this.state.searchQuery}
-                      onChange={this.onSearchQueryChange}
+                      value={this.state.nameQuery}
+                      onChange={this.onNameQueryChange}
                       className="form-control"
                       id="restaurantName"
                       aria-describedby="restaurantHelp"
-                      placeholder="Restaurant or location..."
+                      placeholder="Restaurant..."
                     />
+                    <input
+                      type="text"
+                      value={this.state.locationQuery}
+                      onChange={this.onLocationQueryChange}
+                      className="form-control"
+                      id="restaurantLocation"
+                      placeholder="Location..."
+                    />
+                    </div>
                     <small id="restaurantHelp" className="form-text text-muted">
                     Every one has a favorite restaurant; which do you want to search for?
                     </small>

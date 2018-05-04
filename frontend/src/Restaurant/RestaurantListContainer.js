@@ -12,9 +12,17 @@ class RestaurantListContainer extends Component {
     componentDidMount = async() => {
     	console.log("---------componentDidMount");
         const { match } = this.props;
-        console.log(match);
+        console.log(match.params);
         const restaurant = match.params.restaurantName;
+        const location = match.params.restaurantLocation;
         console.log("---------restaurant:" + restaurant);
+        console.log("location is: " + location);
+        if (restaurant) {
+            fetch('/api/getRestaurants?term=' + restaurant + "&location" + location)
+            .then(response => {
+                console.log(response.body);
+            })
+        }
         // if (restaurant) {
         //     const matches = await fetch('api/getRestaurants?term=' + restaurant);
         //     const body = await matches.json();

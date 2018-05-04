@@ -29,7 +29,8 @@ class App extends Component {
   }
   state = {
     response: '',
-    restaurant: ''
+    restaurant: '',
+    location: ''
   };
 
   // componentDidMount() {
@@ -45,9 +46,10 @@ class App extends Component {
   //   return body;
   // }
 
-  onSearch = (searchQuery) => {
+  onSearch = (nameQuery, locationQuery) => {
     this.setState({
-      restaurant: searchQuery
+      restaurant: nameQuery,
+      location: locationQuery
     });
   };
 
