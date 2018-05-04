@@ -38,7 +38,7 @@ class RestaurantListContainer extends Component {
         if (restaurants && restaurants.businesses) {
             return <RestaurantList restaurantList = {restaurants.businesses} />;
         } else {
-            return <h1>Search for restaurants</h1>;
+            return <h1>Loading......</h1>;
         }
     }
 }

@@ -13,7 +13,11 @@ class RestaurantList extends Component {
                         <Link key={restaurant.id} to={`/display/${restaurant.id}`}>
                           {restaurant.name}
                         </Link>
-                        <h5><b>categories: </b></h5>
+                        <h5><b>categories: </b>{
+                          restaurant.categories.map(category => {
+                            return category.title + " "
+                          })
+                        }</h5>
             
                         <h5>rating: {restaurant.rating}</h5>
                         <h5>review count: {restaurant.review_count}</h5>
