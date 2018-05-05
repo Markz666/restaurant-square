@@ -4,9 +4,9 @@ import favImg from '../img/fav.png';
 import goodImg from '../img/good.png';
 import badImg from '../img/bad.png';
 import {updateUserInfo, checkAuthenticated} from '../Auth/UserLoginInfo';
-import {fetchRestaurantList} from '../data/restaurantList'
+import { fetchRestaurantList } from '../data/restaurantList'
 import { Redirect } from "react-router-dom";
-// 
+ 
 class Container extends Component{
     handleClick(){
 

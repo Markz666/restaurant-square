@@ -15,7 +15,7 @@ import Signup from './Users/Signup';
 import Login from './Users/Login';
 import Logout from './Users/Logout';
 import Login_Error from './Users/Login_err';
-import RestaurantPanel from './Display/RestaurantPanel';
+import RestaurantPanel from './Restaurant/RestaurantPanel';
 import Header from './Header';
 import About from './About';
 import SearchPage from './Restaurant/SearchPage';
