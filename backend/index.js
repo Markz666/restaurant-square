@@ -11,6 +11,7 @@ const session = require('express-session');
 // const base64Img = require('base64-img');
 const usersAPI = require("./db/users.js");
 const token = require("./Auth/token.js");
+const restaurantCache = require("./cache/RestaurantCache.js");
 const request = require('request');
 
 app.use(bodyParser.urlencoded({extended: true}));
@@ -33,10 +34,15 @@ app.get('/api/hello', (req, res) => {
 
 app.get('/api/getRestaurantInfo', (req, res) => {
     console.log("-------------/api/getRestaurantInfo-------------");
-    let data = {"src":"popeyes", "title":"popeyes", "renqi":23, "pingfen":33, "favorite":30, "good":20, "bad":100, "category":"popeyes", "location":"popeyes", "introduction":"popeyes"};
-    let str = JSON.stringify(data);
-    console.log(str);
-    res.send(str);
+    restaurantCache.getRestaurant(req.query.id, function(restaurant){
+        if (restaurant.is_closed === 'false')
+            restaurant.is_closed = false;
+        else
+            restaurant.is_closed = true;
+        res.send(restaurant);
+    }, function(err){
+        res.send("no found restaurant by id");
+    });
 });
 
 app.get('/api/getRestaurantsList', (req, res) => {
@@ -77,6 +83,7 @@ app.get('/api/getRestaurants', (req, res) => {
 
     request.get(authOptions, function(error, response, body) {
         if (!error && response.statusCode === 200) {
+            restaurantCache.storeRestaurants(body.businesses);
             res.send(body);
         }
         else {

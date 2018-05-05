@@ -29,13 +29,13 @@ class Container extends Component{
                         <table >
                         </table>
                         <div className="title">hot</div>
-                        <div id="renqi" className="progress width-xs">
-                            <span id="renqi_s"></span>
+                        <div id="hot" className="progress width-xs">
+                            <span id="hot_s"></span>
                         </div>
                         <div>     </div>
                         <div className="title">level</div>
-                        <div id="pingfen" className="progress width-md">
-                            <span id="pingfen_s" ></span>
+                        <div id="rating" className="progress width-md">
+                            <span id="rating_s" ></span>
                         </div>
                         <table >
                         </table>
@@ -76,9 +76,7 @@ class Container extends Component{
                         <table ></table>
                         <span id="location" className="content">location:wahahaha street 3th</span>
                         <table ></table>
-                        <span id="t" className="content">introduction</span>
-                        <table ></table>
-                        <span id="intro" className="content">It is literally weird that you eat popeyes every single day!</span>
+                        <span id="status" className="content">status:open</span>
                         <table ></table>
                         <span id="comment" className="content">recent comment:</span>
                         <table ></table>
@@ -132,23 +130,25 @@ function updateComponent(response) {
 
     if (img) {
         const title = document.getElementById("title");
-        const renqi = document.getElementById("renqi");
-        const pingfen = document.getElementById("pingfen");
+        const hot = document.getElementById("hot");
+        const rating = document.getElementById("rating");
         const favorite = document.getElementById("favorite");
         const good = document.getElementById("good");
         const bad = document.getElementById("bad");
         const category = document.getElementById("category");
         const location = document.getElementById("location");
-        const intro = document.getElementById("intro");
+        const status = document.getElementById("status");
 
         img.src = response.src;
         title.innerHTML = response.title;
         favorite.innerHTML = response.favorite;
         good.innerHTML = response.good;
         bad.innerHTML = response.bad;
-        category.innerHTML = response.category;
-        location.innerHTML = response.location;
-        intro.innerHTML = response.introduction;
+        category.innerHTML = 'category: ' + response.category;
+        location.innerHTML = 'location: ' + response.location;
+
+        let statusStr = 'status: ' + (response.is_closed? 'closed' : 'open');
+        status.innerHTML = statusStr;
     }
 }
 
