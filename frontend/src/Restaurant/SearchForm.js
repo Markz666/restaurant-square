@@ -54,6 +54,7 @@ class SearchForm extends Component {
                       className="form-control"
                       id="restaurantLocation"
                       placeholder="Location..."
+                      required
                     />
                     </div>
                     <small id="restaurantHelp" className="form-text text-muted">

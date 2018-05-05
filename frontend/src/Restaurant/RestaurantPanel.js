@@ -4,7 +4,6 @@ import favImg from '../img/fav.png';
 import goodImg from '../img/good.png';
 import badImg from '../img/bad.png';
 import {updateUserInfo, checkAuthenticated} from '../Auth/UserLoginInfo';
-import { fetchRestaurantList } from '../data/restaurantList'
 import { Redirect } from "react-router-dom";
  
 class Container extends Component{
@@ -118,11 +117,6 @@ async function init() {
 	const id = urls[1];
 	
     await updatePage(id);
-    await fetchRestaurantList(function(result){
-        console.log(result);
-    }, function(error){
-        console.log(error);
-    });
 }
 
 function updateComponent(response) {
