@@ -18,6 +18,7 @@ class Login extends Component {
             userName: "",
             password: ""
         };
+        document.title = "Login Page";
     }
 
     handleLogin(event) {

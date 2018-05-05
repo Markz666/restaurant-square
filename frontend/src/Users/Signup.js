@@ -21,6 +21,7 @@ class Signup extends Component {
             email: "",
             phone: ""
         };
+        document.title = "Signup Page";
     }
 
     validateEmail(email) {

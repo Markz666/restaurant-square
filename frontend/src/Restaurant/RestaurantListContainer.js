@@ -6,6 +6,7 @@ class RestaurantListContainer extends Component {
         this.state = {
             listOfMatchingRestaurants: []
         };
+        document.title = "Restaurant Result Page";
     }
 
     componentDidMount = async() => {

@@ -12,6 +12,7 @@ const sectionStyle = {
 class Home extends Component {
   constructor(props) {
     super(props);
+    document.title = "Restaurant Square";
   }
   
   render() {
