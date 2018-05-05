@@ -62,8 +62,6 @@ app.get('/api/getRestaurantsList', (req, res) => {
 
 app.get('/api/getRestaurants', (req, res) => {
     console.log("----------------------getRestaurants----------------------");
-    console.log("this is the request body: " + req.body);
-    console.log("this is the request query: " + req.query.location);
     const base_url = 'https://api.yelp.com/v3/businesses/search';
     const token = '7tqgwNq05Ewf75JbrdOwtEqF5p1TvkM2-szTe4rTHmDTEu5MXmdImw84wdejue3AAlxl5ku_wQheVB7_EkSnmafVmqJHtC-bzp_-DWHSyDJzUsI7EsZw8oFcpuzWWXYx';
     const authOptions = {
@@ -78,6 +76,7 @@ app.get('/api/getRestaurants', (req, res) => {
     request.get(authOptions, function(error, response, body) {
         if (!error && response.statusCode === 200) {
             res.send(body);
+            console.log(body);
         }
         else {
             res.send({retCode:400, message:'invalid parameters'});
@@ -108,7 +107,6 @@ app.post('/api/signup', async (req, res) => {
     try {
         const saltRounds = 4;
         let hashed_password = await bcrypt.hash(req.body.password1, saltRounds);
-        // console.log(hashed_password);
         await usersAPI.addUser(req.body.userName, hashed_password, req.body.email, req.body.phone);
         console.log("Create user success!");
         res.sendStatus(200);
