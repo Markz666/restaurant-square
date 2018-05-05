@@ -84,7 +84,7 @@ app.get('/api/getRestaurants', (req, res) => {
     request.get(authOptions, function(error, response, body) {
         if (!error && response.statusCode === 200) {
             restaurantCache.storeRestaurants(body.businesses);
-            res.send(body);
+            res.send(body.businesses);
         }
         else {
             res.send({retCode:400, message:'invalid parameters'});

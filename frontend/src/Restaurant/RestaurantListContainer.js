@@ -36,8 +36,8 @@ class RestaurantListContainer extends Component {
         }
         
         const restaurants = this.state.listOfMatchingRestaurants;
-        if (restaurants && restaurants.businesses) {
-            return <RestaurantList restaurantList = {restaurants.businesses} />;
+        if (restaurants) {
+            return <RestaurantList restaurantList = {restaurants} />;
         } else {
             return <h1>Loading......</h1>;
         }
