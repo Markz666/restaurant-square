@@ -44,7 +44,7 @@ class SearchForm extends Component {
                       className="form-control"
                       id="restaurantName"
                       aria-describedby="restaurantHelp"
-                      placeholder="Restaurant..."
+                      placeholder="Restaurant Name or Category..."
                     />
                     <input
                       type="text"
@@ -52,7 +52,7 @@ class SearchForm extends Component {
                       onChange={this.onLocationQueryChange}
                       className="form-control"
                       id="restaurantLocation"
-                      placeholder="Location..."
+                      placeholder="Location, like 'jersey city, nj'"
                       required
                     />
                     </div>

@@ -6,8 +6,7 @@ const bluebird = require("bluebird");
 bluebird.promisifyAll(redis.RedisClient.prototype);
 bluebird.promisifyAll(redis.Multi.prototype);
 
-exports.getElement = async function (id)
-{
+exports.getElement = async (id) => {
 	return new Promise((resolve, reject) => {
 		client.hgetall(id, function(err, object) {
 			if (object) {
@@ -19,8 +18,7 @@ exports.getElement = async function (id)
 	});
 }
 
-exports.setElement = async function (id, param)
-{
+exports.setElement = async (id, param) => {
 	return new Promise((resolve, reject) => {
 		client.hmset(id, param, function(err) {
 			if (err == null) {
@@ -33,8 +31,7 @@ exports.setElement = async function (id, param)
 	});
 }
 
-exports.delElement = async function (id, user, param)
-{
+exports.delElement = async (id, user, param) => {
 	return new Promise((resolve, reject) => {
 		client.del(id, function(err, response) {
 			if (response == 1) {

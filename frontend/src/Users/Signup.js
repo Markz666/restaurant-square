@@ -119,7 +119,7 @@ class Signup extends Component {
                     value={this.state.email}
                     onChange={(event) => {this.setState({email: event.target.value})}}/>
                 <TextField
-                    hintText='Please enter your phone number'
+                    hintText='Please enter your phone number (10 - 11 digits)'
                     type='text'
                     value={this.state.phone}
                     onChange={(event) => {this.setState({phone: event.target.value})}}/>    
