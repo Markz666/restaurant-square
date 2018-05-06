@@ -128,7 +128,6 @@ app.post('/api/signup', async (req, res) => {
 io.on('connection', socket => {
     console.log('User connected');
     socket.on('login', async(userInfo) => {
-        console.log(userInfo);
         const user = await usersAPI.getUserByUsername(userInfo.userName);
         const isMatch = await bcrypt.compare(userInfo.password, user.hashed_password);
         let status = "Invalid username or password";

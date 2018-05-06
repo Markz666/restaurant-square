@@ -1,11 +1,7 @@
 import React, { Component } from 'react';
 import "./App.css";
 import {Helmet} from 'react-helmet';
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch
-} from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Home from "./Home";
 import NotFound from "./NotFound";
 import Signup from './Users/Signup';
@@ -84,7 +80,6 @@ class App extends Component {
               <style>{'body { background-color: #E3DFDB; }'}</style>
           </Helmet>
         </div>
-
       </div>
   
     );

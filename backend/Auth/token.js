@@ -1,8 +1,7 @@
 
 const crypto = require("crypto");
 const token = {
-    createToken: function(obj,timeout) {
-        console.log(parseInt(timeout) || 0);
+    createToken: function(obj, timeout) {
         const obj2 = {
             data: obj, //payload
             created: parseInt(Date.now() / 1000),

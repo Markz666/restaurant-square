@@ -70,7 +70,7 @@ class Signup extends Component {
 
                     const func = response.json();
                     func.then(function(result) {
-                        updateUserInfo({token:result.retCode}, true);
+                        updateUserInfo({token: result.retCode}, true);
                     })
                 }
             }) 

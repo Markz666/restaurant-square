@@ -4,6 +4,7 @@ class Profile extends Component {
     constructor(props) {
         super(props);
         document.title = "User Profile";
+        console.log(this.props);
     }
     state = {
         userInfo: ''

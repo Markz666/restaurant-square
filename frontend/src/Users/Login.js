@@ -41,7 +41,6 @@ class Login extends Component {
                 updateUserInfo({}, false);
             } else {
                 this.setState({redirect: 'success'});
-
                 const func = response.json();
                 func.then(function(result) {
                     updateUserInfo({token: result.retCode}, true);
@@ -51,11 +50,6 @@ class Login extends Component {
         .catch(error => {
             console.log(error);
         })
-
-        // let userInfo = {
-        //     userName: this.state.userName,
-        //     password: this.state.password
-        // };
 
         // socket.emit('login', userInfo);
         

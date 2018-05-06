@@ -12,14 +12,11 @@ exports.storeRestaurants = async (data) => {
 		}, function(err){
 			console.log("can not insert restaurant " + data[i].name + " into redis cache" + err);
 		});
-
-
 	}
-
 	console.log("cache " + data.length + " restaurants but only " + successCount + " works");
 }
 
-translateRestaurantData = function(data){
+translateRestaurantData = function(data) {
 	let location = data.location.address1 + ", " + data.location.city + ", " + data.location.state + ", " + data.location.country + ", " + data.location.zip_code;
 	let category = "";
 	for (let k = 0; k < data.categories.length; ++k) {
