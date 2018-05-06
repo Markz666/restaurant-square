@@ -38,7 +38,5 @@ module.exports = {
         db.close();
         console.log("You are no longer connected");
     }
-
-
 };
 

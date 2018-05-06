@@ -15,7 +15,7 @@ class RestaurantList extends Component {
                         </Link>
                         <h5><b>categories: </b>{
                           restaurant.categories.map(category => {
-                            return category.title + " "
+                            return category.title + " ";
                           })
                         }</h5>
             
