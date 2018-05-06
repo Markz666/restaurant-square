@@ -11,7 +11,7 @@ const token = {
         const base64Str = Buffer.from(JSON.stringify(obj2),"utf8").toString("base64");
 
         //add signature
-        const secret = "tech.ninja";
+        const secret = "tech.ninjas";
         const hash = crypto.createHmac('sha256',secret);
             hash.update(base64Str);
         const signature = hash.digest('base64');
@@ -34,7 +34,7 @@ const token = {
         }
 
         //check the signature
-        let secret = "tech.ninja";        
+        let secret = "tech.ninjas";        
         let hash = crypto.createHmac('sha256', secret);
         hash.update(decArr[0]);
         let checkSignature = hash.digest('base64');
@@ -51,7 +51,7 @@ const token = {
             return false;
         }
 
-        //check is the token is expired or not
+        //check whether the token is expired or not
         const expState = (parseInt(Date.now() / 1000) - parseInt(resDecode.payload.created)) > parseInt(resDecode.payload.exp) ? false : true;
         if (resDecode.signature === resDecode.checkSignature) {
             return true;
