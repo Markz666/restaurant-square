@@ -3,7 +3,7 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
-import {updateUserInfo, checkAuthenticated, getUserInfo} from '../Auth/UserLoginInfo'
+import { updateUserInfo, checkAuthenticated } from '../Auth/UserLoginInfo';
 
 import { Redirect } from "react-router-dom";
 
@@ -38,13 +38,6 @@ class Signup extends Component {
         const email = this.state.email;
         const phone = this.state.phone;
 
-        // let userInfo = {
-        //     userName: userName,
-        //     password1: password1,
-        //     password2: password2,
-        //     email: email,
-        //     phone: phone
-        // };
         if (userName.length === 0 || password1.length === 0 || email.length === 0 || phone.length === 0) {
             alert("Please fill in all the info");
         } else if (password1 !== password2) {
@@ -90,10 +83,6 @@ class Signup extends Component {
         // socket.on('loggedIn', async(status) => {
         //     this.setState({redirect: status});
         // });
-        // socket.on('signup_err', async(status) => {
-        //     this.setState({redirect: status});
-        // });
-
     }
 
     render() {
@@ -104,7 +93,7 @@ class Signup extends Component {
             window.location.href="/searchPage";
         }
         if (this.state.redirect === "failed") {
-            return <Redirect to="/404" />;
+            return <h1>User already exists! Please <a href="/login">Login</a></h1>;
         }
         return (
             <MuiThemeProvider muiTheme={muiTheme}>

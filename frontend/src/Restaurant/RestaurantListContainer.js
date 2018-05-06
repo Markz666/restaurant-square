@@ -25,16 +25,26 @@ class RestaurantListContainer extends Component {
             const body = await matches.json();
             this.setState({
                 listOfMatchingRestaurants: body
-            })
+            }) 
         }
     };
+    isEmpty(obj) {
+        for (let key in obj) {
+            if (obj.hasOwnProperty(key))
+                return false;
+        }
+        return true;
+    }
 
     render() {
         if (!this.props.match.params.restaurantInfo) {
             return <h1>Search for restaurants</h1>;
         }
-        
+ 
         const restaurants = this.state.listOfMatchingRestaurants;
+        if (this.isEmpty(restaurants)) {
+            return <h1>Restaurant Not Found</h1>
+        }
         if (restaurants) {
             return <RestaurantList restaurantList = {restaurants} />;
         } else {

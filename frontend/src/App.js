@@ -20,6 +20,7 @@ import Header from './Header';
 import About from './About';
 import SearchPage from './Restaurant/SearchPage';
 import RestaurantListContainer from './Restaurant/RestaurantListContainer';
+import Profile from './Users/Profile';
 
 class App extends Component {
   
@@ -67,6 +68,7 @@ class App extends Component {
                 <Route path="/logout" component={Logout}/>
                 <Route path="/login_err" component={Login_Error}/>
                 <Route path='/searchPage' component={SearchPage}/>
+                <Route path='/profile' component={Profile}/>
                 <Route
                   path="/search/:restaurantInfo"
                   component={RestaurantListContainer}
