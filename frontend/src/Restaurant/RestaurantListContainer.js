@@ -23,7 +23,6 @@ class RestaurantListContainer extends Component {
         if (restaurant) {
             const matches = await fetch('/api/getRestaurants?term=' + restaurantName + "&location=" + location);
             const body = await matches.json();
-            console.log(body.businesses);
             this.setState({
                 listOfMatchingRestaurants: body
             }) 
@@ -41,7 +40,7 @@ class RestaurantListContainer extends Component {
         if (!this.props.match.params.restaurantInfo) {
             return <h1>Search for restaurants</h1>;
         }
-        
+ 
         const restaurants = this.state.listOfMatchingRestaurants;
         if (this.isEmpty(restaurants)) {
             return <h1>Restaurant Not Found</h1>

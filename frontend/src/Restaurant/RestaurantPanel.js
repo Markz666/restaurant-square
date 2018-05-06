@@ -6,7 +6,7 @@ import badImg from '../img/bad.png';
 import {updateUserInfo, checkAuthenticated} from '../Auth/UserLoginInfo';
 import { Redirect } from "react-router-dom";
  
-class Container extends Component{
+class Container extends Component {
     handleClick(){
 
     }
