@@ -84,14 +84,6 @@ table{
   clear:both;
 }
 
-#renqi_s{
-  width:100%;
-}
-
-#pingfen_s{
-  width:50%;
-}
-
 .width-xs {
     width: 7.4rem!important;
     float:left;
@@ -106,21 +98,10 @@ table{
     background: #0ec610;
     height: 1.4em;
     text-align: center;
-    padding: .5px;
-    display: block;
-    color: #fff;
-    font-weight: 700;
-    font-size: 8px;
-    width: 0%;
     color: gray;
-    border-top-right-radius: 3px;
-    border-bottom-right-radius: 3px;
-    height: 1.3em;
-    font-size: 12px;
     float:left;
+    width: 0%;
 }
-
-
 
 .title {
     display: table-cell;

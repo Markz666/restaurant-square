@@ -124,15 +124,19 @@ function updateComponent(response) {
 
     if (img) {
         const title = document.getElementById("title");
-        const hot = document.getElementById("hot");
-        const rating = document.getElementById("rating");
         const favorite = document.getElementById("favorite");
+        const hot = document.getElementById("hot_s");
+        const rating = document.getElementById("rating_s");
         const good = document.getElementById("good");
+        
         const bad = document.getElementById("bad");
         const category = document.getElementById("category");
         const location = document.getElementById("location");
         const status = document.getElementById("status");
+        console.log(response.rating / 5.0 * 100 + "%");
 
+        hot.style.width = (response.favorite + response.good) / (response.favorite + response.good + response.bad) * 100 + '%';
+        rating.style.width = response.rating / 5 * 100 + '%';
         img.src = response.src;
         title.innerHTML = response.title;
         favorite.innerHTML = response.favorite;
@@ -141,7 +145,7 @@ function updateComponent(response) {
         category.innerHTML = 'category: ' + response.category;
         location.innerHTML = 'location: ' + response.location;
 
-        let statusStr = 'status: ' + (response.is_closed ? 'closed' : 'open');
+        let statusStr = 'status: ' + (response.is_closed? 'closed' : 'open');
         status.innerHTML = statusStr;
     }
 }
