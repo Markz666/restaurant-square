@@ -85,7 +85,7 @@ class Container extends Component{
                         <table ></table>
                         <span id="comment3" className="content">AAAAAAAAAAAAAAAA    09/07/2016</span>
                         <table ></table>
-                        <textarea defaultValue="please enter your comment" id="bbxi" name="bbxi" col="100" rows="8"></textarea>
+                        <textarea defaultValue="please enter your comment" id="bbxi" name="bbxi" col="100" rows="8" required></textarea>
                         <table ></table>
                         <button align="center" id="review" type="button">review</button>
                     </div>
@@ -141,7 +141,7 @@ function updateComponent(response) {
         category.innerHTML = 'category: ' + response.category;
         location.innerHTML = 'location: ' + response.location;
 
-        let statusStr = 'status: ' + (response.is_closed? 'closed' : 'open');
+        let statusStr = 'status: ' + (response.is_closed ? 'closed' : 'open');
         status.innerHTML = statusStr;
     }
 }

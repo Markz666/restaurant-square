@@ -3,7 +3,7 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
-import { Redirect, Link } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import { error } from "util";
 import {updateUserInfo, checkAuthenticated, getUserInfo} from '../Auth/UserLoginInfo'
 
