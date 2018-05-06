@@ -5,7 +5,76 @@ import goodImg from '../img/good.png';
 import badImg from '../img/bad.png';
 import { checkAuthenticated } from '../Auth/UserLoginInfo';
 import { Redirect } from "react-router-dom";
- 
+
+import Dropzone from 'react-dropzone';
+import request from 'superagent';
+
+const DropzoneStyle = {
+    width: '200px',
+    height: '80px',
+    borderWidth: '2px',
+    borderColor: 'rgb(102, 102, 102)',
+    borderStyle: 'dashed',
+    borderRadius: '5px',
+}
+
+const CLOUDINARY_UPLOAD_PRESET = 'MyPicIsTooGood';
+const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/dpou2ol4u/upload';
+
+class ContactForm extends React.Component {
+    constructor(props) {
+　　　　super(props);
+　　　　this.state = {
+　　　　    uploadedFileCloudinaryUrl: ''
+　　　　};
+    }
+
+    onImageDrop(files) {
+　　　　this.setState({
+　　　　    uploadedFile: files[0]
+　　    });
+
+　　    this.handleImageUpload(files[0]);
+　　}
+
+    handleImageUpload(file){
+        let upload = request.post(CLOUDINARY_UPLOAD_URL)
+            .field('upload_preset', CLOUDINARY_UPLOAD_PRESET)
+　　　　　　 .field('file', file);
+
+　　　　 upload.end((err, response) => {
+　　　　　　　if (err) {
+　　　　　　　    console.error(err);
+　　　　　　　}
+
+　　　　　　　if (response.body.secure_url !== '') {
+　　　　　　　　　this.setState({
+　　　　　　　　　　　uploadedFileCloudinaryUrl: response.body.secure_url
+　　　　　　　　　});
+　　　　　　　}
+　　　　　}); 
+    }
+
+    render() {
+　　　　return (
+              <Dropzone
+                 style={DropzoneStyle}
+　　　　　　　    multiple={false}
+　　　　　　　　  accept="image/*"
+　　　　　　　　  onDrop={this.onImageDrop.bind(this)}>
+　　　　　　　　  <p id="Dropzone">Drop an image or click to select a file to upload.</p>
+                <div>
+　　　　　　　　　　{this.state.uploadedFileCloudinaryUrl === '' ? null :
+　　　　　　　　　　<div>
+　　　　　　　　　　　　<p>{this.state.uploadedFile.name}</p>
+　　　　　　　　　　　　<img src={this.state.uploadedFileCloudinaryUrl} />
+　　　　　　　　　　</div>}
+　　　　　　　　</div>
+　　　　　　　　</Dropzone>
+               )
+　　}
+}
+
 class Container extends Component {
     handleClick(){
 
@@ -85,6 +154,8 @@ class Container extends Component {
                         <span id="comment3" className="content">AAAAAAAAAAAAAAAA    09/07/2016</span>
                         <table ></table>
                         <textarea defaultValue="please enter your comment" id="bbxi" name="bbxi" col="100" rows="8" required></textarea>
+                        <table ></table>
+                        <ContactForm />
                         <table ></table>
                         <button align="center" id="review" type="button">review</button>
                     </div>
