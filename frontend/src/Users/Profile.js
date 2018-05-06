@@ -4,16 +4,25 @@ class Profile extends Component {
     constructor(props) {
         super(props);
         document.title = "User Profile";
-        console.log(this.props);
     }
     state = {
-        userInfo: ''
+        userName: '',
+        email: '',
+        phone: '',
+        favorites: '',
+        comments: ''
     }
-    componentWillMount() {
-        const user = getUserInfo();
-        console.log(JSON.stringify(user));
+    componentDidMount = async() => {
+        const userToken = getUserInfo().token;
+        const userInfo = await fetch('/api/getUserProfile?token=' + userToken);
+        const body = await userInfo.json();
+        console.log(body);
         this.setState({
-            userInfo: JSON.stringify(user)
+            userName: body.userName,
+            email: body.email,
+            phone: body.phone,
+            favorites: body.favorites,
+            comments: body.comments
         })
     }
     render() {
@@ -23,7 +32,11 @@ class Profile extends Component {
         return (
             <div>
                 <h1>This is the profile page</h1>
-                <h4>{this.state.userInfo}</h4>
+                <h3>UserName: {this.state.userName}</h3>
+                <h3>Email: {this.state.email}</h3>
+                <h3>Phone number: {this.state.phone}</h3>
+                <h3>Comments: {this.state.comments}</h3>
+                <h3>Favorites: {this.state.favorites}</h3>           
             </div>                   
         )
     }

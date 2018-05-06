@@ -13,7 +13,7 @@ class Header extends Component {
             <NavItem eventKey={2} href="/searchPage">
               Restaurant
             </NavItem>
-            <NavItem eventKey={3} href="/profile">
+            <NavItem eventKey={3} href="/profile/:token">
               Profile
             </NavItem>
           </Nav>

@@ -91,6 +91,24 @@ app.get('/api/getRestaurants', (req, res) => {
     });
 });
 
+app.get('/api/getUserProfile', async (req, res) => {
+    console.log('-------------fetching user profile-----------');
+    console.log(req.query.token);
+    const fullToken = req.query.token;
+    const userInfo = token.decodeToken(fullToken);
+    // console.log(userInfo.payload.data.userName);
+    const userName = userInfo.payload.data.userName;
+    const user = await usersAPI.getUserByUsername(userName);
+    console.log(user);
+    res.send({
+        userName: user.user_name,
+        email: user.email,
+        phone: user.phone,
+        comments: user.comments,
+        favoritesL: user.favorites
+    })
+})
+
 app.post('/api/login', async (req, res) => {
     const user = await usersAPI.getUserByUsername(req.body.userName);
     if (!user) {
