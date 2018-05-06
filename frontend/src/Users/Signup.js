@@ -5,8 +5,6 @@ import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import { updateUserInfo, checkAuthenticated } from '../Auth/UserLoginInfo';
 
-import { Redirect } from "react-router-dom";
-
 let muiTheme = getMuiTheme({
     fontFamily: 'Microsoft YaHei'
 });

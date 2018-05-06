@@ -3,7 +3,7 @@ import './RestaurantPanel.css';
 import favImg from '../img/fav.png';
 import goodImg from '../img/good.png';
 import badImg from '../img/bad.png';
-import {updateUserInfo, checkAuthenticated} from '../Auth/UserLoginInfo';
+import { checkAuthenticated } from '../Auth/UserLoginInfo';
 import { Redirect } from "react-router-dom";
  
 class Container extends Component{

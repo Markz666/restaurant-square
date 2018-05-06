@@ -4,8 +4,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import { Redirect } from "react-router-dom";
-import { error } from "util";
-import {updateUserInfo, checkAuthenticated, getUserInfo} from '../Auth/UserLoginInfo'
+import { updateUserInfo, checkAuthenticated } from '../Auth/UserLoginInfo';
 
 let muiTheme = getMuiTheme({
     fontFamily: 'Microsoft YaHei'
@@ -37,7 +36,7 @@ class Login extends Component {
         .then((response) => {
             const status = response.status;
 
-            if (status == '401') {
+            if (status === '401') {
                 this.setState({redirect: 'Invalid username or password'});
                 updateUserInfo({}, false);
             } else {
@@ -90,7 +89,7 @@ class Login extends Component {
         return (
             <MuiThemeProvider muiTheme={muiTheme}>
             <div style={styles.root}>
-                <img style={styles.icon} src={require('../img/login.png')}/> 
+                <img style={styles.icon} alt="login" src={require('../img/login.png')}/> 
 
                 <TextField
                     hintText='Please enter username'

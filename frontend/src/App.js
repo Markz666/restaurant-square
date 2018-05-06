@@ -4,11 +4,8 @@ import {Helmet} from 'react-helmet';
 import {
   BrowserRouter as Router,
   Route,
-  Switch,
-  NavLink,
-  Redirect
+  Switch
 } from "react-router-dom";
-import { Grid, Row, Nav, Navbar, NavItem } from "react-bootstrap";
 import Home from "./Home";
 import NotFound from "./NotFound";
 import Signup from './Users/Signup';

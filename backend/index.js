@@ -22,7 +22,7 @@ app.use(session({
 }));
 app.use(bodyParser.json());
 
-app.use(function(req, res, next) {
+app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
@@ -58,7 +58,7 @@ app.get('/api/getRestaurantsList', (req, res) => {
       json: true
     };
 
-    request.get(authOptions, function(error, response, body) {
+    request.get(authOptions, (error, response, body) => {
         if (!error && response.statusCode === 200) {
             res.send(body);
         }
@@ -80,7 +80,7 @@ app.get('/api/getRestaurants', (req, res) => {
       json: true
     };
 
-    request.get(authOptions, function(error, response, body) {
+    request.get(authOptions, (error, response, body) => {
         if (!error && response.statusCode === 200) {
             restaurantCache.storeRestaurants(body.businesses);
             res.send(body.businesses);
@@ -145,6 +145,6 @@ io.on('connection', socket => {
     })
 });
 
-http.listen(3001, function() {
+http.listen(3001, () => {
     console.log('listening on :3001');
 });

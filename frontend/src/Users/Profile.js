@@ -1,6 +1,7 @@
 import React, { Component } from "react";
+import { updateUserInfo, checkAuthenticated, getUserInfo } from '../Auth/UserLoginInfo';
 class Profile extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
         document.title = "User Profile";
     }
