@@ -154,6 +154,4 @@ async function updatePage(imgID) {
     updateComponent(body);
 }
 
-
-
 export default RestaurantPanel;
