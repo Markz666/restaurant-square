@@ -34,14 +34,15 @@ app.get('/api/hello', (req, res) => {
 
 app.get('/api/getRestaurantInfo', (req, res) => {
     console.log("-------------/api/getRestaurantInfo-------------");
-    restaurantCache.getRestaurant(req.query.id, function(restaurant){
-        if (restaurant.is_closed === 'false')
+    restaurantCache.getRestaurant(req.query.id, function(restaurant) {
+        if (restaurant.is_closed === 'false') {
             restaurant.is_closed = false;
-        else
+        } else {
             restaurant.is_closed = true;
+        }
         res.send(restaurant);
-    }, function(err){
-        res.send("no found restaurant by id");
+    }, function(err) {
+        res.send("cannot found the restaurant by id");
     });
 });
 
@@ -68,8 +69,6 @@ app.get('/api/getRestaurantsList', (req, res) => {
 
 app.get('/api/getRestaurants', (req, res) => {
     console.log("----------------------getRestaurants----------------------");
-    console.log("this is the request body: " + req.body);
-    console.log("this is the request query: " + req.query.location);
     const base_url = 'https://api.yelp.com/v3/businesses/search';
     const token = '7tqgwNq05Ewf75JbrdOwtEqF5p1TvkM2-szTe4rTHmDTEu5MXmdImw84wdejue3AAlxl5ku_wQheVB7_EkSnmafVmqJHtC-bzp_-DWHSyDJzUsI7EsZw8oFcpuzWWXYx';
     const authOptions = {
