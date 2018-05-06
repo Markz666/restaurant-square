@@ -70,7 +70,6 @@ class Login extends Component {
 
     handleRegister(event) {
         event.preventDefault();
-        // axios.get("signup");
         this.setState({redirect: "register"});
     }
     render() {
