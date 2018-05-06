@@ -24,15 +24,14 @@ class Container extends Component {
                     </div>
 
                     <div className="restaurant_content_container">
-                        <span id="title" className="name">Popeyes</span>
+                        <span id="title" className="name"></span>
                         <table >
                         </table>
-                        <div className="title">hot</div>
+                        <div className="title" id="hotTitle">hot</div>
                         <div id="hot" className="progress width-xs">
                             <span id="hot_s"></span>
                         </div>
-                        <div>     </div>
-                        <div className="title">level</div>
+                        <div className="title" id="levelTitle">level</div>
                         <div id="rating" className="progress width-md">
                             <span id="rating_s" ></span>
                         </div>
@@ -41,7 +40,7 @@ class Container extends Component {
                         <div className="Review">
                             <div className="tbzl clickAction">
                                 <div className="tb">
-                                    <img src={favImg}  alt=""/>
+                                    <img src={favImg}  alt="fav"/>
                                 </div>
                                 <div className="zlsl">
                                     favorite (
@@ -51,7 +50,7 @@ class Container extends Component {
                             </div>
                             <div className="tbzl clickAction">
                                 <div className="tb">
-                                    <img src={goodImg}  alt=""/>
+                                    <img src={goodImg}  alt="good"/>
                                 </div>
                                 <div className="zlsl">
                                     good (
@@ -61,7 +60,7 @@ class Container extends Component {
                             </div>
                             <div className="tbzl clickAction">
                                 <div className="tb">
-                                    <img src={badImg}  alt=""/>
+                                    <img src={badImg}  alt="bad"/>
                                 </div>
                                 <div className="zlsl">
                                     bad (
@@ -71,11 +70,11 @@ class Container extends Component {
                             </div>
                         </div>
                         <table ></table>
-                        <span id="category" className="content">category:spanish</span>
+                        <span id="category" className="content"></span>
                         <table ></table>
-                        <span id="location" className="content">location:wahahaha street 3th</span>
+                        <span id="location" className="content"></span>
                         <table ></table>
-                        <span id="status" className="content">status:open</span>
+                        <span id="status" className="content"></span>
                         <table ></table>
                         <span id="comment" className="content">recent comment:</span>
                         <table ></table>
