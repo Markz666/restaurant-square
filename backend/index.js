@@ -66,13 +66,17 @@ app.get('/api/getRestaurantsList', (req, res) => {
 });
 
 app.post('/api/add_to_fav', async (req, res) => {
-    const fullToken = req.query.token;
+    console.log("------------------add to fav---------------");
+    const fullToken = req.body.token;
     const userInfo = token.decodeToken(fullToken);
-    const user_id = userInfo.user_id;
-    const item_id = req.body.favorite;
+    const userName = userInfo.payload.data.userName;
+    const user = await usersAPI.getUserByUsername(userName);
+    const user_id = user._id;
+    const restaurant_id = req.body.restaurant_id;
 
     try {
-        await usersAPI.addFavorite(user_id, item_id);
+        await usersAPI.addFavorite(user_id, restaurant_id);
+        console.log("Add to favorite success!");
         res.send({"result": "SUCCESS"});
     } catch (e) {
         res.send({"result": "failed"});
@@ -126,12 +130,19 @@ app.get('/api/getUserProfile', async (req, res) => {
     const userName = userInfo.payload.data.userName;
     const user = await usersAPI.getUserByUsername(userName);
     console.log(user);
+    for (fav of user.favorites) {
+        restaurantCache.getRestaurant(fav, (restaurant) => {
+            console.log(restaurant);
+        }, (error) => {
+            console.log(error);
+        })
+    }
     res.send({
         userName: user.user_name,
         email: user.email,
         phone: user.phone,
         comments: user.comments,
-        favoritesL: user.favorites
+        favorites: user.favorites
     })
 })
 

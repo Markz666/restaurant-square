@@ -21,7 +21,6 @@ class App extends Component {
     super(props);
   }
   state = {
-    response: '',
     restaurant: '',
     location: ''
   };

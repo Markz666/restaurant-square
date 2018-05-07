@@ -3,9 +3,9 @@ import './RestaurantPanel.css';
 import favImg from '../img/fav.png';
 import goodImg from '../img/good.png';
 import badImg from '../img/bad.png';
-import { checkAuthenticated } from '../Auth/UserLoginInfo';
-import { Redirect } from "react-router-dom";
-
+import { checkAuthenticated, getUserInfo } from '../Auth/UserLoginInfo';
+import { Redirect } from 'react-router-dom';
+import ToggleButton from './ToggleButton';
 import Dropzone from 'react-dropzone';
 import request from 'superagent';
 
@@ -76,8 +76,29 @@ class ContactForm extends React.Component {
     }
 
 class Container extends Component {
-    handleFavorite() {
-        alert("Hello");
+    handleFavorite(event) {
+        event.preventDefault();
+        const url = window.location.href;
+        const urls = url.split("?");
+        const id = urls[1];
+        const userToken = getUserInfo().token;
+        fetch('/api/add_to_fav', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                token: userToken,
+                restaurant_id: id
+            })
+        })
+        .then((response) => {
+            console.log(response);
+        }) 
+        .catch(error => {
+            console.log(error);
+        })
     }
 
     render() {
@@ -108,8 +129,11 @@ class Container extends Component {
                         </table>
                         <div className="Review">
                             <div className="tbzl">
-                                <div className="tb">
+                                {/* <div className="tb">
                                     <img src={favImg} onClick={this.handleFavorite} alt="fav"/>
+                                </div> */}
+                                <div className="tb">
+                                    <ToggleButton/>
                                 </div>
                                 <div className="scoringText">
                                     favorite (
