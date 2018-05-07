@@ -2,8 +2,6 @@ const express = require('express');
 const app = express();
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
-const bluebird = require("bluebird");
-const fs = require('fs');
 const im = require('imagemagick');
 const bcrypt = require("bcrypt");
 const bodyParser = require('body-parser');
@@ -65,6 +63,34 @@ app.get('/api/getRestaurantsList', (req, res) => {
         else
             res.send({retCode:400, message:'invalid parameters'});
     });
+});
+
+app.post('/api/add_to_fav', async (req, res) => {
+    const fullToken = req.query.token;
+    const userInfo = token.decodeToken(fullToken);
+    const user_id = userInfo.user_id;
+    const item_id = req.body.favorite;
+
+    try {
+        await usersAPI.addFavorite(user_id, item_id);
+        res.send({"result": "SUCCESS"});
+    } catch (e) {
+        res.send({"result": "failed"});
+    }
+});
+
+app.delete('/api/add_to_fav', async (req, res) => {
+    const fullToken = req.query.token;
+    const userInfo = token.decodeToken(fullToken);
+    const user_id = userInfo.user_id;
+    const item_id = req.body.favorite;
+
+    try {
+        await usersAPI.removeFavorite(user_id, item_id);
+        res.send({"result": "SUCCESS"});
+    } catch (e) {
+        res.send({"result": "failed"});
+    }
 });
 
 app.get('/api/getRestaurants', (req, res) => {

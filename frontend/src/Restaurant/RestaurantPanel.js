@@ -71,13 +71,13 @@ class ContactForm extends React.Component {
 　　　　　　　　　　</div>}
 　　　　　　　　</div>
 　　　　　　　　</Dropzone>
-               )
-　　}
-}
+            )
+　　    }
+    }
 
 class Container extends Component {
-    handleClick(){
-
+    handleFavorite() {
+        alert("Hello");
     }
 
     render() {
@@ -107,13 +107,13 @@ class Container extends Component {
                         <table >
                         </table>
                         <div className="Review">
-                            <div className="tbzl clickAction">
+                            <div className="tbzl">
                                 <div className="tb">
-                                    <img src={favImg}  alt="fav"/>
+                                    <img src={favImg} onClick={this.handleFavorite} alt="fav"/>
                                 </div>
-                                <div className="zlsl">
+                                <div className="scoringText">
                                     favorite (
-                                    <span id="favorite">806</span>
+                                    <span id="favorite"></span>
                                     )
                                 </div>
                             </div>
@@ -121,9 +121,9 @@ class Container extends Component {
                                 <div className="tb">
                                     <img src={goodImg}  alt="good"/>
                                 </div>
-                                <div className="zlsl">
+                                <div className="scoringText">
                                     good (
-                                    <span id="good">806</span>
+                                    <span id="good"></span>
                                     )
                                 </div>
                             </div>
@@ -131,9 +131,9 @@ class Container extends Component {
                                 <div className="tb">
                                     <img src={badImg}  alt="bad"/>
                                 </div>
-                                <div className="zlsl">
+                                <div className="scoringText">
                                     bad (
-                                    <span id="bad">806</span>
+                                    <span id="bad"></span>
                                     )
                                 </div>
                             </div>
@@ -215,7 +215,7 @@ function updateComponent(response) {
         category.innerHTML = 'category: ' + response.category;
         location.innerHTML = 'location: ' + response.location;
 
-        let statusStr = 'status: ' + (response.is_closed? 'closed' : 'open');
+        let statusStr = 'status: ' + (response.is_closed ? 'closed' : 'open');
         status.innerHTML = statusStr;
     }
 }
