@@ -14,7 +14,17 @@ class Profile extends Component {
     }
     componentDidMount = async() => {
         const userToken = getUserInfo().token;
-        const userInfo = await fetch('/api/getUserProfile?token=' + userToken);
+        // const userInfo = await fetch('/api/getUserProfile?token=' + userToken);
+        const userInfo = await fetch('/api/getUserProfile', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },            
+            body: JSON.stringify({
+                userToken: userToken,
+            })
+        })
         const body = await userInfo.json();
         console.log(body);
         this.setState({

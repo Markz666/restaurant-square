@@ -26,10 +26,6 @@ app.use(bodyParser.json());
 //     next();
 // });
 
-app.get('/api/hello', (req, res) => {
-    res.send({ express: 'Hello From Express' });
-  });
-
 app.get('/api/getRestaurantInfo', (req, res) => {
     console.log("-------------/api/getRestaurantInfo-------------");
     restaurantCache.getRestaurant(req.query.id, function(restaurant) {
@@ -136,9 +132,9 @@ app.get('/api/getRestaurants', (req, res) => {
     });
 });
 
-app.get('/api/getUserProfile', async (req, res) => {
+app.post('/api/getUserProfile', async (req, res) => {
     console.log('-------------fetching user profile-----------');
-    const fullToken = req.query.token;
+    const fullToken = req.body.userToken;
     const userInfo = token.decodeToken(fullToken);
     const userName = userInfo.payload.data.userName;
     const user = await usersAPI.getUserByUsername(userName);
