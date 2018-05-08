@@ -25,6 +25,9 @@ class Profile extends Component {
                 userToken: userToken,
             })
         })
+        if (!userInfo) {
+            return <h1>Cannot load the user's profile</h1>;
+        }
         const body = await userInfo.json();
         console.log(body.favorites);
         let favorites = document.getElementById('fav');
