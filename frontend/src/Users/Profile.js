@@ -26,12 +26,16 @@ class Profile extends Component {
             })
         })
         const body = await userInfo.json();
-        console.log(body);
+        console.log(body.favorites);
+        let favorites = document.getElementById('fav');
+        for (let i = 0; i < body.favorites.length; i++) {
+            favorites.innerHTML += body.favorites[i];
+        }
         this.setState({
             userName: body.userName,
             email: body.email,
             phone: body.phone,
-            favorites: body.favorites,
+            // favorites: body.favorites,
             comments: body.comments
         })
     }
@@ -46,7 +50,7 @@ class Profile extends Component {
                 <h3>Email: {this.state.email}</h3>
                 <h3>Phone number: {this.state.phone}</h3>
                 <h3>Comments: {this.state.comments}</h3>
-                <h3>Favorites: {this.state.favorites}</h3>           
+                <h3 id="fav">Favorites: {this.state.favorites}</h3>           
             </div>                   
         )
     }

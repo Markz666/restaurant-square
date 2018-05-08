@@ -144,9 +144,10 @@ app.post('/api/getUserProfile', async (req, res) => {
     for (let i = 0; i < user.favorites.length; i++) {
         promises[i] = restaurantCache.getRestaurant(user.favorites[i], (restaurant) => {
             if (i !== user.favorites.length - 1) {
-                favRestaurants.push(restaurant.title + ", ");
+                console.log(restaurant);
+                favRestaurants.push(`<a href="/display/?${restaurant.id}">${restaurant.title}</a>` + "<br>");
             } else {
-                favRestaurants.push(restaurant.title);
+                favRestaurants.push(`<a href="/display/?${restaurant.id}">${restaurant.title}</a>`);
             }
         }, (error) => {
             console.log(error);

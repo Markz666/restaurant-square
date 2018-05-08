@@ -40,6 +40,12 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+.restaurant_list_img:hover {
+  transform: scale(1.2);
+  -ms-transform: scale(1.2);
+  -webkit-transform: scale(1.2);
+  -moz-transform: scale(1.2);
+}
 
 .restaurant_list_img {
   transition: transform 0.25s ease;
