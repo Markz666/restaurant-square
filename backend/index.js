@@ -145,19 +145,23 @@ app.get('/api/getUserProfile', async (req, res) => {
     const userName = userInfo.payload.data.userName;
     const user = await usersAPI.getUserByUsername(userName);
     console.log(user);
-    for (fav of user.favorites) {
+    let favRestaurants = [];
+    for (let fav of user.favorites) {
         restaurantCache.getRestaurant(fav, (restaurant) => {
-            console.log(restaurant);
+            console.log(restaurant.title);
+            favRestaurants.push(restaurant.title);
+            console.log("this is the favrestaurants " + favRestaurants);
         }, (error) => {
             console.log(error);
         })
     }
+    console.log(favRestaurants);
     res.send({
         userName: user.user_name,
         email: user.email,
         phone: user.phone,
         comments: user.comments,
-        favorites: user.favorites
+        favorites: favRestaurants
     })
 })
 

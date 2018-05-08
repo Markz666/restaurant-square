@@ -43,7 +43,7 @@ addRestaurant = async (id, info, resolve, reject) => {
 }
 
 exports.getRestaurant = async (id, resolve, reject) => {
- 	await redisCache.getElement(id).then(resolve).catch(reject);
+ 	return await redisCache.getElement(id).then(resolve).catch(reject);
 }
 
 exports.removeRestaurant = async (id, resolve, reject) => {
