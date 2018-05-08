@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import {updateUserInfo, checkAuthenticated} from '../Auth/UserLoginInfo';
-import { Redirect } from "react-router-dom";
+import { updateUserInfo, checkAuthenticated } from '../Auth/UserLoginInfo';
 
 class Logout extends Component {
   componentWillMount() {

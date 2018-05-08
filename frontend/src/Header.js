@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { Link, BrowserRouter as Router } from 'react-router-dom';
-import { Nav, Navbar, NavItem, MenuItem } from "react-bootstrap";
+import { Nav, Navbar, NavItem } from "react-bootstrap";
 import { checkAuthenticated } from './Auth/UserLoginInfo';
 class Header extends Component {
   renderLinks() {

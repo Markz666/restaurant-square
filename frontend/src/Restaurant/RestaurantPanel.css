@@ -1,60 +1,44 @@
-
- .container>header {
-  align-items: center;
-  background:
-    url('http://prophoto.com.cy/wp-content/galleries/food/food-restaurant-photographer-cyprus-10.jpg')
-    no-repeat 50% 50%;
-  background-size: 100%;
-  display: flex;
-  height: 250px;
-}
-
-.container>header p {
-  border-left: 1px solid #FFFFFF;
-  font-weight: 400;
-  font-size: 2em;
-  line-height: 1em;
-  margin-left: 220px;
-  padding-left: 5px;
-}
-
-.container>header span {
-  color: #FBAF41;
-}
-
-.restaurant_img_container{
+.restaurant_img_container {
     float: left;
     width: 40%;
     height: 1000px;
-    background-color: white;
+
 }
 
-.restaurant_content_container{
+.restaurant_content_container {
     float: left;
     width: 60%;
     height: 1000px;
-    background-color: white;
+    padding-left: 120px;
 }
 
-#restaurant_img{
+#restaurant_img {
     width: 100%;
-    height: 600px;
-    background-image:url('http://prophoto.com.cy/wp-content/galleries/food/food-restaurant-photographer-cyprus-10.jpg');
+    height: 500px;
 }
 
-.Review{
-   text-align: center;
+#hotTitle {
+    padding-right: 6px;
 }
 
-.content{ 
-   float: left;
-   text-align: left;
-   color: black;
-   font-size: 14px;
-   
+#levelTitle {
+    padding-left: 55px;
+    padding-right: 6px;
 }
 
-.name{
+.Review {
+    text-align: center;
+}
+
+.content { 
+    float: left;
+    text-align: left;
+    color: black;
+    font-size: 14px;
+    
+}
+
+.name {
     float: left;
     text-align: left;
     color: black;
@@ -68,7 +52,7 @@
     padding-top: 3px;
 }
 
-.zlsl {
+.scoringText {
     float: left;
     text-align: left;
     line-height: 42px;
@@ -76,20 +60,12 @@
     color: black;
 }
 
-.clickAction{
-  cursor: pointer;
+.clickAction {
+    cursor: pointer;
 }
 
-table{
-  clear:both;
-}
-
-#renqi_s{
-  width:100%;
-}
-
-#pingfen_s{
-  width:50%;
+table {
+    clear:both;
 }
 
 .width-xs {
@@ -106,21 +82,10 @@ table{
     background: #0ec610;
     height: 1.4em;
     text-align: center;
-    padding: .5px;
-    display: block;
-    color: #fff;
-    font-weight: 700;
-    font-size: 8px;
-    width: 0%;
     color: gray;
-    border-top-right-radius: 3px;
-    border-bottom-right-radius: 3px;
-    height: 1.3em;
-    font-size: 12px;
     float:left;
+    width: 0%;
 }
-
-
 
 .title {
     display: table-cell;
@@ -129,11 +94,9 @@ table{
     float:left;
 }
 
-#bbxi{
-  width:400px; 
-  height:200px;
-  float: left;
-  text-align: left;
-  color: black;
+#bbxi {
+    width:400px; 
+    height:200px;
+    float: left;
+    text-align: left;
 }
-

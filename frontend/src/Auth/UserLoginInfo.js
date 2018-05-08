@@ -12,21 +12,21 @@ const store = createStoreWithMiddleware(reducers);
 //
 ///////////////////////////
 export function updateUserInfo(data, authenticated) {
-	if (authenticated){
-		store.dispatch({type:"AUTH_USER"});
+	if (authenticated) {
+		store.dispatch({type: "AUTH_USER"});
 
 		let userStr = JSON.stringify(data);
 		localStorage.setItem("user", userStr);
 	}
 	else {
-		store.dispatch({type:"UNAUTH_USER"});
+		store.dispatch({type: "UNAUTH_USER"});
 		localStorage.clear();
 	}
 }
 
 export function checkAuthenticated(data) {
 	let state = store.getState();
-	if (state.authenticated){
+	if (state.authenticated) {
 		return true;
 	}
 

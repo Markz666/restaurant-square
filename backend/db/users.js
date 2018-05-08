@@ -66,12 +66,12 @@ module.exports.removeComment = async (user_id, comment_id) => {
     return await this.getUserById(user_id);
 };
 
-module.exports.addFavorite = async (user_id, movie_id) => {
+module.exports.addFavorite = async (user_id, restaurant_id) => {
     if (typeof user_id !== "string")
         throw "Invalid user id";
 
-    if (typeof movie_id !== "string")
-        throw "Invalid movie id";
+    if (typeof restaurant_id !== "string")
+        throw "Invalid restaurant id";
 
     const userCollection = await users();
     const oldUser = await this.getUserById(user_id);
@@ -79,8 +79,8 @@ module.exports.addFavorite = async (user_id, movie_id) => {
     let updatedUserData = {
         favorites: oldUser.favorites
     };
-    if (!updatedUserData.favorites.includes(movie_id))
-        updatedUserData.favorites.push(movie_id);
+    if (!updatedUserData.favorites.includes(restaurant_id))
+        updatedUserData.favorites.push(restaurant_id);
 
     let updateCommand = {
         $set: updatedUserData
@@ -89,12 +89,21 @@ module.exports.addFavorite = async (user_id, movie_id) => {
     return await this.getUserById(user_id);
 };
 
-module.exports.removeFavorite = async (user_id, movie_id) => {
+module.exports.checkFavorite = async (user_id, restaurant_id) => {
+    const userCollection = await users();
+    const oldUser = await this.getUserById(user_id);
+    let updatedUserData = {
+        favorites: oldUser.favorites
+    };
+    return updatedUserData.favorites.includes(restaurant_id);
+}
+
+module.exports.removeFavorite = async (user_id, restaurant_id) => {
     const userCollection = await users();
     const oldUser = await this.getUserById(user_id);
 
     let updatedUserData = {
-        favorites: oldUser.favorites.filter(e => e !== movie_id)
+        favorites: oldUser.favorites.filter(e => e !== restaurant_id)
     };
 
     let updateCommand = {

@@ -6,6 +6,6 @@ import registerServiceWorker from './registerServiceWorker';
 
 const title = "Restaurant Square";
 
-ReactDOM.render(<App title = {title} author = "Tech Ninja" now = {new Date()}/>, document.getElementById('root'));
+ReactDOM.render(<App title = {title} author = "Tech Ninjas" now = {new Date()}/>, document.getElementById('root'));
 
 registerServiceWorker();

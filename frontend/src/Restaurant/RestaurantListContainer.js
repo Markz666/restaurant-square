@@ -4,7 +4,8 @@ class RestaurantListContainer extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            listOfMatchingRestaurants: []
+            listOfMatchingRestaurants: [],
+            foundResults: false
         };
         document.title = "Restaurant Result Page";
     }
@@ -12,7 +13,6 @@ class RestaurantListContainer extends Component {
     componentDidMount = async() => {
     	console.log("---------componentDidMount");
         const { match } = this.props;
-        console.log(match.params);
         const restaurant = match.params.restaurantInfo;
         const restaurantInfo = restaurant.split('&');
         const restaurantName = restaurantInfo[0].replace(':', '');
@@ -23,9 +23,17 @@ class RestaurantListContainer extends Component {
         if (restaurant) {
             const matches = await fetch('/api/getRestaurants?term=' + restaurantName + "&location=" + location);
             const body = await matches.json();
-            this.setState({
-                listOfMatchingRestaurants: body
-            }) 
+            if (body.message === 'invalid parameters') {
+                this.setState({
+                    listOfMatchingRestaurants: [],
+                    foundResults: false
+                })
+            } else {
+                this.setState({
+                    listOfMatchingRestaurants: body,
+                    foundResults: true
+                }) 
+            }
         }
     };
     isEmpty(obj) {
@@ -42,13 +50,19 @@ class RestaurantListContainer extends Component {
         }
  
         const restaurants = this.state.listOfMatchingRestaurants;
-        if (this.isEmpty(restaurants)) {
-            return <h1>Restaurant Not Found</h1>
-        }
+        // if (this.isEmpty(restaurants)) {
+        //     return <h1>Loading...</h1>
+        // }
         if (restaurants) {
-            return <RestaurantList restaurantList = {restaurants} />;
-        } else {
-            return <h1>Loading......</h1>;
+            if (this.state.foundResults === true) {
+                return <RestaurantList restaurantList = {restaurants} />;
+            } else {
+                return (
+                <div>
+                    <h1>Loading...</h1> 
+                    <p>If the loading time is too long, you may checkout another <a href='/searchPage'>search term</a></p>
+                </div>);
+            }
         }
     }
 }

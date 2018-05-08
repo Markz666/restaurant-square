@@ -6,29 +6,21 @@ exports.storeRestaurants = async (data) => {
 		let resObj = translateRestaurantData(data[i]);
 		await addRestaurant(data[i].id, resObj, function(res) {
 			successCount ++;
-			console.log("insert restaurant " + data[i].name + " into redis cache");
-			console.log(res);
-			return;
+			//console.log("insert restaurant " + data[i].name + " into redis cache");
 		}, function(err){
 			console.log("can not insert restaurant " + data[i].name + " into redis cache" + err);
 		});
-
-
 	}
-
 	console.log("cache " + data.length + " restaurants but only " + successCount + " works");
 }
 
-translateRestaurantData = function(data){
+translateRestaurantData = function(data) {
 	let location = data.location.address1 + ", " + data.location.city + ", " + data.location.state + ", " + data.location.country + ", " + data.location.zip_code;
 	let category = "";
 	for (let k = 0; k < data.categories.length; ++k) {
 		category = category + data.categories[k].title + " ";
 	}
 
-	console.log("------is_closed--------");
-	console.log(data.is_closed);
-	console.log(typeof(data.is_closed));
 	return {
 		id:data.id, 
 		src: data.image_url, 
@@ -51,7 +43,7 @@ addRestaurant = async (id, info, resolve, reject) => {
 }
 
 exports.getRestaurant = async (id, resolve, reject) => {
- 	await redisCache.getElement(id).then(resolve).catch(reject);
+ 	return await redisCache.getElement(id).then(resolve).catch(reject);
 }
 
 exports.removeRestaurant = async (id, resolve, reject) => {

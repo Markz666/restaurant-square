@@ -1,14 +1,7 @@
 import React, { Component } from 'react';
 import "./App.css";
 import {Helmet} from 'react-helmet';
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-  NavLink,
-  Redirect
-} from "react-router-dom";
-import { Grid, Row, Nav, Navbar, NavItem } from "react-bootstrap";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Home from "./Home";
 import NotFound from "./NotFound";
 import Signup from './Users/Signup';
@@ -28,7 +21,6 @@ class App extends Component {
     super(props);
   }
   state = {
-    response: '',
     restaurant: '',
     location: ''
   };
@@ -87,7 +79,6 @@ class App extends Component {
               <style>{'body { background-color: #E3DFDB; }'}</style>
           </Helmet>
         </div>
-
       </div>
   
     );
