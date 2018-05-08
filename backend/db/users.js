@@ -89,6 +89,15 @@ module.exports.addFavorite = async (user_id, restaurant_id) => {
     return await this.getUserById(user_id);
 };
 
+module.exports.checkFavorite = async (user_id, restaurant_id) => {
+    const userCollection = await users();
+    const oldUser = await this.getUserById(user_id);
+    let updatedUserData = {
+        favorites: oldUser.favorites
+    };
+    return updatedUserData.favorites.includes(restaurant_id);
+}
+
 module.exports.removeFavorite = async (user_id, restaurant_id) => {
     const userCollection = await users();
     const oldUser = await this.getUserById(user_id);

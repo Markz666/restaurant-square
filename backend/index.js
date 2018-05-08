@@ -65,6 +65,18 @@ app.get('/api/getRestaurantsList', (req, res) => {
     });
 });
 
+app.post('/api/check_fav_status', async (req, res) => {
+    const fullToken = req.body.token;
+    const userInfo = token.decodeToken(fullToken);
+    const userName = userInfo.payload.data.userName;
+    const user = await usersAPI.getUserByUsername(userName);
+    const user_id = user._id;
+    const restaurant_id = req.body.restaurant_id;
+    const result = await usersAPI.checkFavorite(user_id, restaurant_id);
+    console.log(result);
+    res.sendStatus(result ? 201 : 204);
+})
+
 app.post('/api/add_to_fav', async (req, res) => {
     console.log("------------------add to fav---------------");
     const fullToken = req.body.token;
@@ -83,14 +95,17 @@ app.post('/api/add_to_fav', async (req, res) => {
     }
 });
 
-app.delete('/api/add_to_fav', async (req, res) => {
-    const fullToken = req.query.token;
+app.delete('/api/remove_fav', async (req, res) => {
+    console.log("------------------remove fav---------------");
+    const fullToken = req.body.token;
     const userInfo = token.decodeToken(fullToken);
-    const user_id = userInfo.user_id;
-    const item_id = req.body.favorite;
-
+    const userName = userInfo.payload.data.userName;
+    const user = await usersAPI.getUserByUsername(userName);
+    const user_id = user._id;
+    const restaurant_id = req.body.restaurant_id;
     try {
-        await usersAPI.removeFavorite(user_id, item_id);
+        await usersAPI.removeFavorite(user_id, restaurant_id);
+        console.log("Favorite remove success!")
         res.send({"result": "SUCCESS"});
     } catch (e) {
         res.send({"result": "failed"});

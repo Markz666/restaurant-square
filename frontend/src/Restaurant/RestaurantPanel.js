@@ -169,15 +169,15 @@ class Container extends Component {
                         <table ></table>
                         <span id="status" className="content"></span>
                         <table ></table>
-                        <span id="comment" className="content">recent comment:</span>
+                        <span id="comment" className="content">Recent comments:</span>
                         <table ></table>
-                        <span id="comment1" className="content">haohaohaohaohao    09/07/2016</span>
+                        <span id="comment1" className="content">Tremendous    03/07/2018</span>
                         <table ></table>
-                        <span id="comment2" className="content">asdasdasdqwdw    09/07/2016</span>
+                        <span id="comment2" className="content">Awesome    02/07/2018</span>
                         <table ></table>
-                        <span id="comment3" className="content">AAAAAAAAAAAAAAAA    09/07/2016</span>
+                        <span id="comment3" className="content">Perfect    09/07/2017</span>
                         <table ></table>
-                        <textarea defaultValue="please enter your comment" id="bbxi" name="bbxi" col="100" rows="8" required></textarea>
+                        <textarea placeholder="please enter your comment" id="bbxi" name="bbxi" required></textarea>
                         <table ></table>
                         <ContactForm />
                         <table ></table>
@@ -236,10 +236,10 @@ function updateComponent(response) {
         favorite.innerHTML = response.favorite;
         good.innerHTML = response.good;
         bad.innerHTML = response.bad;
-        category.innerHTML = 'category: ' + response.category;
-        location.innerHTML = 'location: ' + response.location;
+        category.innerHTML = 'Category: ' + response.category;
+        location.innerHTML = 'Location: ' + response.location;
 
-        let statusStr = 'status: ' + (response.is_closed ? 'closed' : 'open');
+        let statusStr = 'Status: ' + (response.is_closed ? 'closed' : 'open');  
         status.innerHTML = statusStr;
     }
 }
