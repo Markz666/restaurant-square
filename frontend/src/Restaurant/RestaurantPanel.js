@@ -164,7 +164,7 @@ class ContactForm extends Component {
                     <table ></table>
                     <div id="commentCmd">
                         <input id="choosefile" type="file" accept="image/x-png, image/jpeg" multiple="" onChange={(e) => this.handleChange(e.target.files)}/>
-                        <button onClick={this.sendComment.bind(this)} id="comment" type="button">Comment</button>
+                        <button onClick={this.sendComment.bind(this)} id="commentBtn" type="button">Comment</button>
                     </div>
                 </div>
             )

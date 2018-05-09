@@ -237,7 +237,8 @@ app.post('/api/signup', async (req, res) => {
         let hashed_password = await bcrypt.hash(req.body.password1, saltRounds);
         await usersAPI.addUser(req.body.userName, hashed_password, req.body.email, req.body.phone);
         console.log("Create user success!");
-        res.sendStatus(200);
+        let tokenCode = token.createToken(req.body);
+        res.send({status: 'sign up success', retCode: tokenCode});
     } catch (e) {
         const user = await usersAPI.getUserByUsername(req.body.userName);
         if (user) {
