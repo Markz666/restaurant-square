@@ -60,7 +60,7 @@ class RestaurantListContainer extends Component {
                 return (
                 <div>
                     <h1>Loading...</h1> 
-                    <p>If the loading time is too long, you may checkout another <a href='/searchPage'>search term</a></p>
+                    <p>If the loading time is too long, you may checkout another <a href='/searchPage'>search term</a> or check your internet connection</p>
                 </div>);
             }
         }

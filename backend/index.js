@@ -11,7 +11,11 @@ const usersAPI = require("./db/users.js");
 const token = require("./Auth/token.js");
 const restaurantCache = require("./cache/RestaurantCache.js");
 const request = require('request');
+const fs = require('fs');
+var base64Img = require('base64-img');
+const imageCache = require("./cache/ImageCache.js"); 
 
+app.use(express.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(session({
     secret: 'keyboard cat',
@@ -26,10 +30,6 @@ app.use(bodyParser.json());
 //     next();
 // });
 
-app.get('/api/hello', (req, res) => {
-    res.send({ express: 'Hello From Express' });
-  });
-
 app.get('/api/getRestaurantInfo', (req, res) => {
     console.log("-------------/api/getRestaurantInfo-------------");
     restaurantCache.getRestaurant(req.query.id, function(restaurant) {
@@ -42,6 +42,45 @@ app.get('/api/getRestaurantInfo', (req, res) => {
     }, function(err) {
         res.send("cannot found the restaurant by id");
     });
+});
+
+app.post('/api/uploadComment', (req, res) => {
+    console.log("-------------/api/upload-------------");
+    console.log(req.body);
+
+    const fullToken = req.body.token;
+    const userInfo = token.decodeToken(fullToken);
+    const userName = userInfo.payload.data.userName;
+
+    if (req.body.imgData == ''){
+        restaurantCache.addComment(req.body.resId, userName, req.body.comment, req.body.imgData, function(result){
+            res.send(result);
+        }, function(err){
+            res.send({status:200});
+        });
+    }
+    else{
+        let imgData = req.body.imgData;
+        let base64Data = imgData.replace(/^data:image\/\w+;base64,/, "");
+        let buf = new Buffer(base64Data, 'base64');
+        fs.writeFileSync('old.png', buf);
+
+        im.resize({
+            srcData: fs.readFileSync('old.png', 'binary'),
+            height:400,
+            width: 400
+        }, (err, stdout, stderr)=>{
+            if (err) throw err;
+            fs.writeFileSync('new.png', stdout, 'binary');
+            
+            let img = base64Img.base64Sync('new.png');
+            restaurantCache.addComment(req.body.resId, userName, req.body.comment, img, function(result){
+                res.send(result);
+            }, function(err){
+                res.send({status:200});
+            });
+        });
+    }
 });
 
 app.get('/api/getRestaurantsList', (req, res) => {
@@ -136,9 +175,9 @@ app.get('/api/getRestaurants', (req, res) => {
     });
 });
 
-app.get('/api/getUserProfile', async (req, res) => {
+app.post('/api/getUserProfile', async (req, res) => {
     console.log('-------------fetching user profile-----------');
-    const fullToken = req.query.token;
+    const fullToken = req.body.userToken;
     const userInfo = token.decodeToken(fullToken);
     const userName = userInfo.payload.data.userName;
     const user = await usersAPI.getUserByUsername(userName);
@@ -148,9 +187,10 @@ app.get('/api/getUserProfile', async (req, res) => {
     for (let i = 0; i < user.favorites.length; i++) {
         promises[i] = restaurantCache.getRestaurant(user.favorites[i], (restaurant) => {
             if (i !== user.favorites.length - 1) {
-                favRestaurants.push(restaurant.title + ", ");
+                console.log(restaurant);
+                favRestaurants.push(`<a href="/display/?${restaurant.id}">${restaurant.title}</a>` + "<br>");
             } else {
-                favRestaurants.push(restaurant.title);
+                favRestaurants.push(`<a href="/display/?${restaurant.id}">${restaurant.title}</a>`);
             }
         }, (error) => {
             console.log(error);
