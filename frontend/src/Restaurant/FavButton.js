@@ -60,7 +60,7 @@ class FavButton extends Component {
                 })
             })
             .then((response) => {
-                notify.show('Favorite success!', "success", 2000);
+                notify.show('Favorite success!', "success", 1200);
             }) 
             .catch(error => {
                 console.log(error);
@@ -79,7 +79,7 @@ class FavButton extends Component {
             })
             .then((response) => {
                 console.log(response.json());
-                notify.show('Unfavorite succuess!', "success", 2000);
+                notify.show('Unfavorite succuess!', "success", 1200);
             }) 
             .catch(error => {
                 console.log(error);

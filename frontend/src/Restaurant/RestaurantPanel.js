@@ -8,7 +8,7 @@ import { Redirect } from 'react-router-dom';
 import FavButton from './FavButton';
 import CommentList from "./CommentList";
 
-class ContactForm extends React.Component {
+class ContactForm extends Component {
     constructor(props) {
 　　　　super(props);
 　　　　this.state = {
@@ -18,7 +18,7 @@ class ContactForm extends React.Component {
 　　　　};
     }
 
-    handleChange(files){      
+    handleChange(files) {      
         let file = files[0];
         let ContactForm = this;
         console.log(file);
@@ -40,7 +40,7 @@ class ContactForm extends React.Component {
         this.setState({comment: e.target.value});
     }
 
-    clearComment(){
+    clearComment() {
         const choosefile = document.getElementById("choosefile");
         const commentText = document.getElementById("commentText");
 
@@ -82,12 +82,10 @@ class ContactForm extends React.Component {
             	let comments = JSON.parse(result.comments);
                 ContactForm.setState({comments:ContactForm.object2Array(comments)});
             })
-
             this.clearComment();
         }) 
         .catch(error => {
             alert("add comment failed");
-
             this.clearComment();
         })
     }
@@ -105,7 +103,6 @@ class ContactForm extends React.Component {
         console.log(response);
 	    if (img) {
 	        const title = document.getElementById("title");
-	        //const favorite = document.getElementById("favorite");
 	        const hot = document.getElementById("hot_s");
 	        const rating = document.getElementById("rating_s");
 	        const good = document.getElementById("good");
@@ -119,13 +116,12 @@ class ContactForm extends React.Component {
 	        rating.style.width = response.rating / 5 * 100 + '%';
 	        img.src = response.src;
 	        title.innerHTML = response.title;
-	        //favorite.innerHTML = response.favorite;
 	        good.innerHTML = response.good;
 	        bad.innerHTML = response.bad;
-	        category.innerHTML = 'Category: ' + response.category;
-	        location.innerHTML = 'Location: ' + response.location;
+	        category.innerHTML = '<b>Category: </b>' + response.category;
+	        location.innerHTML = '<b>Location: </b>' + response.location;
 
-	        let statusStr = 'Status: ' + (response.is_closed ? 'closed' : 'open');  
+	        let statusStr = '<b>Status: </b>' + (response.is_closed ? 'closed' : 'open');  
 	        status.innerHTML = statusStr;
 
 	        let comments = JSON.parse(response.comments);
@@ -133,12 +129,12 @@ class ContactForm extends React.Component {
 	    }
 	}
 
-	object2Array(obj){
+	object2Array(obj) {
 		let arr = Object.keys(obj).map(key=> obj[key]);
 		return arr;
 	}
 
-	async init(){
+	async init() {
 		const id = getRestaurantId();
     	await this.updatePage(id);
 	}
@@ -149,12 +145,12 @@ class ContactForm extends React.Component {
 
     render() {
     	let commentsCom;
-        if (this.state && this.state.comments){
+        if (this.state && this.state.comments) {
         	//console.log("show comment list:" + this.state.comments);
     		commentsCom = (
     			<CommentList comments = {this.state.comments}/>
     		)
-    	}else{
+    	} else {
     		commentsCom = (
     			<h1><p>Loading...</p></h1> 
     		)
