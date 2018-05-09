@@ -4,12 +4,30 @@ exports.storeRestaurants = async (data) => {
 	let successCount = 0;
 	for (let i = 0; i < data.length; ++i) {
 		let resObj = translateRestaurantData(data[i]);
-		await exports.addRestaurant(data[i].id, resObj, function(res) {
-			successCount ++;
-			//console.log("insert restaurant " + data[i].name + " into redis cache");
+
+		exports.getRestaurant(data[i].id,  function(result){
+			result.is_closed = resObj.is_closed;
+			result.category = resObj.category;
+			result.location = resObj.location;
+			result.rating = resObj.rating;
+			result.title = resObj.title;
+			result.src = resObj.src;
+			result.phone = resObj.phone;
+
+			exports.addRestaurant(data[i].id, result, function(res) {
+				successCount ++;
+				//console.log("insert restaurant " + data[i].name + " into redis cache");
+			}, function(err){
+				console.log("can not insert restaurant " + data[i].name + " into redis cache" + err);
+			});
 		}, function(err){
-			console.log("can not insert restaurant " + data[i].name + " into redis cache" + err);
-		});
+			exports.addRestaurant(data[i].id, resObj, function(res) {
+				successCount ++;
+				//console.log("insert restaurant " + data[i].name + " into redis cache");
+			}, function(err){
+				console.log("can not insert restaurant " + data[i].name + " into redis cache" + err);
+			});
+		})
 	}
 	console.log("cache " + data.length + " restaurants but only " + successCount + " works");
 }
@@ -67,6 +85,7 @@ exports.addComment = async(restaurant_id, username, comment, img, resolve, rejec
 			img: img,
 			date: CurentTime(),
 		};
+
 
 		result.comments = JSON.stringify(commentObj);
 		exports.addRestaurant(restaurant_id, result, resolve, reject);
