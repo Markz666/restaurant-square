@@ -15,7 +15,6 @@ const fs = require('fs');
 var base64Img = require('base64-img');
 const imageCache = require("./cache/ImageCache.js"); 
 
-app.use(express.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(session({
     secret: 'keyboard cat',
@@ -46,20 +45,21 @@ app.get('/api/getRestaurantInfo', (req, res) => {
 
 app.post('/api/uploadComment', (req, res) => {
     console.log("-------------/api/upload-------------");
-    console.log(req.body);
+    console.log(req.body.name);
+    imageCache.getStoredImage(req.body.name, function(result){
+    	let img = result;
+        console.log(req.body.name + " already exists");
 
-    const fullToken = req.body.token;
-    const userInfo = token.decodeToken(fullToken);
-    const userName = userInfo.payload.data.userName;
-
-    if (req.body.imgData == ''){
+        const fullToken = req.body.token;
+    	const userInfo = token.decodeToken(fullToken);
+    	const userName = userInfo.payload.data.userName;
         restaurantCache.addComment(req.body.resId, userName, req.body.comment, req.body.imgData, function(result){
-            res.send(result);
-        }, function(err){
-            res.send({status:200});
+        	res.send(result);
+        	console.log(result);
+        }, function(err) {
+        	res.send({status:200});
         });
-    }
-    else{
+    }, function(err) {
         let imgData = req.body.imgData;
         let base64Data = imgData.replace(/^data:image\/\w+;base64,/, "");
         let buf = new Buffer(base64Data, 'base64');
@@ -67,20 +67,25 @@ app.post('/api/uploadComment', (req, res) => {
 
         im.resize({
             srcData: fs.readFileSync('old.png', 'binary'),
-            height:400,
-            width: 400
+            height:50,
+            width: 50
         }, (err, stdout, stderr)=>{
             if (err) throw err;
+            console.log("------------");
             fs.writeFileSync('new.png', stdout, 'binary');
             
             let img = base64Img.base64Sync('new.png');
-            restaurantCache.addComment(req.body.resId, userName, req.body.comment, img, function(result){
-                res.send(result);
-            }, function(err){
-                res.send({status:200});
-            });
+            
+            const fullToken = req.body.token;
+	    	const userInfo = token.decodeToken(fullToken);
+	    	const userName = userInfo.payload.data.userName;
+	        restaurantCache.addComment(req.body.resId, userName, req.body.comment, req.body.imgData, function(result){
+	        	res.send(result);
+	        }, (err) => {
+	        	res.send({status:200});
+	        });
         });
-    }
+    });
 });
 
 app.get('/api/getRestaurantsList', (req, res) => {
@@ -124,11 +129,10 @@ app.post('/api/add_to_fav', async (req, res) => {
     const user = await usersAPI.getUserByUsername(userName);
     const user_id = user._id;
     const restaurant_id = req.body.restaurant_id;
-
     try {
         await usersAPI.addFavorite(user_id, restaurant_id);
         console.log("Add to favorite success!");
-        res.send({"result": "SUCCESS"});
+        res.send({"result": "Favortite success!"});
     } catch (e) {
         res.send({"result": "failed"});
     }
@@ -145,7 +149,7 @@ app.delete('/api/remove_fav', async (req, res) => {
     try {
         await usersAPI.removeFavorite(user_id, restaurant_id);
         console.log("Favorite remove success!")
-        res.send({"result": "SUCCESS"});
+        res.send({"result": "Remove favorite SUCCESS"});
     } catch (e) {
         res.send({"result": "failed"});
     }
