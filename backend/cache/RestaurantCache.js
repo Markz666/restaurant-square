@@ -45,8 +45,8 @@ translateRestaurantData = function(data) {
 		title: data.name, 
 		hot: 0,  
 		favorite: 0, 
-		good: 0, 
-		bad: 0, 
+		good: JSON.stringify({}), 
+		bad: JSON.stringify({}), 
 		category: category, 
 		location: location, 
 		is_closed: data.is_closed, 
@@ -72,6 +72,75 @@ exports.removeRestaurant = async (id, resolve, reject) => {
 	   reject(new Error("no found id " + id));
 	});
 }
+
+exports.addGood = async(restaurant_id, username, resolve, reject) => {
+	exports.getRestaurant(restaurant_id, function(result){
+		let newGoodList = {};
+		if (result.good && result.good != "0"){
+			newGoodList = JSON.parse(result.good);
+		}
+
+		newGoodList[username] = 1;
+		result.good = JSON.stringify(newGoodList);
+		console.log(result);
+		exports.addRestaurant(restaurant_id, result, resolve, reject);
+	}, (err) => {
+		console.log(err);
+		reject(err);
+	});
+}
+
+exports.removeGood = async(restaurant_id, username, resolve, reject) => {
+	exports.getRestaurant(restaurant_id, function(result){
+		let newGoodList = {};
+		if (result.good && result.good != "0"){
+			newGoodList = JSON.parse(result.good);
+		}
+
+		delete newGoodList[username];
+		result.good = JSON.stringify(newGoodList);
+		console.log(result);
+		exports.addRestaurant(restaurant_id, result, resolve, reject);
+	}, (err) => {
+		console.log(err);
+		reject(err);
+	});
+}
+
+exports.removeBad = async(restaurant_id, username, resolve, reject) => {
+	exports.getRestaurant(restaurant_id, function(result){
+		let newBadList = {};
+		if (result.bad && result.bad != "0"){
+			newBadList = JSON.parse(result.bad);
+		}
+
+		delete newBadList[username];
+		result.bad = JSON.stringify(newBadList);
+		console.log(result);
+		exports.addRestaurant(restaurant_id, result, resolve, reject);
+	}, (err) => {
+		console.log(err);
+		reject(err);
+	});
+}
+
+exports.addBad = async(restaurant_id, username, resolve, reject) => {
+	exports.getRestaurant(restaurant_id, function(result){
+		let newBadList = {};
+		if (result.bad && result.bad != "0"){
+			newBadList = JSON.parse(result.bad);
+		}
+
+		newBadList[username] = 1;
+		result.bad = JSON.stringify(newBadList);
+		console.log(result);
+		exports.addRestaurant(restaurant_id, result, resolve, reject);
+	}, (err) => {
+		console.log(err);
+		reject(err);
+	});
+}
+
 
 exports.addComment = async(restaurant_id, username, comment, img, resolve, reject) => {
 	exports.getRestaurant(restaurant_id, function(result){

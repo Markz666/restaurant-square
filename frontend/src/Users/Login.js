@@ -44,15 +44,18 @@ class Login extends Component {
         })
         .then((response) => {
             const status = String(response.status);
+            const Login = this;
 
             if (status === '401') {
                 this.setState({redirect: 'Invalid username or password'});
                 updateUserInfo({}, false);
+
             } else {
                 this.setState({redirect: 'success'});
                 const func = response.json();
+
                 func.then(function(result) {
-                    updateUserInfo({token: result.retCode}, true);
+                    updateUserInfo({token: result.retCode, username: Login.state.userName}, true);
                 })
             }
         }) 

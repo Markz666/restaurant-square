@@ -109,6 +109,67 @@ app.get('/api/getRestaurantsList', (req, res) => {
     });
 });
 
+app.post('/api/add_to_good', (req, res) => {
+    console.log("----------------------add_to_good----------------------");
+    const fullToken = req.body.token;
+    const userInfo = token.decodeToken(fullToken);
+    const userName = userInfo.payload.data.userName;
+    const resId = req.body.resId;
+
+    restaurantCache.addGood(resId, userName, function(result){
+        res.send(result);
+        console.log(result);
+    }, function(err){
+        res.send(err);
+    });
+})
+
+app.post('/api/remove_good', (req, res) => {
+    console.log("----------------------remove_good----------------------");
+    const fullToken = req.body.token;
+    const userInfo = token.decodeToken(fullToken);
+    const userName = userInfo.payload.data.userName;
+    const resId = req.body.resId;
+
+    restaurantCache.removeGood(resId, userName, function(result){
+        res.send(result);
+        console.log(result);
+    }, function(err){
+        res.send(err);
+    })
+})
+
+app.post('/api/add_to_bad', (req, res) => {
+    console.log("----------------------add_to_bad----------------------");
+    const fullToken = req.body.token;
+    const userInfo = token.decodeToken(fullToken);
+    const userName = userInfo.payload.data.userName;
+    const resId = req.body.resId;
+
+    restaurantCache.addBad(resId, userName, function(result){
+        res.send(result);
+        console.log(result);
+    }, function(err){
+        res.send(err);
+    })
+})
+
+app.post('/api/remove_bad', (req, res) => {
+    console.log("----------------------remove_bad----------------------");
+    const fullToken = req.body.token;
+    const userInfo = token.decodeToken(fullToken);
+    const userName = userInfo.payload.data.userName;
+    const resId = req.body.resId;
+
+    restaurantCache.removeBad(resId, userName, function(result){
+        res.send(result);
+        console.log(result);
+    }, function(err){
+        res.send(err);
+    })
+})
+
+
 app.post('/api/check_fav_status', async (req, res) => {
     const fullToken = req.body.token;
     const userInfo = token.decodeToken(fullToken);
@@ -238,6 +299,7 @@ app.post('/api/signup', async (req, res) => {
         await usersAPI.addUser(req.body.userName, hashed_password, req.body.email, req.body.phone);
         console.log("Create user success!");
         let tokenCode = token.createToken(req.body);
+
         res.send({status: 'sign up success', retCode: tokenCode});
     } catch (e) {
         const user = await usersAPI.getUserByUsername(req.body.userName);

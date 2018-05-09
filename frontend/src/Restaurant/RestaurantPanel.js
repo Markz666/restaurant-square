@@ -3,6 +3,8 @@ import './RestaurantPanel.css';
 import favImg from '../img/fav.png';
 import goodImg from '../img/good.png';
 import badImg from '../img/bad.png';
+import goodDisableImg from '../img/good_disable.png';
+import badDisableImg from '../img/bad_disable.png';
 import { checkAuthenticated, getUserInfo } from '../Auth/UserLoginInfo';
 import { Redirect } from 'react-router-dom';
 import FavButton from './FavButton';
@@ -15,14 +17,16 @@ class ContactForm extends Component {
 　　　　this.state = {
 　　　　     uploadedFile: '',
             comment: '',
-            uploadedFileName: ''
+            uploadedFileName: '',
+            isGood: false,
+            isBad: false,
 　　　　};
     }
 
     handleChange(files) {      
         let file = files[0];
         let ContactForm = this;
-        console.log(file);
+        //console.log(file);
         if (window.FileReader && file) {    
             let reader = new FileReader();    
             reader.readAsDataURL(file);    
@@ -74,7 +78,6 @@ class ContactForm extends Component {
             body: JSON.stringify({comment: comment, imgData: file, name: name, token: getUserInfo().token, resId: resId}),
         })
         .then((response) => {
-            console.log("response:" + response);
             const func = response.json();
 
             let ContactForm = this;
@@ -88,59 +91,6 @@ class ContactForm extends Component {
             notify.show('Add comment failed, please try again!', "error", 1800);
             this.clearComment();
         })
-    }
-
-    async updatePage(imgID) {
-	    const response = await fetch('/api/getRestaurantInfo?id=' + imgID);
-	    const body = await response.json();
-
-	    if (response.status !== 200) throw Error(body.message);
-	    this.updateComponent(body);
-	}
-
-	updateComponent(response) {
-	    const img = document.getElementById("restaurant_img");
-        console.log(response);
-	    if (img) {
-	        const title = document.getElementById("title");
-	        const hot = document.getElementById("hot_s");
-	        const rating = document.getElementById("rating_s");
-	        const good = document.getElementById("good");
-	        
-	        const bad = document.getElementById("bad");
-	        const category = document.getElementById("category");
-	        const location = document.getElementById("location");
-	        const status = document.getElementById("status");
-
-	        hot.style.width = (response.favorite + response.good) / (response.favorite + response.good + response.bad) * 100 + '%';
-	        rating.style.width = response.rating / 5 * 100 + '%';
-	        img.src = response.src;
-	        title.innerHTML = response.title;
-	        good.innerHTML = response.good;
-	        bad.innerHTML = response.bad;
-	        category.innerHTML = '<b>Category: </b>' + response.category;
-	        location.innerHTML = '<b>Location: </b>' + response.location;
-
-	        let statusStr = '<b>Status: </b>' + (response.is_closed ? 'closed' : 'open');  
-	        status.innerHTML = statusStr;
-
-	        let comments = JSON.parse(response.comments);
-	        this.setState({comments:this.object2Array(comments)});
-	    }
-	}
-
-	object2Array(obj) {
-		let arr = Object.keys(obj).map(key=> obj[key]);
-		return arr;
-	}
-
-	async init() {
-		const id = getRestaurantId();
-    	await this.updatePage(id);
-	}
-
-    componentWillMount() {
-        this.init();
     }
 
     render() {
@@ -172,6 +122,173 @@ class ContactForm extends Component {
     }
 
 class Container extends Component {
+    onHitGoodBtn(){
+        let url = "";
+        if (this.state.isGood === true){
+            url = "/api/remove_good";
+        }else{
+            url = "/api/add_to_good";
+        }
+
+        fetch(url, {
+            method: 'post',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({token: getUserInfo().token, resId: getRestaurantId()}),
+        })
+        .then((response) => {
+            const func = response.json();
+
+            let Container = this;
+            func.then(function(result) {
+                //let obj = JSON.parse(result);
+                Container.updateGood(result.good);
+
+                if (Container.state.isGood)
+                    notify.show('Add good review success!', "success", 1200);
+                else
+                    notify.show('Remove good review success!', "success", 1200);
+            })
+        }) 
+        .catch(error => {
+            alert("add good failed");
+        })
+    }
+
+    onHitBadBtn(){
+        let url = "";
+        if (this.state.isBad === true){
+            url = "/api/remove_bad";
+        }else{
+            url = "/api/add_to_bad";
+        }
+
+        fetch(url, {
+            method: 'post',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({token: getUserInfo().token, resId: getRestaurantId()}),
+        })
+        .then((response) => {
+            const func = response.json();
+
+            let Container = this;
+            func.then(function(result) {
+                //console.log(result);
+                Container.updateBad(result.bad);
+
+                if (Container.state.isBad)
+                    notify.show('Add bad review success!', "success", 1200);
+                else
+                    notify.show('Remove bad review success!', "success", 1200);
+            })
+        }) 
+        .catch(error => {
+            alert("add bad failed");
+        })
+    }
+
+    async updatePage(imgID) {
+        const response = await fetch('/api/getRestaurantInfo?id=' + imgID);
+        const body = await response.json();
+
+        if (response.status !== 200) throw Error(body.message);
+        this.updateComponent(body);
+    }
+
+    updateComponent(response) {
+        const img = document.getElementById("restaurant_img");
+        //console.log(response);
+        if (img) {
+            const title = document.getElementById("title");
+            //const favorite = document.getElementById("favorite");
+            const hot = document.getElementById("hot_s");
+            const rating = document.getElementById("rating_s");
+            const category = document.getElementById("category");
+            const location = document.getElementById("location");
+            const status = document.getElementById("status");
+
+            
+            rating.style.width = response.rating / 5 * 100 + '%';
+            img.src = response.src;
+            title.innerHTML = response.title;
+            //favorite.innerHTML = response.favorite;
+            let goodNum = this.updateGood(response.good);
+            let badNum = this.updateBad(response.bad);
+            hot.style.width = (goodNum) / (goodNum + badNum) * 100 + '%';
+
+            category.innerHTML = 'Category: ' + response.category;
+            location.innerHTML = 'Location: ' + response.location;
+
+            let statusStr = 'Status: ' + (response.is_closed ? 'closed' : 'open');  
+            status.innerHTML = statusStr;
+
+            let comments = JSON.parse(response.comments);
+
+            this.refs.contactForm.setState({comments:this.object2Array(comments)});
+        }
+    }
+
+    updateGood(good){
+        const goodObj = JSON.parse(good);
+        const username = getUserInfo().username;
+        const goodComponent = document.getElementById("good");
+        const goodImgComponent = document.getElementById("goodImg");
+        goodComponent.innerHTML = this.getObjLength(goodObj);
+
+        if (goodObj.hasOwnProperty(username)){
+            this.setState({isGood: true});
+            goodImgComponent.src = goodImg;
+        }
+        else{
+            this.setState({isGood: false});
+            goodImgComponent.src = goodDisableImg;
+        }
+
+        return this.getObjLength(goodObj);
+    }
+
+    updateBad(bad){
+        const badObj = JSON.parse(bad);
+        const username = getUserInfo().username;
+        const badComponent = document.getElementById("bad");
+        const badImgComponent = document.getElementById("badImg");
+        badComponent.innerHTML = this.getObjLength(badObj);
+        if (badObj.hasOwnProperty(username)){
+            this.setState({isBad: true});
+            badImgComponent.src = badImg;
+        }
+        else{
+            this.setState({isBad: false});
+            badImgComponent.src = badDisableImg;
+        }
+
+        return this.getObjLength(badObj);
+    }
+
+    getObjLength(obj) {
+        let arr = Object.keys(obj);
+        let count = arr.length;
+        return count;
+    }
+
+    object2Array(obj){
+        let arr = Object.keys(obj).map(key=> obj[key]);
+        return arr;
+    }
+
+    async init(){
+        const id = getRestaurantId();
+        await this.updatePage(id);
+    }
+
+    componentWillMount() {
+        this.init();
+    }
 
     render() {
         if (!checkAuthenticated()) {
@@ -205,9 +322,9 @@ class Container extends Component {
                                     <FavButton/>
                                 </div>
                             </div>
-                            <div className="tbzl clickAction">
+                            <div className="tbzl clickAction" onClick={this.onHitGoodBtn.bind(this)}>
                                 <div className="tb">
-                                    <img src={goodImg}  alt="good"/>
+                                    <img id="goodImg" src={goodImg}  alt="good"/>
                                 </div>
                                 <div className="scoringText">
                                     good (
@@ -215,9 +332,9 @@ class Container extends Component {
                                     )
                                 </div>
                             </div>
-                            <div className="tbzl clickAction">
+                            <div className="tbzl clickAction" onClick={this.onHitBadBtn.bind(this)}>
                                 <div className="tb">
-                                    <img src={badImg}  alt="bad"/>
+                                    <img id="badImg" src={badImg}  alt="bad"/>
                                 </div>
                                 <div className="scoringText">
                                     bad (
@@ -235,7 +352,7 @@ class Container extends Component {
                         <table ></table>
                         <span id="comment" className="content">Recent comments:</span>
                         <table ></table>
-                        <ContactForm />
+                        <ContactForm ref="contactForm" />
                     </div>
                 </div>
             </div>

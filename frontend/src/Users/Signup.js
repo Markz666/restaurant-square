@@ -62,6 +62,7 @@ class Signup extends Component {
             })
             .then((response) => {
                 const status = String(response.status);
+
                 // console.log(status);
                 if (status === '400') {
                     this.setState({redirect: 'failed'});
@@ -71,7 +72,7 @@ class Signup extends Component {
 
                     const func = response.json();
                     func.then(function(result) {
-                        updateUserInfo({token: result.retCode}, true);
+                        updateUserInfo({token: result.retCode, username:userName}, true);
                     })
                 }
             }) 
