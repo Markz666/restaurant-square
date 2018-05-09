@@ -74,7 +74,7 @@ class ContactForm extends React.Component {
                     <table ></table>
                     <div id="commentCmd">
                         <input id="choosefile" type="file" accept="image/x-png, image/jpeg" id="files" multiple="" onChange={(e) => this.handleChange(e.target.files)}/>
-                        <button onClick={this.sendComment.bind(this)} id="comment" type="button">Comment</button>
+                        <button onClick={this.sendComment.bind(this)} id="commentBtn" type="button">Comment</button>
                     </div>
                 </div>
             )
@@ -209,10 +209,10 @@ function updateComponent(response) {
         title.innerHTML = response.title;
         good.innerHTML = response.good;
         bad.innerHTML = response.bad;
-        category.innerHTML = 'Category: ' + response.category;
-        location.innerHTML = 'Location: ' + response.location;
+        category.innerHTML = '<b>Category: </b>' + response.category;
+        location.innerHTML = '<b>Location: </b>' + response.location;
 
-        let statusStr = 'Status: ' + (response.is_closed ? 'closed' : 'open');  
+        let statusStr = '<b>Status: </b>' + (response.is_closed ? 'closed' : 'open');  
         status.innerHTML = statusStr;
     }
 }

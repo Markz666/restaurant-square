@@ -100,9 +100,23 @@ table {
 #commentCmd {
     padding-top: 30px;
     float: left;
-    margin-left:20px;
+}
+
+#statusText {
+    text-decoration: blue;
 }
 
 input[type=file] {
     display: inline;
+}
+#commentBtn {
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    margin-left: 57px;
+}
+
+#commentBtn:hover {
+    background-color: rgb(27, 78, 218); /* Green */
+    color: white;
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
 }
