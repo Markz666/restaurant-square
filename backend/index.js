@@ -15,6 +15,7 @@ const fs = require('fs');
 var base64Img = require('base64-img');
 const imageCache = require("./cache/ImageCache.js"); 
 
+app.use(bodyParser.json({limit: '10mb'}));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(session({
     secret: 'keyboard cat',

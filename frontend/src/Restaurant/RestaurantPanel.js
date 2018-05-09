@@ -102,7 +102,7 @@ class ContactForm extends Component {
     		)
     	} else {
     		commentsCom = (
-    			<h1><p>Loading...</p></h1> 
+    			<div></div> 
     		)
     	}
 
