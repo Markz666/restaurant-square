@@ -6,6 +6,7 @@ import badImg from '../img/bad.png';
 import { checkAuthenticated, getUserInfo } from '../Auth/UserLoginInfo';
 import { Redirect } from 'react-router-dom';
 import FavButton from './FavButton';
+import CommentList from "./CommentList";
 
 class ContactForm extends React.Component {
     constructor(props) {
@@ -17,10 +18,7 @@ class ContactForm extends React.Component {
 　　　　};
     }
 
-    handleChange(files){
-        console.log("------handle change");
-        console.log(files[0]);
-        
+    handleChange(files){      
         let file = files[0];
         let ContactForm = this;
         if (window.FileReader && file) {    
@@ -47,8 +45,9 @@ class ContactForm extends React.Component {
         let name = this.state.uploadedFileName;
         const resId = getRestaurantId();
         
-        if (comment == "" && file == "") {
+        if (comment === "" && file === ""){
             alert("please input valid comment");
+            return;
         }
 
         fetch('/api/uploadComment', {
@@ -60,20 +59,96 @@ class ContactForm extends React.Component {
             body: JSON.stringify({comment: comment, imgData: file, name: name, token: getUserInfo().token, resId: resId}),
         })
         .then((response) => {
+            console.log("response:" + response);
             console.log(response);
+            const func = response.json();
+
+            let ContactForm = this;
+            func.then(function(result) {
+            	let comments = JSON.parse(result.comments);
+                ContactForm.setState({comments:ContactForm.object2Array(comments)});
+            })
         }) 
         .catch(error => {
-            console.log(error);
+            alert("add comment failed");
         })
     }
 
+    async updatePage(imgID) {
+	    const response = await fetch('/api/getRestaurantInfo?id=' + imgID);
+	    const body = await response.json();
+
+	    if (response.status !== 200) throw Error(body.message);
+	    this.updateComponent(body);
+	}
+
+	updateComponent(response) {
+	    const img = document.getElementById("restaurant_img");
+        console.log(response);
+	    if (img) {
+	        const title = document.getElementById("title");
+	        //const favorite = document.getElementById("favorite");
+	        const hot = document.getElementById("hot_s");
+	        const rating = document.getElementById("rating_s");
+	        const good = document.getElementById("good");
+	        
+	        const bad = document.getElementById("bad");
+	        const category = document.getElementById("category");
+	        const location = document.getElementById("location");
+	        const status = document.getElementById("status");
+
+	        hot.style.width = (response.favorite + response.good) / (response.favorite + response.good + response.bad) * 100 + '%';
+	        rating.style.width = response.rating / 5 * 100 + '%';
+	        img.src = response.src;
+	        title.innerHTML = response.title;
+	        //favorite.innerHTML = response.favorite;
+	        good.innerHTML = response.good;
+	        bad.innerHTML = response.bad;
+	        category.innerHTML = 'Category: ' + response.category;
+	        location.innerHTML = 'Location: ' + response.location;
+
+	        let statusStr = 'Status: ' + (response.is_closed ? 'closed' : 'open');  
+	        status.innerHTML = statusStr;
+
+	        let comments = JSON.parse(response.comments);
+	        this.setState({comments:this.object2Array(comments)});
+	    }
+	}
+
+	object2Array(obj){
+		let arr = Object.keys(obj).map(key=> obj[key]);
+		return arr;
+	}
+
+	async init(){
+		const id = getRestaurantId();
+    	await this.updatePage(id);
+	}
+
+    componentWillMount() {
+        this.init();
+    }
+
     render() {
+    	let commentsCom;
+        if (this.state && this.state.comments){
+        	//console.log("show comment list:" + this.state.comments);
+    		commentsCom = (
+    			<CommentList comments = {this.state.comments}/>
+    		)
+    	}else{
+    		commentsCom = (
+    			<h1><p>Loading...</p></h1> 
+    		)
+    	}
+
 　　　　return (
                 <div> 
-                    <textarea placeholder="please enter your comment" id="commentText" value={this.state.comment} onChange={this.onChangeCommentText} required></textarea>
+                	{ commentsCom }
+                    <textarea placeholder="please enter your comment" id="commentText" value={this.state.comment} onChange={this.onChangeCommentText} name="bbxi" required></textarea>
                     <table ></table>
                     <div id="commentCmd">
-                        <input id="choosefile" type="file" accept="image/x-png, image/jpeg" id="files" multiple="" onChange={(e) => this.handleChange(e.target.files)}/>
+                        <input id="choosefile" type="file" accept="image/x-png, image/jpeg" multiple="" onChange={(e) => this.handleChange(e.target.files)}/>
                         <button onClick={this.sendComment.bind(this)} id="comment" type="button">Comment</button>
                     </div>
                 </div>
@@ -145,12 +220,6 @@ class Container extends Component {
                         <table ></table>
                         <span id="comment" className="content">Recent comments:</span>
                         <table ></table>
-                        <span id="comment1" className="content">Tremendous    03/07/2018</span>
-                        <table ></table>
-                        <span id="comment2" className="content">Awesome    02/07/2018</span>
-                        <table ></table>
-                        <span id="comment3" className="content">Perfect    09/07/2017</span>
-                        <table ></table>
                         <ContactForm />
                     </div>
                 </div>
@@ -162,23 +231,13 @@ class Container extends Component {
 
 
 class RestaurantPanel extends Component {
-    componentWillMount() {
-        init();
-    }
-
-  render() {
-    return (
-      <div className="RestaurantPanel">
-        <Container />
-      </div>
-    );
-  }
-}
-
-async function init() {
-    const id = getRestaurantId();
-    
-    await updatePage(id);
+  	render() {
+	    return (
+	      <div className="RestaurantPanel">
+	        <Container />
+	      </div>
+	    );
+  	}
 }
 
 function getRestaurantId() {
@@ -186,43 +245,6 @@ function getRestaurantId() {
     const urls = url.split("?");
     const id = urls[1];
     return id;
-}
-
-function updateComponent(response) {
-    const img = document.getElementById("restaurant_img");
-
-    if (img) {
-        const title = document.getElementById("title");
-        const hot = document.getElementById("hot_s");
-        const rating = document.getElementById("rating_s");
-        const good = document.getElementById("good");
-        
-        const bad = document.getElementById("bad");
-        const category = document.getElementById("category");
-        const location = document.getElementById("location");
-        const status = document.getElementById("status");
-        console.log(response.rating / 5.0 * 100 + "%");
-
-        hot.style.width = (response.favorite + response.good) / (response.favorite + response.good + response.bad) * 100 + '%';
-        rating.style.width = response.rating / 5 * 100 + '%';
-        img.src = response.src;
-        title.innerHTML = response.title;
-        good.innerHTML = response.good;
-        bad.innerHTML = response.bad;
-        category.innerHTML = 'Category: ' + response.category;
-        location.innerHTML = 'Location: ' + response.location;
-
-        let statusStr = 'Status: ' + (response.is_closed ? 'closed' : 'open');  
-        status.innerHTML = statusStr;
-    }
-}
-
-async function updatePage(imgID) {
-    const response = await fetch('/api/getRestaurantInfo?id=' + imgID);
-    const body = await response.json();
-
-    if (response.status !== 200) throw Error(body.message);
-    updateComponent(body);
 }
 
 export default RestaurantPanel;

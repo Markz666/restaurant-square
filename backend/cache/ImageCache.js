@@ -28,4 +28,3 @@ exports.getStoredImage = async (id, resolve, reject) => {
         //console.log("get image cache failed");
     });
 }
-

@@ -26,6 +26,12 @@
     padding-right: 6px;
 }
 
+
+#review {
+    margin-top: 10px;
+    float: left;
+}
+
 .content { 
     float: left;
     text-align: left;

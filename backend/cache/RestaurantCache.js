@@ -59,21 +59,58 @@ exports.addComment = async(restaurant_id, username, comment, img, resolve, rejec
 	exports.getRestaurant(restaurant_id, function(result){
 		let commentObj = {};
 		if (result.comments)
-			JSON.parse(result.comments);
+			commentObj = JSON.parse(result.comments);
 
-		
-		commentObj[commentObj.length] = {
+		commentObj[getObjLength(commentObj)] = {
 			username: username,
 			comment: comment,
 			img: img,
-			date: '',
+			date: CurentTime(),
 		};
 
 		result.comments = JSON.stringify(commentObj);
-		console.log(commentObj);
 		exports.addRestaurant(restaurant_id, result, resolve, reject);
 	}, function(err){
 		console.log(err);
 		reject(err);
 	})
 }
+
+function getObjLength(obj){
+    let arr = Object.keys(obj);
+    let count = arr.length;
+
+    return count;
+}
+
+function CurentTime()
+{ 
+    let now = new Date();
+   
+    let year = now.getFullYear();       //年
+    let month = now.getMonth() + 1;     //月
+    let day = now.getDate();            //日
+   
+    let hh = now.getHours();            //时
+    let mm = now.getMinutes();          //分
+   
+    let clock = year + "-";
+   
+    if(month < 10)
+        clock += "0";
+   
+    clock += month + "-";
+   
+    if(day < 10)
+        clock += "0";
+       
+    clock += day + " ";
+   
+    if(hh < 10)
+        clock += "0";
+       
+    clock += hh + ":";
+    if (mm < 10) clock += '0'; 
+    clock += mm; 
+    return(clock); 
+} 

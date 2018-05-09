@@ -15,6 +15,7 @@ const fs = require('fs');
 var base64Img = require('base64-img');
 const imageCache = require("./cache/ImageCache.js"); 
 
+app.use(express.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(session({
     secret: 'keyboard cat',
@@ -45,21 +46,20 @@ app.get('/api/getRestaurantInfo', (req, res) => {
 
 app.post('/api/uploadComment', (req, res) => {
     console.log("-------------/api/upload-------------");
-    console.log(req.body.name);
-    imageCache.getStoredImage(req.body.name, function(result){
-    	let img = result;
-        console.log(req.body.name + " already exists");
+    console.log(req.body);
 
-        const fullToken = req.body.token;
-    	const userInfo = token.decodeToken(fullToken);
-    	const userName = userInfo.payload.data.userName;
+    const fullToken = req.body.token;
+    const userInfo = token.decodeToken(fullToken);
+    const userName = userInfo.payload.data.userName;
+
+    if (req.body.imgData == ''){
         restaurantCache.addComment(req.body.resId, userName, req.body.comment, req.body.imgData, function(result){
-        	res.send(result);
-        	console.log(result);
+            res.send(result);
         }, function(err){
-        	res.send({status:200});
+            res.send({status:200});
         });
-    }, function(err){
+    }
+    else{
         let imgData = req.body.imgData;
         let base64Data = imgData.replace(/^data:image\/\w+;base64,/, "");
         let buf = new Buffer(base64Data, 'base64');
@@ -67,25 +67,20 @@ app.post('/api/uploadComment', (req, res) => {
 
         im.resize({
             srcData: fs.readFileSync('old.png', 'binary'),
-            height:50,
-            width: 50
+            height:400,
+            width: 400
         }, (err, stdout, stderr)=>{
             if (err) throw err;
-            console.log("------------");
             fs.writeFileSync('new.png', stdout, 'binary');
             
             let img = base64Img.base64Sync('new.png');
-            
-            const fullToken = req.body.token;
-	    	const userInfo = token.decodeToken(fullToken);
-	    	const userName = userInfo.payload.data.userName;
-	        restaurantCache.addComment(req.body.resId, userName, req.body.comment, req.body.imgData, function(result){
-	        	res.send(result);
-	        }, function(err){
-	        	res.send({status:200});
-	        });
+            restaurantCache.addComment(req.body.resId, userName, req.body.comment, img, function(result){
+                res.send(result);
+            }, function(err){
+                res.send({status:200});
+            });
         });
-    });
+    }
 });
 
 app.get('/api/getRestaurantsList', (req, res) => {
