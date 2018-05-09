@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const http = require('http').Server(app);
-const io = require('socket.io')(http);
+// const io = require('socket.io')(http);
 const im = require('imagemagick');
 const bcrypt = require("bcrypt");
 const bodyParser = require('body-parser');
@@ -30,7 +30,7 @@ app.use(session({
 
 app.get('/api/getRestaurantInfo', (req, res) => {
     console.log("-------------/api/getRestaurantInfo-------------");
-    restaurantCache.getRestaurant(req.query.id, function(restaurant) {
+    restaurantCache.getRestaurant(req.query.id, (restaurant) => {
         if (restaurant.is_closed === 'false') {
             restaurant.is_closed = false;
         } else {
@@ -50,32 +50,28 @@ app.post('/api/uploadComment', (req, res) => {
     const userInfo = token.decodeToken(fullToken);
     const userName = userInfo.payload.data.userName;
     
-    if (req.body.imgData == ''){
-        restaurantCache.addComment(req.body.resId, userName, req.body.comment, req.body.imgData, function(result){
+    if (req.body.imgData == '') {
+        restaurantCache.addComment(req.body.resId, userName, req.body.comment, req.body.imgData, (result) => {
             res.send(result);
-        }, function(err){
+        }, (err) => {
             res.send({status:200});
         });
-    }else{
+    } else {
         let imgData = req.body.imgData;
         let base64Data = imgData.replace(/^data:image\/\w+;base64,/, "");
         let buf = new Buffer(base64Data, 'base64');
         fs.writeFileSync('old.png', buf);
-  
         im.resize({
             srcData: fs.readFileSync('old.png', 'binary'),
             height:400,
             width: 400
-        }, (err, stdout, stderr)=>{
+        }, (err, stdout, stderr) => {
             if (err) throw err;
-
             fs.writeFileSync('new.png', stdout, 'binary');
-              
             let img = base64Img.base64Sync('new.png');
-
-            restaurantCache.addComment(req.body.resId, userName, req.body.comment, img, function(result){
+            restaurantCache.addComment(req.body.resId, userName, req.body.comment, img, (result) => {
                  res.send(result);
-             }, function(err){
+             }, (err) => {
                  res.send({status:200});
              });
           });
@@ -88,11 +84,10 @@ app.post('/api/add_to_good', (req, res) => {
     const userInfo = token.decodeToken(fullToken);
     const userName = userInfo.payload.data.userName;
     const resId = req.body.resId;
-
-    restaurantCache.addGood(resId, userName, function(result){
+    restaurantCache.addGood(resId, userName, (result) => {
         res.send(result);
         console.log(result);
-    }, function(err){
+    }, (err) => {
         res.send(err);
     });
 })
@@ -104,10 +99,10 @@ app.post('/api/remove_good', (req, res) => {
     const userName = userInfo.payload.data.userName;
     const resId = req.body.resId;
 
-    restaurantCache.removeGood(resId, userName, function(result){
+    restaurantCache.removeGood(resId, userName, (result) => {
         res.send(result);
         console.log(result);
-    }, function(err){
+    }, (err) => {
         res.send(err);
     })
 })
@@ -119,10 +114,10 @@ app.post('/api/add_to_bad', (req, res) => {
     const userName = userInfo.payload.data.userName;
     const resId = req.body.resId;
 
-    restaurantCache.addBad(resId, userName, function(result){
+    restaurantCache.addBad(resId, userName, (result) => {
         res.send(result);
         console.log(result);
-    }, function(err){
+    }, (err) => {
         res.send(err);
     })
 })
@@ -134,14 +129,13 @@ app.post('/api/remove_bad', (req, res) => {
     const userName = userInfo.payload.data.userName;
     const resId = req.body.resId;
 
-    restaurantCache.removeBad(resId, userName, function(result){
+    restaurantCache.removeBad(resId, userName, (result) => {
         res.send(result);
         console.log(result);
-    }, function(err){
+    }, (err) => {
         res.send(err);
     })
 })
-
 
 app.post('/api/check_fav_status', async (req, res) => {
     const fullToken = req.body.token;
@@ -281,25 +275,24 @@ app.post('/api/signup', async (req, res) => {
         }
     }
 });
-
-io.on('connection', socket => {
-    console.log('User connected');
-    socket.on('login', async(userInfo) => {
-        const user = await usersAPI.getUserByUsername(userInfo.userName);
-        const isMatch = await bcrypt.compare(userInfo.password, user.hashed_password);
-        let status = "Invalid username or password";
-        if (!user || !isMatch) {
-            socket.emit("login_err", status);
-        } else {
-            socket.emit("loggedIn", "success");
-        }
-    });
-    
-    socket.on('disconnect', () => {
-      console.log('user disconnected');
-    })
-});
+// this part has been deprecated, just keep this for a souvenir
+// io.on('connection', socket => {
+//     console.log('User connected');
+//     socket.on('login', async(userInfo) => {
+//         const user = await usersAPI.getUserByUsername(userInfo.userName);
+//         const isMatch = await bcrypt.compare(userInfo.password, user.hashed_password);
+//         let status = "Invalid username or password";
+//         if (!user || !isMatch) {
+//             socket.emit("login_err", status);
+//         } else {
+//             socket.emit("loggedIn", "success");
+//         }
+//     });
+//     socket.on('disconnect', () => {
+//       console.log('user disconnected');
+//     })
+// });
 
 http.listen(3001, () => {
-    console.log('listening on :3001');
+    console.log('The server is listening on port: 3001');
 });
