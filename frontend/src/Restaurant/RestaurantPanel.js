@@ -21,6 +21,7 @@ class ContactForm extends React.Component {
     handleChange(files){      
         let file = files[0];
         let ContactForm = this;
+        console.log(file);
         if (window.FileReader && file) {    
             let reader = new FileReader();    
             reader.readAsDataURL(file);    
@@ -37,6 +38,19 @@ class ContactForm extends React.Component {
 
     onChangeCommentText = e => {
         this.setState({comment: e.target.value});
+    }
+
+    clearComment(){
+        const choosefile = document.getElementById("choosefile");
+        const commentText = document.getElementById("commentText");
+
+        choosefile.value = "";
+        commentText.value = "";
+        this.setState({
+　　　　     uploadedFile: '',
+            comment: '',
+            uploadedFileName: ''
+　　　　});
     }
 
     sendComment() {
@@ -68,9 +82,13 @@ class ContactForm extends React.Component {
             	let comments = JSON.parse(result.comments);
                 ContactForm.setState({comments:ContactForm.object2Array(comments)});
             })
+
+            this.clearComment();
         }) 
         .catch(error => {
             alert("add comment failed");
+
+            this.clearComment();
         })
     }
 
