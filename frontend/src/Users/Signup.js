@@ -61,7 +61,7 @@ class Signup extends Component {
                 })
             })
             .then((response) => {
-                const status = response.status;
+                const status = String(response.status);
                 // console.log(status);
                 if (status === '400') {
                     this.setState({redirect: 'failed'});
@@ -97,7 +97,7 @@ class Signup extends Component {
         return (
             <MuiThemeProvider muiTheme={muiTheme}>
             <div style={styles.root}>
-            <Notifications />
+                <Notifications />
                 <img style={styles.icon} alt='login' src={require('../img/login.png')}/> 
 
                 <TextField
