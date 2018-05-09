@@ -45,46 +45,41 @@ app.get('/api/getRestaurantInfo', (req, res) => {
 app.post('/api/uploadComment', (req, res) => {
     console.log("-------------/api/upload-------------");
     console.log(req.body.name);
-    imageCache.getStoredImage(req.body.name, function(result){
-    	let img = result;
-        console.log(req.body.name + " already exists");
 
-        const fullToken = req.body.token;
-    	const userInfo = token.decodeToken(fullToken);
-    	const userName = userInfo.payload.data.userName;
-        restaurantCache.addComment(req.body.resId, userName, req.body.comment, req.body.imgData, function(result) {
-        	res.send(result);
-        	console.log(result);
-        }, (err) => {
-        	res.send({status:200});
+    const fullToken = req.body.token;
+    const userInfo = token.decodeToken(fullToken);
+    const userName = userInfo.payload.data.userName;
+    
+    if (req.body.imgData == ''){
+        restaurantCache.addComment(req.body.resId, userName, req.body.comment, req.body.imgData, function(result){
+            res.send(result);
+        }, function(err){
+            res.send({status:200});
         });
-    }, (err) => {
+    }else{
         let imgData = req.body.imgData;
         let base64Data = imgData.replace(/^data:image\/\w+;base64,/, "");
         let buf = new Buffer(base64Data, 'base64');
         fs.writeFileSync('old.png', buf);
-
+  
         im.resize({
             srcData: fs.readFileSync('old.png', 'binary'),
-            height: 300,
-            width: 300
-        }, (err, stdout, stderr) => {
+            height:400,
+            width: 400
+        }, (err, stdout, stderr)=>{
             if (err) throw err;
-            console.log("------------");
+
             fs.writeFileSync('new.png', stdout, 'binary');
-            
+              
             let img = base64Img.base64Sync('new.png');
-            
-            const fullToken = req.body.token;
-	    	const userInfo = token.decodeToken(fullToken);
-	    	const userName = userInfo.payload.data.userName;
-	        restaurantCache.addComment(req.body.resId, userName, req.body.comment, req.body.imgData, function(result){
-	        	res.send(result);
-	        }, (err) => {
-	        	res.send({status:200});
-	        });
-        });
-    });
+
+            restaurantCache.addComment(req.body.resId, userName, req.body.comment, img, function(result){
+                 res.send(result);
+             }, function(err){
+                 res.send({status:200});
+             });
+          });
+    }
 });
 
 app.post('/api/add_to_good', (req, res) => {
