@@ -13,16 +13,16 @@ class RestaurantList extends Component {
                         <Link key={restaurant.id} to={`/display/?${restaurant.id}`}>
                           {restaurant.name}
                         </Link>
-                        <h5><b>categories: </b>{
+                        <h5><b>Categories: </b>{
                           restaurant.categories.map(category => {
                             return category.title + " ";
                           })
                         }</h5>
             
-                        <h5>rating: {restaurant.rating}</h5>
-                        <h5>review count: {restaurant.review_count}</h5>
-                        <h5>status: {restaurant.is_closed ? 'closed' : 'open'}</h5>
-                        <h5>location: {restaurant.location.address1 + ", " + restaurant.location.city + ", " + restaurant.location.state + ", " + restaurant.location.country + ", " + restaurant.location.zip_code}</h5>
+                        <h5><b>Rating:</b> {restaurant.rating}</h5>
+                        <h5><b>Review count:</b> {restaurant.review_count}</h5>
+                        <h5><b>Status:</b> {restaurant.is_closed ? 'closed' : 'open'}</h5>
+                        <h5><b>Location:</b> {restaurant.location.address1 + ", " + restaurant.location.city + ", " + restaurant.location.state + ", " + restaurant.location.country + ", " + restaurant.location.zip_code}</h5>
                         <img className="restaurant_list_img" src={restaurant.image_url} alt={restaurant.name}/>;
                       </ul>
                     </div>
