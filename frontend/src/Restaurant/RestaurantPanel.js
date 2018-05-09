@@ -83,7 +83,7 @@ class ContactForm extends Component {
             let ContactForm = this;
             func.then(function(result) {
             	let comments = JSON.parse(result.comments);
-                ContactForm.setState({comments:ContactForm.object2Array(comments)});
+                ContactForm.setState({comments:object2Array(comments)});
             })
             this.clearComment();
         }) 
@@ -229,7 +229,7 @@ class Container extends Component {
 
             let comments = JSON.parse(response.comments);
 
-            this.refs.contactForm.setState({comments:this.object2Array(comments)});
+            this.refs.contactForm.setState({comments:object2Array(comments)});
         }
     }
 
@@ -274,11 +274,6 @@ class Container extends Component {
         let arr = Object.keys(obj);
         let count = arr.length;
         return count;
-    }
-
-    object2Array(obj){
-        let arr = Object.keys(obj).map(key=> obj[key]);
-        return arr;
     }
 
     async init(){
@@ -370,6 +365,11 @@ class RestaurantPanel extends Component {
 	      </div>
 	    );
   	}
+}
+
+function object2Array(obj){
+    let arr = Object.keys(obj).map(key=> obj[key]);
+    return arr;
 }
 
 function getRestaurantId() {
