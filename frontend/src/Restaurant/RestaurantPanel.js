@@ -7,6 +7,7 @@ import { checkAuthenticated, getUserInfo } from '../Auth/UserLoginInfo';
 import { Redirect } from 'react-router-dom';
 import FavButton from './FavButton';
 import CommentList from "./CommentList";
+import Notifications, {notify} from 'react-notify-toast';
 
 class ContactForm extends Component {
     constructor(props) {
@@ -60,7 +61,7 @@ class ContactForm extends Component {
         const resId = getRestaurantId();
         
         if (comment === "" && file === ""){
-            alert("please input valid comment");
+            notify.show('Please upload a file or enter your comment!', "error", 1800);
             return;
         }
 
@@ -74,7 +75,6 @@ class ContactForm extends Component {
         })
         .then((response) => {
             console.log("response:" + response);
-            console.log(response);
             const func = response.json();
 
             let ContactForm = this;
@@ -157,7 +157,8 @@ class ContactForm extends Component {
     	}
 
 　　　　return (
-                <div> 
+                <div>
+                    <Notifications /> 
                 	{ commentsCom }
                     <textarea placeholder="please enter your comment" id="commentText" value={this.state.comment} onChange={this.onChangeCommentText} name="bbxi" required></textarea>
                     <table ></table>
