@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { getUserInfo } from '../Auth/UserLoginInfo';
-class ToggleButton extends Component {
+class FavButton extends Component {
     constructor(props) {
       super(props);
       this.state = {isFavorited: false};
@@ -83,7 +83,6 @@ class ToggleButton extends Component {
                 console.log(error);
             })
         }
-        
     }
 
     handleClick() {
@@ -102,4 +101,4 @@ class ToggleButton extends Component {
     }
   }
   
-export default ToggleButton;
+export default FavButton;

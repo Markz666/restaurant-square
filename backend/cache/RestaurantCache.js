@@ -5,7 +5,7 @@ exports.storeRestaurants = async (data) => {
 	for (let i = 0; i < data.length; ++i) {
 		let resObj = translateRestaurantData(data[i]);
 
-		exports.getRestaurant(data[i].id,  function(result){
+		exports.getRestaurant(data[i].id,  function(result) {
 			result.is_closed = resObj.is_closed;
 			result.category = resObj.category;
 			result.location = resObj.location;
@@ -20,11 +20,11 @@ exports.storeRestaurants = async (data) => {
 			}, function(err){
 				console.log("can not insert restaurant " + data[i].name + " into redis cache" + err);
 			});
-		}, function(err){
+		}, function(err) {
 			exports.addRestaurant(data[i].id, resObj, function(res) {
 				successCount ++;
 				//console.log("insert restaurant " + data[i].name + " into redis cache");
-			}, function(err){
+			}, function(err) {
 				console.log("can not insert restaurant " + data[i].name + " into redis cache" + err);
 			});
 		})
@@ -53,7 +53,7 @@ translateRestaurantData = function(data) {
 		phone: data.display_phone,
 		rating: data.rating,
 		review_count: data.review_count,
-		comments:JSON.stringify({})
+		comments: JSON.stringify({})
 	};
 }
 
@@ -86,50 +86,47 @@ exports.addComment = async(restaurant_id, username, comment, img, resolve, rejec
 			date: CurentTime(),
 		};
 
-
 		result.comments = JSON.stringify(commentObj);
 		exports.addRestaurant(restaurant_id, result, resolve, reject);
-	}, function(err){
+	}, (err) => {
 		console.log(err);
 		reject(err);
 	})
 }
 
-function getObjLength(obj){
+function getObjLength(obj) {
     let arr = Object.keys(obj);
     let count = arr.length;
-
     return count;
 }
 
-function CurentTime()
-{ 
+function CurentTime() { 
     let now = new Date();
-   
-    let year = now.getFullYear();       //年
-    let month = now.getMonth() + 1;     //月
-    let day = now.getDate();            //日
-   
-    let hh = now.getHours();            //时
-    let mm = now.getMinutes();          //分
-   
+    let year = now.getFullYear();       //get year
+    let month = now.getMonth() + 1;     //get month
+    let day = now.getDate();            //get day
+    let hh = now.getHours();            //get hour
+    let mm = now.getMinutes();          //get minute
     let clock = year + "-";
    
-    if(month < 10)
-        clock += "0";
-   
-    clock += month + "-";
-   
-    if(day < 10)
-        clock += "0";
-       
-    clock += day + " ";
-   
-    if(hh < 10)
-        clock += "0";
-       
-    clock += hh + ":";
-    if (mm < 10) clock += '0'; 
+    if (month < 10) {
+		clock += "0";
+	}
+	clock += month + "-";
+	
+    if (day < 10) {
+		clock += "0";
+	}
+	clock += day + " ";
+	
+    if (hh < 10) {
+		clock += "0";
+	}
+	clock += hh + ":";
+	
+    if (mm < 10) {
+		clock += '0'
+	}; 
     clock += mm; 
     return(clock); 
 } 
