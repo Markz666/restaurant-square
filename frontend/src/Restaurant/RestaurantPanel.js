@@ -6,71 +6,77 @@ import badImg from '../img/bad.png';
 import { checkAuthenticated, getUserInfo } from '../Auth/UserLoginInfo';
 import { Redirect } from 'react-router-dom';
 import ToggleButton from './ToggleButton';
-import Dropzone from 'react-dropzone';
-import request from 'superagent';
-
-const DropzoneStyle = {
-    width: '200px',
-    height: '80px',
-    borderWidth: '2px',
-    borderColor: 'rgb(102, 102, 102)',
-    borderStyle: 'dashed',
-    borderRadius: '5px',
-}
-
-const CLOUDINARY_UPLOAD_PRESET = 'MyPicIsTooGood';
-const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/dpou2ol4u/upload';
 
 class ContactForm extends React.Component {
     constructor(props) {
 　　　　super(props);
 　　　　this.state = {
-　　　　    uploadedFileCloudinaryUrl: ''
+　　　　     uploadedFile: '',
+            comment: '',
+            uploadedFileName: ''
 　　　　};
+
+        console.log("contru");
     }
 
-    onImageDrop(files) {
-　　　　this.setState({
-　　　　    uploadedFile: files[0]
-　　    });
+    handleChange(files){
+        console.log("------handle change");
+        console.log(files[0]);
+        
+        let file = files[0];
+        let ContactForm = this;
+        if (window.FileReader && file) {    
+            let reader = new FileReader();    
+            reader.readAsDataURL(file);    
+            //监听文件读取结束后事件    
+            reader.onloadend = function (e) {
+                ContactForm.setState({uploadedFile:e.target.result});
+                ContactForm.setState({uploadedFileName:file.name});
+            }
+        } 
+        else{
+            console.log("error happened");
+        }
+    }
 
-　　    this.handleImageUpload(files[0]);
-　　}
+    onChangeCommentText = e => {
+        this.setState({comment:e.target.value});
+    }
 
-    handleImageUpload(file){
-        let upload = request.post(CLOUDINARY_UPLOAD_URL)
-            .field('upload_preset', CLOUDINARY_UPLOAD_PRESET)
-　　　　　　 .field('file', file);
+    sendComment() {
+        let file = this.state.uploadedFile;
+        let comment = this.state.comment;
+        let name = this.state.uploadedFileName;
+        const resId = getRestaurantId();
+        
+        if (comment == "" && file == ""){
+            alert("please input valid comment");
+        }
 
-　　　　 upload.end((err, response) => {
-　　　　　　　if (err) {
-　　　　　　　    console.error(err);
-　　　　　　　}
-
-　　　　　　　if (response.body.secure_url !== '') {
-　　　　　　　　　this.setState({
-　　　　　　　　　　　uploadedFileCloudinaryUrl: response.body.secure_url
-　　　　　　　　　});
-　　　　　　　}
-　　　　　}); 
+        fetch('/api/uploadComment', {
+            method: 'post',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({comment:comment, imgData:file, name:name, token:getUserInfo().token, resId:resId}),
+        })
+        .then((response) => {
+            console.log(response);
+        }) 
+        .catch(error => {
+            console.log(error);
+        })
     }
 
     render() {
 　　　　return (
-              <Dropzone
-                 style={DropzoneStyle}
-　　　　　　　    multiple={false}
-　　　　　　　　  accept="image/*"
-　　　　　　　　  onDrop={this.onImageDrop.bind(this)}>
-　　　　　　　　  <p id="Dropzone">Drop an image or click to select a file to upload.</p>
-                <div>
-　　　　　　　　　　{this.state.uploadedFileCloudinaryUrl === '' ? null :
-　　　　　　　　　　<div>
-　　　　　　　　　　　　<p>{this.state.uploadedFile.name}</p>
-　　　　　　　　　　　　<img src={this.state.uploadedFileCloudinaryUrl} />
-　　　　　　　　　　</div>}
-　　　　　　　　</div>
-　　　　　　　　</Dropzone>
+                <div> 
+                    <textarea placeholder="please enter your comment" id="commentText" value={this.state.comment} onChange={this.onChangeCommentText} name="bbxi" required></textarea>
+                    <table ></table>
+                    <input type="file" accept="image/x-png, image/jpeg" id="files" multiple="" onChange={(e) => this.handleChange(e.target.files)}/>
+                    <button align="center" onClick={this.sendComment.bind(this)} id="review" type="button">review</button>
+                </div>
             )
 　　    }
     }
@@ -136,9 +142,9 @@ class Container extends Component {
                                     <ToggleButton/>
                                 </div>
                                 <div className="scoringText">
-                                    
+                                    favorite (
                                     <span id="favorite"></span>
-                                    
+                                    )
                                 </div>
                             </div>
                             <div className="tbzl clickAction">
@@ -177,11 +183,7 @@ class Container extends Component {
                         <table ></table>
                         <span id="comment3" className="content">Perfect    09/07/2017</span>
                         <table ></table>
-                        <textarea placeholder="please enter your comment" id="bbxi" name="bbxi" required></textarea>
-                        <table ></table>
                         <ContactForm />
-                        <table ></table>
-                        <button align="center" id="review" type="button">review</button>
                     </div>
                 </div>
             </div>
@@ -206,11 +208,18 @@ class RestaurantPanel extends Component {
 }
 
 async function init() {
-	const url = window.location.href;
-	const urls = url.split("?");
-	const id = urls[1];
-	
+    const id = getRestaurantId();
+    
     await updatePage(id);
+}
+
+function getRestaurantId()
+{
+    const url = window.location.href;
+    const urls = url.split("?");
+    const id = urls[1];
+
+    return id;
 }
 
 function updateComponent(response) {
@@ -218,7 +227,7 @@ function updateComponent(response) {
 
     if (img) {
         const title = document.getElementById("title");
-
+        const favorite = document.getElementById("favorite");
         const hot = document.getElementById("hot_s");
         const rating = document.getElementById("rating_s");
         const good = document.getElementById("good");
@@ -233,6 +242,7 @@ function updateComponent(response) {
         rating.style.width = response.rating / 5 * 100 + '%';
         img.src = response.src;
         title.innerHTML = response.title;
+        favorite.innerHTML = response.favorite;
         good.innerHTML = response.good;
         bad.innerHTML = response.bad;
         category.innerHTML = 'Category: ' + response.category;

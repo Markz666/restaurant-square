@@ -11,6 +11,9 @@ const usersAPI = require("./db/users.js");
 const token = require("./Auth/token.js");
 const restaurantCache = require("./cache/RestaurantCache.js");
 const request = require('request');
+const fs = require('fs');
+var base64Img = require('base64-img');
+const imageCache = require("./cache/ImageCache.js"); 
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(session({
@@ -37,6 +40,51 @@ app.get('/api/getRestaurantInfo', (req, res) => {
         res.send(restaurant);
     }, function(err) {
         res.send("cannot found the restaurant by id");
+    });
+});
+
+app.post('/api/uploadComment', (req, res) => {
+    console.log("-------------/api/upload-------------");
+    console.log(req.body.name);
+    imageCache.getStoredImage(req.body.name, function(result){
+    	let img = result;
+        console.log(req.body.name + " already exists");
+
+        const fullToken = req.body.token;
+    	const userInfo = token.decodeToken(fullToken);
+    	const userName = userInfo.payload.data.userName;
+        restaurantCache.addComment(req.body.resId, userName, req.body.comment, req.body.imgData, function(result){
+        	res.send(result);
+        	console.log(result);
+        }, function(err){
+        	res.send({status:200});
+        });
+    }, function(err){
+        let imgData = req.body.imgData;
+        let base64Data = imgData.replace(/^data:image\/\w+;base64,/, "");
+        let buf = new Buffer(base64Data, 'base64');
+        fs.writeFileSync('old.png', buf);
+
+        im.resize({
+            srcData: fs.readFileSync('old.png', 'binary'),
+            height:50,
+            width: 50
+        }, (err, stdout, stderr)=>{
+            if (err) throw err;
+            console.log("------------");
+            fs.writeFileSync('new.png', stdout, 'binary');
+            
+            let img = base64Img.base64Sync('new.png');
+            
+            const fullToken = req.body.token;
+	    	const userInfo = token.decodeToken(fullToken);
+	    	const userName = userInfo.payload.data.userName;
+	        restaurantCache.addComment(req.body.resId, userName, req.body.comment, req.body.imgData, function(result){
+	        	res.send(result);
+	        }, function(err){
+	        	res.send({status:200});
+	        });
+        });
     });
 });
 
