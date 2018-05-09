@@ -85,7 +85,7 @@ class ContactForm extends Component {
             this.clearComment();
         }) 
         .catch(error => {
-            alert("add comment failed");
+            notify.show('Add comment failed, please try again!', "error", 1800);
             this.clearComment();
         })
     }
