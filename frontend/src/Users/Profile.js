@@ -10,7 +10,6 @@ class Profile extends Component {
         email: '',
         phone: '',
         favorites: '',
-        comments: ''
     }
     componentDidMount = async() => {
         const userToken = getUserInfo().token;
@@ -39,7 +38,6 @@ class Profile extends Component {
             email: body.email,
             phone: body.phone,
             // favorites: body.favorites,
-            comments: body.comments
         })
     }
     render() {
@@ -52,7 +50,6 @@ class Profile extends Component {
                 <h3>UserName: {this.state.userName}</h3>
                 <h3>Email: {this.state.email}</h3>
                 <h3>Phone number: {this.state.phone}</h3>
-                <h3>Comments: {this.state.comments}</h3>
                 <h3 id="fav">Favorites: {this.state.favorites}</h3>           
             </div>                   
         )

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import "./App.css";
-import {Helmet} from 'react-helmet';
+import { Helmet } from 'react-helmet';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Home from "./Home";
 import NotFound from "./NotFound";
