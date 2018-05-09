@@ -5,7 +5,7 @@ import goodImg from '../img/good.png';
 import badImg from '../img/bad.png';
 import { checkAuthenticated, getUserInfo } from '../Auth/UserLoginInfo';
 import { Redirect } from 'react-router-dom';
-import ToggleButton from './ToggleButton';
+import FavButton from './FavButton';
 
 class ContactForm extends React.Component {
     constructor(props) {
@@ -15,8 +15,6 @@ class ContactForm extends React.Component {
             comment: '',
             uploadedFileName: ''
 　　　　};
-
-        console.log("contru");
     }
 
     handleChange(files){
@@ -28,19 +26,19 @@ class ContactForm extends React.Component {
         if (window.FileReader && file) {    
             let reader = new FileReader();    
             reader.readAsDataURL(file);    
-            //监听文件读取结束后事件    
+            // listen to the event after the read process    
             reader.onloadend = function (e) {
                 ContactForm.setState({uploadedFile:e.target.result});
                 ContactForm.setState({uploadedFileName:file.name});
             }
         } 
-        else{
+        else {
             console.log("error happened");
         }
     }
 
     onChangeCommentText = e => {
-        this.setState({comment:e.target.value});
+        this.setState({comment: e.target.value});
     }
 
     sendComment() {
@@ -49,7 +47,7 @@ class ContactForm extends React.Component {
         let name = this.state.uploadedFileName;
         const resId = getRestaurantId();
         
-        if (comment == "" && file == ""){
+        if (comment == "" && file == "") {
             alert("please input valid comment");
         }
 
@@ -59,7 +57,7 @@ class ContactForm extends React.Component {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({comment:comment, imgData:file, name:name, token:getUserInfo().token, resId:resId}),
+            body: JSON.stringify({comment: comment, imgData: file, name: name, token: getUserInfo().token, resId: resId}),
         })
         .then((response) => {
             console.log(response);
@@ -72,40 +70,18 @@ class ContactForm extends React.Component {
     render() {
 　　　　return (
                 <div> 
-                    <textarea placeholder="please enter your comment" id="commentText" value={this.state.comment} onChange={this.onChangeCommentText} name="bbxi" required></textarea>
+                    <textarea placeholder="please enter your comment" id="commentText" value={this.state.comment} onChange={this.onChangeCommentText} required></textarea>
                     <table ></table>
-                    <input type="file" accept="image/x-png, image/jpeg" id="files" multiple="" onChange={(e) => this.handleChange(e.target.files)}/>
-                    <button align="center" onClick={this.sendComment.bind(this)} id="review" type="button">review</button>
+                    <div id="commentCmd">
+                        <input id="choosefile" type="file" accept="image/x-png, image/jpeg" id="files" multiple="" onChange={(e) => this.handleChange(e.target.files)}/>
+                        <button onClick={this.sendComment.bind(this)} id="comment" type="button">Comment</button>
+                    </div>
                 </div>
             )
 　　    }
     }
 
 class Container extends Component {
-    handleFavorite(event) {
-        event.preventDefault();
-        const url = window.location.href;
-        const urls = url.split("?");
-        const id = urls[1];
-        const userToken = getUserInfo().token;
-        fetch('/api/add_to_fav', {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                token: userToken,
-                restaurant_id: id
-            })
-        })
-        .then((response) => {
-            console.log(response);
-        }) 
-        .catch(error => {
-            console.log(error);
-        })
-    }
 
     render() {
         if (!checkAuthenticated()) {
@@ -135,11 +111,8 @@ class Container extends Component {
                         </table>
                         <div className="Review">
                             <div className="tbzl">
-                                {/* <div className="tb">
-                                    <img src={favImg} onClick={this.handleFavorite} alt="fav"/>
-                                </div> */}
                                 <div className="tb">
-                                    <ToggleButton/>
+                                    <FavButton/>
                                 </div>
                                 <div className="scoringText">
                                     favorite (
@@ -213,12 +186,10 @@ async function init() {
     await updatePage(id);
 }
 
-function getRestaurantId()
-{
+function getRestaurantId() {
     const url = window.location.href;
     const urls = url.split("?");
     const id = urls[1];
-
     return id;
 }
 
