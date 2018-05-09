@@ -114,11 +114,6 @@ class Container extends Component {
                                 <div className="tb">
                                     <FavButton/>
                                 </div>
-                                <div className="scoringText">
-                                    favorite (
-                                    <span id="favorite"></span>
-                                    )
-                                </div>
                             </div>
                             <div className="tbzl clickAction">
                                 <div className="tb">
@@ -198,7 +193,6 @@ function updateComponent(response) {
 
     if (img) {
         const title = document.getElementById("title");
-        const favorite = document.getElementById("favorite");
         const hot = document.getElementById("hot_s");
         const rating = document.getElementById("rating_s");
         const good = document.getElementById("good");
@@ -213,7 +207,6 @@ function updateComponent(response) {
         rating.style.width = response.rating / 5 * 100 + '%';
         img.src = response.src;
         title.innerHTML = response.title;
-        favorite.innerHTML = response.favorite;
         good.innerHTML = response.good;
         bad.innerHTML = response.bad;
         category.innerHTML = 'Category: ' + response.category;
