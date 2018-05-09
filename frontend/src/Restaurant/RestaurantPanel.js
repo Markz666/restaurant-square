@@ -221,10 +221,10 @@ class Container extends Component {
             let badNum = this.updateBad(response.bad);
             hot.style.width = (goodNum) / (goodNum + badNum) * 100 + '%';
 
-            category.innerHTML = 'Category: ' + response.category;
-            location.innerHTML = 'Location: ' + response.location;
+            category.innerHTML = '<b>Category: </b>' + response.category;
+            location.innerHTML = '<b>Location: </b>' + response.location;
 
-            let statusStr = 'Status: ' + (response.is_closed ? 'closed' : 'open');  
+            let statusStr = '<b>Status: </b>' + (response.is_closed ? 'closed' : 'open');  
             status.innerHTML = statusStr;
 
             let comments = JSON.parse(response.comments);
@@ -350,7 +350,7 @@ class Container extends Component {
                         <table ></table>
                         <span id="status" className="content"></span>
                         <table ></table>
-                        <span id="comment" className="content">Recent comments:</span>
+                        <span id="comment" className="content"><b>Recent comments:</b></span>
                         <table ></table>
                         <ContactForm ref="contactForm" />
                     </div>
