@@ -66,8 +66,8 @@ app.post('/api/uploadComment', (req, res) => {
 
         im.resize({
             srcData: fs.readFileSync('old.png', 'binary'),
-            height:50,
-            width: 50
+            height: 300,
+            width: 300
         }, (err, stdout, stderr) => {
             if (err) throw err;
             console.log("------------");
