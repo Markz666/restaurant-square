@@ -97,14 +97,15 @@ class Login extends Component {
             <div style={styles.root}>
                 <Notifications />
                 <img style={styles.icon} alt="login" src={require('../img/login.png')}/> 
-
+                <label for="username" id="usernameLabel">Username </label>
                 <TextField
-                    hintText='Please enter username'
+                    placeholder='Please enter username'
                     type='text'
+                    id='username'
                     value={this.state.userName}
                     onChange={(event) => {this.setState({userName: event.target.value})}}/>
                 <TextField
-                    hintText='Please enter password'
+                    placeholder='Please enter password'
                     type='password'
                     value={this.state.password}
                     onChange={(event) => {this.setState({password: event.target.value})}}/>
@@ -134,6 +135,9 @@ const styles = {
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center'
+    },
+    usernameLabel: {
+        display: 'inline'
     },
     icon: {
         width: 100,

@@ -100,27 +100,28 @@ class Signup extends Component {
                 <img style={styles.icon} alt='login' src={require('../img/login.png')}/> 
 
                 <TextField
-                    hintText='Please enter username'
+                    className='hintText'
+                    placeholder='Please enter username'
                     type='text'
                     value={this.state.userName}
                     onChange={(event) => {this.setState({userName: event.target.value})}}/>
                 <TextField
-                    hintText='Please enter password'
+                    placeholder='Please enter password'
                     type='password'
                     value={this.state.password1}
                     onChange={(event) => {this.setState({password1: event.target.value})}}/>
                 <TextField
-                    hintText='Please enter password again'
+                    placeholder='Please enter password again'
                     type='password'
                     value={this.state.password2}
                     onChange={(event) => {this.setState({password2: event.target.value})}}/>
                 <TextField
-                    hintText='Please enter your email'
+                    placeholder='Please enter your email'
                     type='email'
                     value={this.state.email}
                     onChange={(event) => {this.setState({email: event.target.value})}}/>
                 <TextField
-                    hintText='Please enter your phone number'
+                    placeholder='Please enter your phone number'
                     type='text'
                     value={this.state.phone}
                     onChange={(event) => {this.setState({phone: event.target.value})}}/>
