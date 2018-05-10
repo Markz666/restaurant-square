@@ -3,10 +3,9 @@ const usersAPI = require("./users.js");
 
 const createAdminUser = async () => {
     const username = "admin";
-    const password = "123456789";
-    const email = "";
+    const password = "admin123";
+    const email = "admin@admin.com";
     const phone = "";
-
 
     try {
         const saltRounds = 4;
