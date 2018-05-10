@@ -10,7 +10,7 @@ class Header extends Component {
             <NavItem eventKey={1} href="/about">
               About
             </NavItem>
-            <NavItem eventKey={2} href="/searchPage">
+            <NavItem eventKey={2} href="/searchPage"> 
               Restaurant
             </NavItem>
             <NavItem eventKey={3} href="/profile">
@@ -26,7 +26,7 @@ class Header extends Component {
       )
     } else {
       return (
-        <Navbar.Collapse>
+        <Navbar.Collapse className="nav_bar">
           <Nav>
             <NavItem eventKey={1} href="/about">
               About

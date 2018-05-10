@@ -46,6 +46,9 @@ class SearchForm extends Component {
                       aria-describedby="restaurantHelp"
                       placeholder="Restaurant Name or Category..."
                     />
+                    <label for="restaurantLocation">
+                        Please specify the location, e.g. 'new york, ny'
+                    </label>
                     <input
                       type="text"
                       value={this.state.locationQuery}

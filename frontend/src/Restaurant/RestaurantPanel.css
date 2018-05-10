@@ -149,6 +149,11 @@ input[type=file] {
     border-radius: 15px;
     margin: 0 auto;
     overflow: auto;
+    height: 365px;
+}
+
+#restaurantHelp {
+    color:#636363;
 }
 
 #commentBtn:hover {

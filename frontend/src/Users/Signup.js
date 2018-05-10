@@ -97,7 +97,6 @@ class Signup extends Component {
         return (
             <MuiThemeProvider muiTheme={muiTheme}>
             <div style={styles.root}>
-                <Notifications options={{zIndex: 5000}}/>
                 <img style={styles.icon} alt='login' src={require('../img/login.png')}/> 
 
                 <TextField
@@ -124,7 +123,8 @@ class Signup extends Component {
                     hintText='Please enter your phone number'
                     type='text'
                     value={this.state.phone}
-                    onChange={(event) => {this.setState({phone: event.target.value})}}/>    
+                    onChange={(event) => {this.setState({phone: event.target.value})}}/>
+                <Notifications options={{zIndex: 5000}}/>    
 
                 <div style={styles.buttons_container}>
                     <RaisedButton
