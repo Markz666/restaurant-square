@@ -51,7 +51,7 @@ app.post('/api/uploadComment', (req, res) => {
     const userName = userInfo.payload.data.userName;
     
     if (req.body.imgData == '') {
-        restaurantCache.addComment(req.body.resId, userName, req.body.comment, req.body.imgData, (result) => {
+        restaurantCache.addComment(req.body.resId, userName, req.body.comment.replace(/</g, "").replace(/>/g, ""), req.body.imgData, (result) => {
             res.send(result);
         }, (err) => {
             res.send({status:200});
