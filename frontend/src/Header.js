@@ -1,7 +1,13 @@
 import React, { Component } from 'react';
 import { Nav, Navbar, NavItem } from "react-bootstrap";
-import { checkAuthenticated } from './Auth/UserLoginInfo';
+import { checkAuthenticated, getUserInfo } from './Auth/UserLoginInfo';
 class Header extends Component {
+  renderUsername(){
+    return (<NavItem id="usernameText">
+          welcome {getUserInfo().username}
+        </NavItem>);
+  }
+
   renderLinks() {
     if (checkAuthenticated()) {
       return (
@@ -18,6 +24,7 @@ class Header extends Component {
             </NavItem>
           </Nav>
           <Nav pullRight>
+            {this.renderUsername()}
             <NavItem eventKey={1} href='/logout'>
               Logout
             </NavItem>
