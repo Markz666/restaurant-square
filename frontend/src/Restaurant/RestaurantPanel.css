@@ -144,11 +144,33 @@ input[type=file] {
     padding: 3px;
 }
 
+#commentsDiv {
+    height: 180px;
+    border: 1px dotted #aaa;
+}
+
 #showdiv {
     border: 5px dotted #bbb;
     border-radius: 15px;
     margin: 0 auto;
     overflow: auto;
+    height: 390px;
+}
+
+#chooseFileLabel {
+    display: none;
+}
+
+#commentLabel {
+    float: left;
+}
+
+#restaurantTitle {
+    font-size: 21px;
+}
+
+#restaurantHelp {
+    color:#636363;
 }
 
 #commentBtn:hover {

@@ -82,7 +82,7 @@ class ContactForm extends Component {
             let ContactForm = this;
             func.then(function(result) {
             	let comments = JSON.parse(result.comments);
-                ContactForm.setState({comments:object2Array(comments)});
+                ContactForm.setState({comments: object2Array(comments)});
             })
             this.clearComment();
         }) 
@@ -108,10 +108,15 @@ class ContactForm extends Component {
 　　　　return (
                 <div>
                     <Notifications /> 
-                	{ commentsCom }
+                    { commentsCom }
+                    <div className="form-group">
+                    <label for="commentText" id="commentLabel">Comment here</label>
+                    <table></table>
                     <textarea placeholder="please enter your comment" id="commentText" value={this.state.comment} onChange={this.onChangeCommentText} name="bbxi" required></textarea>
-                    <table ></table>
+                    </div>
+                    <table></table>
                     <div id="commentCmd">
+                        <label for="choosefile" id="chooseFileLabel">Choose pic</label>
                         <input id="choosefile" type="file" accept="image/x-png, image/jpeg" multiple="" onChange={(e) => this.handleChange(e.target.files)}/>
                         <button onClick={this.sendComment.bind(this)} id="commentBtn" type="button">Comment</button>
                     </div>
@@ -139,9 +144,8 @@ class Container extends Component {
         })
         .then((response) => {
             const func = response.json();
-
             let Container = this;
-            func.then(function(result) {
+            func.then((result) => {
                 //let obj = JSON.parse(result);
                 Container.updateGood(result.good);
 
@@ -157,11 +161,11 @@ class Container extends Component {
         })
     }
 
-    onHitBadBtn(){
+    onHitBadBtn() {
         let url = "";
         if (this.state.isBad === true){
             url = "/api/remove_bad";
-        }else{
+        } else {
             url = "/api/add_to_bad";
         }
 
@@ -177,7 +181,7 @@ class Container extends Component {
             const func = response.json();
 
             let Container = this;
-            func.then(function(result) {
+            func.then((result) => {
                 //console.log(result);
                 Container.updateBad(result.bad);
 
@@ -196,7 +200,6 @@ class Container extends Component {
     async updatePage(imgID) {
         const response = await fetch('/api/getRestaurantInfo?id=' + imgID);
         const body = await response.json();
-
         if (response.status !== 200) throw Error(body.message);
         this.updateComponent(body);
     }
@@ -227,7 +230,7 @@ class Container extends Component {
 
             let comments = JSON.parse(response.comments);
 
-            this.refs.contactForm.setState({comments:object2Array(comments)});
+            this.refs.contactForm.setState({comments: object2Array(comments)});
         }
     }
 
@@ -238,11 +241,11 @@ class Container extends Component {
         const goodImgComponent = document.getElementById("goodImg");
         goodComponent.innerHTML = this.getObjLength(goodObj);
 
-        if (goodObj.hasOwnProperty(username)){
+        if (goodObj.hasOwnProperty(username)) {
             this.setState({isGood: true});
             goodImgComponent.src = goodImg;
         }
-        else{
+        else {
             this.setState({isGood: false});
             goodImgComponent.src = goodDisableImg;
         }
@@ -250,17 +253,17 @@ class Container extends Component {
         return this.getObjLength(goodObj);
     }
 
-    updateBad(bad){
+    updateBad(bad) {
         const badObj = JSON.parse(bad);
         const username = getUserInfo().username;
         const badComponent = document.getElementById("bad");
         const badImgComponent = document.getElementById("badImg");
         badComponent.innerHTML = this.getObjLength(badObj);
-        if (badObj.hasOwnProperty(username)){
+        if (badObj.hasOwnProperty(username)) {
             this.setState({isBad: true});
             badImgComponent.src = badImg;
         }
-        else{
+        else {
             this.setState({isBad: false});
             badImgComponent.src = badDisableImg;
         }

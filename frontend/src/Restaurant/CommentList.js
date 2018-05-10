@@ -24,18 +24,21 @@ class CommentList extends React.Component {
 			    		)
 			    	} else {
 			    		imgCom = (
-			    			 <p></p>
+			    			 <img alt="No Pics"></img>
 			    		)
-			    	}
+					}
+					if (comment.comment.length === 0) {
+						comment.comment = "No comment";
+					}
 
           			return (
-                    	<div key={i} className="col-md-4">
-                    		<h5>{comment.comment}</h5>
-                    		<h5>
+                    	<div key={i} className="col-md-4" id="commentsDiv">
+                    		<p>{comment.comment}</p>
+                    		<p>
                     			{imgCom}
-                    		</h5>
-                    		<h5> by {comment.username}</h5>
-                    		<h5> at {comment.date}</h5>
+                    		</p>
+                    		<p> by {comment.username}</p>
+                    		<p> at {comment.date}</p>
                     	</div>
                     );
               	})}

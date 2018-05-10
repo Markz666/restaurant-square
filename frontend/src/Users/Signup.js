@@ -97,38 +97,62 @@ class Signup extends Component {
         return (
             <MuiThemeProvider muiTheme={muiTheme}>
             <div style={styles.root}>
-                <Notifications options={{zIndex: 5000}}/>
                 <img style={styles.icon} alt='login' src={require('../img/login.png')}/> 
+                <div className="form-group"> 
+                    <label for="username" id='usernameLabel' className='myLabel'>Username </label>
+                    <TextField
+                        placeholder='Please enter username'
+                        type='text'
+                        id='username'
+                        value={this.state.userName}
+                        onChange={(event) => {this.setState({userName: event.target.value})}}/>
+                </div>
 
-                <TextField
-                    hintText='Please enter username'
-                    type='text'
-                    value={this.state.userName}
-                    onChange={(event) => {this.setState({userName: event.target.value})}}/>
-                <TextField
-                    hintText='Please enter password'
-                    type='password'
-                    value={this.state.password1}
-                    onChange={(event) => {this.setState({password1: event.target.value})}}/>
-                <TextField
-                    hintText='Please enter password again'
-                    type='password'
-                    value={this.state.password2}
-                    onChange={(event) => {this.setState({password2: event.target.value})}}/>
-                <TextField
-                    hintText='Please enter your email'
-                    type='email'
-                    value={this.state.email}
-                    onChange={(event) => {this.setState({email: event.target.value})}}/>
-                <TextField
-                    hintText='Please enter your phone number'
-                    type='text'
-                    value={this.state.phone}
-                    onChange={(event) => {this.setState({phone: event.target.value})}}/>    
+                <div className="form-group"> 
+                    <label for="password1" id="passwordLabel" className='myLabel'>Password </label>
+                    <TextField
+                        placeholder='Please enter password'
+                        id='password1'
+                        type='password'
+                        value={this.state.password1}
+                        onChange={(event) => {this.setState({password1: event.target.value})}}/>
+                </div>
+
+                <div className="form-group"> 
+                    <label for="password2" id="passwordLabel" className='myLabel'>Password </label>
+                    <TextField
+                        placeholder='Please enter password again'
+                        id='password2'
+                        type='password'
+                        value={this.state.password2}
+                        onChange={(event) => {this.setState({password2: event.target.value})}}/>
+                </div>
+
+                <div className="form-group"> 
+                    <label for="email" id="emailLabel" className='myLabel'>Email </label>
+                    <TextField
+                        placeholder='Please enter your email'
+                        type='email'
+                        id='email'
+                        value={this.state.email}
+                        onChange={(event) => {this.setState({email: event.target.value})}}/>
+                </div>
+                
+                <div className="form-group"> 
+                    <label for="phone" id="phoneLabel" className='myLabel'>Phone </label>
+                    <TextField
+                        placeholder='Please enter your phone number'
+                        type='text'
+                        id='phone'
+                        value={this.state.phone}
+                        onChange={(event) => {this.setState({phone: event.target.value})}}/>
+                </div>
+                
+                <Notifications options={{zIndex: 5000}}/>    
 
                 <div style={styles.buttons_container}>
                     <RaisedButton
-                        label="Signup" primary={true}
+                        label="Signup"
                         onClick={this.handleSignup.bind(this)}/>
                 </div>
             </div>

@@ -1,16 +1,22 @@
 import React, { Component } from 'react';
 import { Nav, Navbar, NavItem } from "react-bootstrap";
-import { checkAuthenticated } from './Auth/UserLoginInfo';
+import { checkAuthenticated, getUserInfo } from './Auth/UserLoginInfo';
 class Header extends Component {
+  renderUsername(){
+    return (<NavItem id="usernameText">
+          Welcome, {getUserInfo().username}
+        </NavItem>);
+  }
+
   renderLinks() {
     if (checkAuthenticated()) {
       return (
         <Navbar.Collapse>
           <Nav>
             <NavItem eventKey={1} href="/about">
-              About
+              About Us
             </NavItem>
-            <NavItem eventKey={2} href="/searchPage">
+            <NavItem eventKey={2} href="/searchPage"> 
               Restaurant
             </NavItem>
             <NavItem eventKey={3} href="/profile">
@@ -18,6 +24,7 @@ class Header extends Component {
             </NavItem>
           </Nav>
           <Nav pullRight>
+            {this.renderUsername()}
             <NavItem eventKey={1} href='/logout'>
               Logout
             </NavItem>
@@ -26,7 +33,7 @@ class Header extends Component {
       )
     } else {
       return (
-        <Navbar.Collapse>
+        <Navbar.Collapse className="nav_bar">
           <Nav>
             <NavItem eventKey={1} href="/about">
               About
