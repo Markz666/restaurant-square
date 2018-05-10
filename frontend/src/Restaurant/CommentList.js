@@ -17,7 +17,7 @@ class CommentList extends React.Component {
           	<div className="row" style={rowStyle}>
           		{this.props.comments.map((comment, i) => {
           			let imgCom;
-			        if (comment.img != "") {
+			        if (comment.img !== "") {
 			        	//console.log("show comment list:" + this.state.comments);
 			    		imgCom = (
 			    			<Zmage style={imgStyle} src={comment.img}/>

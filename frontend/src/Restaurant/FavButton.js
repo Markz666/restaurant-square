@@ -98,7 +98,7 @@ class FavButton extends Component {
       return (
         <div>
             <Notifications />
-            <button onClick={this.handleClick}>
+            <button id="favBtn" onClick={this.handleClick}>
             {this.state.isFavorited ? 'Unfavorite' : 'Favorite'}
             </button>
         </div>

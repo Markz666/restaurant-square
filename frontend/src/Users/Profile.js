@@ -46,11 +46,12 @@ class Profile extends Component {
         }
         return (
             <div>
-                <h1>This is the profile page</h1>
-                <h3>UserName: {this.state.userName}</h3>
-                <h3>Email: {this.state.email}</h3>
-                <h3>Phone number: {this.state.phone}</h3>
-                <h3 id="fav">Favorites: {this.state.favorites}</h3>           
+                <h1>This is the <b>profile</b> page</h1>
+                <br></br>
+                <p className="profile">Username: {this.state.userName}</p>
+                <p className="profile">Email: {this.state.email}</p>
+                <p className="profile">Phone number: {this.state.phone}</p>
+                <p className="profile" id="fav">Favorites:<br></br> {this.state.favorites}</p>           
             </div>                   
         )
     }

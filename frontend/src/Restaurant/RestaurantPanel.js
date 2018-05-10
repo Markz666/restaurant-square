@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './RestaurantPanel.css';
-import favImg from '../img/fav.png';
 import goodImg from '../img/good.png';
 import badImg from '../img/bad.png';
 import goodDisableImg from '../img/good_disable.png';
@@ -122,11 +121,11 @@ class ContactForm extends Component {
     }
 
 class Container extends Component {
-    onHitGoodBtn(){
+    onHitGoodBtn() {
         let url = "";
-        if (this.state.isGood === true){
+        if (this.state.isGood){
             url = "/api/remove_good";
-        }else{
+        } else {
             url = "/api/add_to_good";
         }
 
@@ -146,14 +145,15 @@ class Container extends Component {
                 //let obj = JSON.parse(result);
                 Container.updateGood(result.good);
 
-                if (Container.state.isGood)
+                if (Container.state.isGood) {
                     notify.show('Add good review success!', "success", 1200);
-                else
+                } else {
                     notify.show('Remove good review success!', "success", 1200);
+                }
             })
         }) 
         .catch(error => {
-            alert("add good failed");
+            notify.show('Add to good failed, please try again!', "error", 1800);
         })
     }
 
@@ -181,14 +181,15 @@ class Container extends Component {
                 //console.log(result);
                 Container.updateBad(result.bad);
 
-                if (Container.state.isBad)
+                if (Container.state.isBad) {
                     notify.show('Add bad review success!', "success", 1200);
-                else
+                } else {
                     notify.show('Remove bad review success!', "success", 1200);
+                }
             })
         }) 
         .catch(error => {
-            alert("add bad failed");
+            notify.show('Add to bad failed, please try again!', "error", 1800);
         })
     }
 
@@ -205,18 +206,15 @@ class Container extends Component {
         //console.log(response);
         if (img) {
             const title = document.getElementById("title");
-            //const favorite = document.getElementById("favorite");
             const hot = document.getElementById("hot_s");
             const rating = document.getElementById("rating_s");
             const category = document.getElementById("category");
             const location = document.getElementById("location");
             const status = document.getElementById("status");
-
             
             rating.style.width = response.rating / 5 * 100 + '%';
             img.src = response.src;
             title.innerHTML = response.title;
-            //favorite.innerHTML = response.favorite;
             let goodNum = this.updateGood(response.good);
             let badNum = this.updateBad(response.bad);
             hot.style.width = (goodNum) / (goodNum + badNum) * 100 + '%';

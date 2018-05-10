@@ -17,7 +17,7 @@ class Home extends Component {
   
   render() {
     return (
-      <div style={sectionStyle}><h1>Welcome to the restaurant square!</h1></div>
+      <div style={sectionStyle}><h2>Welcome to the restaurant square!</h2></div>
     );
   }
 }

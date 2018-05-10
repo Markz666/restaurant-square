@@ -46,9 +46,13 @@
   -webkit-transform: scale(1.2);
   -moz-transform: scale(1.2);
 }
-h1 {
-  text-shadow: 1px 1px 2px rgb(226, 215, 185), 0 0 25px rgb(0, 17, 255), 0 0 5px rgb(71, 89, 194);
-  color: rgb(45, 22, 129);
+h2 {
+  text-shadow: 1px 1px 2px rgb(105, 29, 204), 0 0 25px rgb(0, 17, 255), 0 0 5px rgb(71, 89, 194);
+  color: rgb(210, 205, 236);
+}
+
+p.profile {
+  font-size: 2em;
 }
 
 .restaurant_list_img {
