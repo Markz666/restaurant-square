@@ -116,6 +116,7 @@ class ContactForm extends Component {
                     </div>
                     <table></table>
                     <div id="commentCmd">
+                        <label for="choosefile" id="chooseFileLabel">Choose pic</label>
                         <input id="choosefile" type="file" accept="image/x-png, image/jpeg" multiple="" onChange={(e) => this.handleChange(e.target.files)}/>
                         <button onClick={this.sendComment.bind(this)} id="commentBtn" type="button">Comment</button>
                     </div>
@@ -240,11 +241,11 @@ class Container extends Component {
         const goodImgComponent = document.getElementById("goodImg");
         goodComponent.innerHTML = this.getObjLength(goodObj);
 
-        if (goodObj.hasOwnProperty(username)){
+        if (goodObj.hasOwnProperty(username)) {
             this.setState({isGood: true});
             goodImgComponent.src = goodImg;
         }
-        else{
+        else {
             this.setState({isGood: false});
             goodImgComponent.src = goodDisableImg;
         }
@@ -252,7 +253,7 @@ class Container extends Component {
         return this.getObjLength(goodObj);
     }
 
-    updateBad(bad){
+    updateBad(bad) {
         const badObj = JSON.parse(bad);
         const username = getUserInfo().username;
         const badComponent = document.getElementById("bad");

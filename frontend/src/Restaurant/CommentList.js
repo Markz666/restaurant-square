@@ -24,7 +24,7 @@ class CommentList extends React.Component {
 			    		)
 			    	} else {
 			    		imgCom = (
-			    			 <img></img>
+			    			 <img alt="No Pics"></img>
 			    		)
 					}
 					if (comment.comment.length === 0) {
@@ -32,7 +32,7 @@ class CommentList extends React.Component {
 					}
 
           			return (
-                    	<div key={i} className="col-md-4">
+                    	<div key={i} className="col-md-4" id="commentsDiv">
                     		<p>{comment.comment}</p>
                     		<p>
                     			{imgCom}
