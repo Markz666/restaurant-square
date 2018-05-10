@@ -149,7 +149,15 @@ input[type=file] {
     border-radius: 15px;
     margin: 0 auto;
     overflow: auto;
-    height: 365px;
+    height: 390px;
+}
+
+#commentLabel {
+    float: left;
+}
+
+#restaurantTitle {
+    font-size: 21px;
 }
 
 #restaurantHelp {

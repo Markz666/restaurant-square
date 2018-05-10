@@ -4,7 +4,7 @@ import { checkAuthenticated, getUserInfo } from './Auth/UserLoginInfo';
 class Header extends Component {
   renderUsername(){
     return (<NavItem id="usernameText">
-          welcome {getUserInfo().username}
+          Welcome, {getUserInfo().username}
         </NavItem>);
   }
 
@@ -14,7 +14,7 @@ class Header extends Component {
         <Navbar.Collapse>
           <Nav>
             <NavItem eventKey={1} href="/about">
-              About
+              About Us
             </NavItem>
             <NavItem eventKey={2} href="/searchPage"> 
               Restaurant

@@ -14,8 +14,10 @@
   color: white;
 }
 
-#usernameLabel #username {
-  float: left;
+.myLabel {
+  text-align: right;
+  clear: both;
+  margin-right: 15px;
 }
 
 .nav_bar {
@@ -33,15 +35,15 @@
   width: 26%;
 }
 
+#loginBtn {
+  background-color: #008394;
+}
+
 @media (min-width:768px) {
   .navbar {
     height:50px;
   }
  }
-
-/* #restaurantHelp {
-  display: block;
-} */
 
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
@@ -75,6 +77,7 @@ p.profile {
   background-color: #0077da;
   color: white;
   text-align: center;
+  z-index: 1;
 }
 
 .restaurant_list_img {

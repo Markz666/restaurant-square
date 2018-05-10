@@ -8,7 +8,10 @@ import { updateUserInfo, checkAuthenticated } from '../Auth/UserLoginInfo';
 import Notifications, {notify} from 'react-notify-toast';
 
 let muiTheme = getMuiTheme({
-    fontFamily: 'Microsoft YaHei'
+    fontFamily: 'Microsoft YaHei',
+    palette: {
+        primary: 'purple',
+      },
 });
 
 class Login extends Component {
@@ -96,23 +99,29 @@ class Login extends Component {
             <MuiThemeProvider muiTheme={muiTheme}>
             <div style={styles.root}>
                 <Notifications />
-                <img style={styles.icon} alt="login" src={require('../img/login.png')}/> 
-                <label for="username" id="usernameLabel">Username </label>
-                <TextField
-                    placeholder='Please enter username'
-                    type='text'
-                    id='username'
-                    value={this.state.userName}
-                    onChange={(event) => {this.setState({userName: event.target.value})}}/>
-                <TextField
-                    placeholder='Please enter password'
-                    type='password'
-                    value={this.state.password}
-                    onChange={(event) => {this.setState({password: event.target.value})}}/>
+                <img style={styles.icon} alt="login" src={require('../img/login.png')}/>
+                <div className="form-group"> 
+                    <label for="username" id="usernameLabel" className='myLabel'>Username </label>
+                    <TextField
+                        placeholder='Please enter username'
+                        type='text'
+                        id='username'
+                        value={this.state.userName}
+                        onChange={(event) => {this.setState({userName: event.target.value})}}/>
+                </div>
+                <div className="form-group"> 
+                    <label for="password" id="passwordLabel" className='myLabel'>Password </label>
+                    <TextField
+                        placeholder='Please enter password'
+                        type='password'
+                        id='password'
+                        value={this.state.password}
+                        onChange={(event) => {this.setState({password: event.target.value})}}/>
+                </div>
 
                 <div style={styles.buttons_container}>
                     <RaisedButton
-                        label="Login" primary={true}
+                        label="Login" id="loginBtn" backgroudColor="#008394"
                         onClick={this.handleLogin.bind(this)}/>
                     <RaisedButton
                         label="Register" primary={false} style={{marginLeft: 60}}
@@ -135,9 +144,6 @@ const styles = {
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center'
-    },
-    usernameLabel: {
-        display: 'inline'
     },
     icon: {
         width: 100,
