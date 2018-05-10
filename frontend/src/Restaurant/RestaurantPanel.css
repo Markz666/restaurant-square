@@ -148,6 +148,7 @@ input[type=file] {
     border: 5px dotted #bbb;
     border-radius: 15px;
     margin: 0 auto;
+    overflow: auto;
 }
 
 #commentBtn:hover {
