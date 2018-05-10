@@ -1,27 +1,31 @@
 import React, { Component } from 'react';
 import './RestaurantPanel.css';
-import favImg from '../img/fav.png';
 import goodImg from '../img/good.png';
 import badImg from '../img/bad.png';
+import goodDisableImg from '../img/good_disable.png';
+import badDisableImg from '../img/bad_disable.png';
 import { checkAuthenticated, getUserInfo } from '../Auth/UserLoginInfo';
 import { Redirect } from 'react-router-dom';
 import FavButton from './FavButton';
 import CommentList from "./CommentList";
+import Notifications, {notify} from 'react-notify-toast';
 
-class ContactForm extends React.Component {
+class ContactForm extends Component {
     constructor(props) {
 　　　　super(props);
 　　　　this.state = {
 　　　　     uploadedFile: '',
             comment: '',
-            uploadedFileName: ''
+            uploadedFileName: '',
+            isGood: false,
+            isBad: false,
 　　　　};
     }
 
-    handleChange(files){      
+    handleChange(files) {      
         let file = files[0];
         let ContactForm = this;
-        console.log(file);
+        //console.log(file);
         if (window.FileReader && file) {    
             let reader = new FileReader();    
             reader.readAsDataURL(file);    
@@ -40,7 +44,7 @@ class ContactForm extends React.Component {
         this.setState({comment: e.target.value});
     }
 
-    clearComment(){
+    clearComment() {
         const choosefile = document.getElementById("choosefile");
         const commentText = document.getElementById("commentText");
 
@@ -60,7 +64,7 @@ class ContactForm extends React.Component {
         const resId = getRestaurantId();
         
         if (comment === "" && file === ""){
-            alert("please input valid comment");
+            notify.show('Please upload a file or enter your comment!', "error", 1800);
             return;
         }
 
@@ -73,101 +77,43 @@ class ContactForm extends React.Component {
             body: JSON.stringify({comment: comment, imgData: file, name: name, token: getUserInfo().token, resId: resId}),
         })
         .then((response) => {
-            console.log("response:" + response);
-            console.log(response);
             const func = response.json();
 
             let ContactForm = this;
             func.then(function(result) {
             	let comments = JSON.parse(result.comments);
-                ContactForm.setState({comments:ContactForm.object2Array(comments)});
+                ContactForm.setState({comments:object2Array(comments)});
             })
-
             this.clearComment();
         }) 
         .catch(error => {
-            alert("add comment failed");
-
+            notify.show('Add comment failed, please try again!', "error", 1800);
             this.clearComment();
         })
     }
 
-    async updatePage(imgID) {
-	    const response = await fetch('/api/getRestaurantInfo?id=' + imgID);
-	    const body = await response.json();
-
-	    if (response.status !== 200) throw Error(body.message);
-	    this.updateComponent(body);
-	}
-
-	updateComponent(response) {
-	    const img = document.getElementById("restaurant_img");
-        console.log(response);
-	    if (img) {
-	        const title = document.getElementById("title");
-	        //const favorite = document.getElementById("favorite");
-	        const hot = document.getElementById("hot_s");
-	        const rating = document.getElementById("rating_s");
-	        const good = document.getElementById("good");
-	        
-	        const bad = document.getElementById("bad");
-	        const category = document.getElementById("category");
-	        const location = document.getElementById("location");
-	        const status = document.getElementById("status");
-
-	        hot.style.width = (response.favorite + response.good) / (response.favorite + response.good + response.bad) * 100 + '%';
-	        rating.style.width = response.rating / 5 * 100 + '%';
-	        img.src = response.src;
-	        title.innerHTML = response.title;
-	        //favorite.innerHTML = response.favorite;
-	        good.innerHTML = response.good;
-	        bad.innerHTML = response.bad;
-	        category.innerHTML = 'Category: ' + response.category;
-	        location.innerHTML = 'Location: ' + response.location;
-
-	        let statusStr = 'Status: ' + (response.is_closed ? 'closed' : 'open');  
-	        status.innerHTML = statusStr;
-
-	        let comments = JSON.parse(response.comments);
-	        this.setState({comments:this.object2Array(comments)});
-	    }
-	}
-
-	object2Array(obj){
-		let arr = Object.keys(obj).map(key=> obj[key]);
-		return arr;
-	}
-
-	async init(){
-		const id = getRestaurantId();
-    	await this.updatePage(id);
-	}
-
-    componentWillMount() {
-        this.init();
-    }
-
     render() {
     	let commentsCom;
-        if (this.state && this.state.comments){
+        if (this.state && this.state.comments) {
         	//console.log("show comment list:" + this.state.comments);
     		commentsCom = (
     			<CommentList comments = {this.state.comments}/>
     		)
-    	}else{
+    	} else {
     		commentsCom = (
-    			<h1><p>Loading...</p></h1> 
+    			<div></div> 
     		)
     	}
 
 　　　　return (
-                <div> 
+                <div>
+                    <Notifications /> 
                 	{ commentsCom }
                     <textarea placeholder="please enter your comment" id="commentText" value={this.state.comment} onChange={this.onChangeCommentText} name="bbxi" required></textarea>
                     <table ></table>
                     <div id="commentCmd">
                         <input id="choosefile" type="file" accept="image/x-png, image/jpeg" multiple="" onChange={(e) => this.handleChange(e.target.files)}/>
-                        <button onClick={this.sendComment.bind(this)} id="comment" type="button">Comment</button>
+                        <button onClick={this.sendComment.bind(this)} id="commentBtn" type="button">Comment</button>
                     </div>
                 </div>
             )
@@ -175,6 +121,167 @@ class ContactForm extends React.Component {
     }
 
 class Container extends Component {
+    onHitGoodBtn() {
+        let url = "";
+        if (this.state.isGood){
+            url = "/api/remove_good";
+        } else {
+            url = "/api/add_to_good";
+        }
+
+        fetch(url, {
+            method: 'post',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({token: getUserInfo().token, resId: getRestaurantId()}),
+        })
+        .then((response) => {
+            const func = response.json();
+
+            let Container = this;
+            func.then(function(result) {
+                //let obj = JSON.parse(result);
+                Container.updateGood(result.good);
+
+                if (Container.state.isGood) {
+                    notify.show('Add good review success!', "success", 1200);
+                } else {
+                    notify.show('Remove good review success!', "success", 1200);
+                }
+            })
+        }) 
+        .catch(error => {
+            notify.show('Add to good failed, please try again!', "error", 1800);
+        })
+    }
+
+    onHitBadBtn(){
+        let url = "";
+        if (this.state.isBad === true){
+            url = "/api/remove_bad";
+        }else{
+            url = "/api/add_to_bad";
+        }
+
+        fetch(url, {
+            method: 'post',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({token: getUserInfo().token, resId: getRestaurantId()}),
+        })
+        .then((response) => {
+            const func = response.json();
+
+            let Container = this;
+            func.then(function(result) {
+                //console.log(result);
+                Container.updateBad(result.bad);
+
+                if (Container.state.isBad) {
+                    notify.show('Add bad review success!', "success", 1200);
+                } else {
+                    notify.show('Remove bad review success!', "success", 1200);
+                }
+            })
+        }) 
+        .catch(error => {
+            notify.show('Add to bad failed, please try again!', "error", 1800);
+        })
+    }
+
+    async updatePage(imgID) {
+        const response = await fetch('/api/getRestaurantInfo?id=' + imgID);
+        const body = await response.json();
+
+        if (response.status !== 200) throw Error(body.message);
+        this.updateComponent(body);
+    }
+
+    updateComponent(response) {
+        const img = document.getElementById("restaurant_img");
+        //console.log(response);
+        if (img) {
+            const title = document.getElementById("title");
+            const hot = document.getElementById("hot_s");
+            const rating = document.getElementById("rating_s");
+            const category = document.getElementById("category");
+            const location = document.getElementById("location");
+            const status = document.getElementById("status");
+            
+            rating.style.width = response.rating / 5 * 100 + '%';
+            img.src = response.src;
+            title.innerHTML = response.title;
+            let goodNum = this.updateGood(response.good);
+            let badNum = this.updateBad(response.bad);
+            hot.style.width = (goodNum) / (goodNum + badNum) * 100 + '%';
+
+            category.innerHTML = '<b>Category: </b>' + response.category;
+            location.innerHTML = '<b>Location: </b>' + response.location;
+
+            let statusStr = '<b>Status: </b>' + (response.is_closed ? 'closed' : 'open');  
+            status.innerHTML = statusStr;
+
+            let comments = JSON.parse(response.comments);
+
+            this.refs.contactForm.setState({comments:object2Array(comments)});
+        }
+    }
+
+    updateGood(good){
+        const goodObj = JSON.parse(good);
+        const username = getUserInfo().username;
+        const goodComponent = document.getElementById("good");
+        const goodImgComponent = document.getElementById("goodImg");
+        goodComponent.innerHTML = this.getObjLength(goodObj);
+
+        if (goodObj.hasOwnProperty(username)){
+            this.setState({isGood: true});
+            goodImgComponent.src = goodImg;
+        }
+        else{
+            this.setState({isGood: false});
+            goodImgComponent.src = goodDisableImg;
+        }
+
+        return this.getObjLength(goodObj);
+    }
+
+    updateBad(bad){
+        const badObj = JSON.parse(bad);
+        const username = getUserInfo().username;
+        const badComponent = document.getElementById("bad");
+        const badImgComponent = document.getElementById("badImg");
+        badComponent.innerHTML = this.getObjLength(badObj);
+        if (badObj.hasOwnProperty(username)){
+            this.setState({isBad: true});
+            badImgComponent.src = badImg;
+        }
+        else{
+            this.setState({isBad: false});
+            badImgComponent.src = badDisableImg;
+        }
+
+        return this.getObjLength(badObj);
+    }
+
+    getObjLength(obj) {
+        let arr = Object.keys(obj);
+        let count = arr.length;
+        return count;
+    }
+
+    async init(){
+        const id = getRestaurantId();
+        await this.updatePage(id);
+    }
+
+    componentWillMount() {
+        this.init();
+    }
 
     render() {
         if (!checkAuthenticated()) {
@@ -208,9 +315,9 @@ class Container extends Component {
                                     <FavButton/>
                                 </div>
                             </div>
-                            <div className="tbzl clickAction">
+                            <div className="tbzl clickAction" onClick={this.onHitGoodBtn.bind(this)}>
                                 <div className="tb">
-                                    <img src={goodImg}  alt="good"/>
+                                    <img id="goodImg" src={goodImg}  alt="good"/>
                                 </div>
                                 <div className="scoringText">
                                     good (
@@ -218,9 +325,9 @@ class Container extends Component {
                                     )
                                 </div>
                             </div>
-                            <div className="tbzl clickAction">
+                            <div className="tbzl clickAction" onClick={this.onHitBadBtn.bind(this)}>
                                 <div className="tb">
-                                    <img src={badImg}  alt="bad"/>
+                                    <img id="badImg" src={badImg}  alt="bad"/>
                                 </div>
                                 <div className="scoringText">
                                     bad (
@@ -236,9 +343,9 @@ class Container extends Component {
                         <table ></table>
                         <span id="status" className="content"></span>
                         <table ></table>
-                        <span id="comment" className="content">Recent comments:</span>
+                        <span id="comment" className="content"><b>Recent comments:</b></span>
                         <table ></table>
-                        <ContactForm />
+                        <ContactForm ref="contactForm" />
                     </div>
                 </div>
             </div>
@@ -256,6 +363,11 @@ class RestaurantPanel extends Component {
 	      </div>
 	    );
   	}
+}
+
+function object2Array(obj){
+    let arr = Object.keys(obj).map(key=> obj[key]);
+    return arr;
 }
 
 function getRestaurantId() {

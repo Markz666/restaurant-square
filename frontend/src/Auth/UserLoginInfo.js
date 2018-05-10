@@ -12,10 +12,11 @@ const store = createStoreWithMiddleware(reducers);
 //
 ///////////////////////////
 export function updateUserInfo(data, authenticated) {
+
 	if (authenticated) {
 		store.dispatch({type: "AUTH_USER"});
 
-		let userStr = JSON.stringify(data);
+		let userStr = JSON.stringify(data);console.log(userStr);
 		localStorage.setItem("user", userStr);
 	}
 	else {

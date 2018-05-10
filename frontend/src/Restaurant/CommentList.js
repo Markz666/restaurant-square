@@ -1,9 +1,6 @@
 import React from 'react';
 import Zmage from 'react-zmage'
 
-const commentStyle = {
-}
-
 const rowStyle = {
 	width: '400px',
 }
@@ -15,26 +12,24 @@ const imgStyle = {
 
 class CommentList extends React.Component {
     render() {
-
-
         return (
           <div className="container">
           	<div className="row" style={rowStyle}>
           		{this.props.comments.map((comment, i) => {
           			let imgCom;
-			        if (comment.img != ""){
+			        if (comment.img !== "") {
 			        	//console.log("show comment list:" + this.state.comments);
 			    		imgCom = (
 			    			<Zmage style={imgStyle} src={comment.img}/>
 			    		)
-			    	}else{
+			    	} else {
 			    		imgCom = (
 			    			 <p></p>
 			    		)
 			    	}
 
           			return (
-                    	<div key={i} className="col-md-4" style={commentStyle}>
+                    	<div key={i} className="col-md-4">
                     		<h5>{comment.comment}</h5>
                     		<h5>
                     			{imgCom}

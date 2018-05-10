@@ -4,6 +4,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import { updateUserInfo, checkAuthenticated } from '../Auth/UserLoginInfo';
+import Notifications, {notify} from 'react-notify-toast';
 
 let muiTheme = getMuiTheme({
     fontFamily: 'Microsoft YaHei'
@@ -37,13 +38,13 @@ class Signup extends Component {
         const phone = this.state.phone;
 
         if (userName.length === 0 || password1.length === 0 || email.length === 0 || phone.length === 0) {
-            alert("Please fill in all the info");
+            notify.show('Please fill in all the info', "error", 1800);
         } else if (password1 !== password2) {
-            alert("Please make sure two passwords are equal");
+            notify.show('Please make sure two passwords are equal', "error", 1800);
         } else if (!this.validateEmail(email)) {
-            alert("Please enter the correct email!");
+            notify.show('Please enter the correct email!', "error", 1800);
         } else if (phone.length < 10 || phone.length > 11) {
-            alert("The phone number should be 10-11 digits.")
+            notify.show('The phone number should be 10-11 digits.', "error", 1800);
         } else {
             fetch('api/signup', {
                 method: 'POST',
@@ -60,7 +61,7 @@ class Signup extends Component {
                 })
             })
             .then((response) => {
-                const status = response.status;
+                const status = String(response.status);
                 // console.log(status);
                 if (status === '400') {
                     this.setState({redirect: 'failed'});
@@ -70,7 +71,7 @@ class Signup extends Component {
 
                     const func = response.json();
                     func.then(function(result) {
-                        updateUserInfo({token: result.retCode}, true);
+                        updateUserInfo({token: result.retCode, username:userName}, true);
                     })
                 }
             }) 
@@ -96,6 +97,7 @@ class Signup extends Component {
         return (
             <MuiThemeProvider muiTheme={muiTheme}>
             <div style={styles.root}>
+                <Notifications options={{zIndex: 5000}}/>
                 <img style={styles.icon} alt='login' src={require('../img/login.png')}/> 
 
                 <TextField
@@ -119,7 +121,7 @@ class Signup extends Component {
                     value={this.state.email}
                     onChange={(event) => {this.setState({email: event.target.value})}}/>
                 <TextField
-                    hintText='Please enter your phone number (10 - 11 digits)'
+                    hintText='Please enter your phone number'
                     type='text'
                     value={this.state.phone}
                     onChange={(event) => {this.setState({phone: event.target.value})}}/>    

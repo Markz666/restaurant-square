@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { getUserInfo } from '../Auth/UserLoginInfo';
+import Notifications, {notify} from 'react-notify-toast';
 class FavButton extends Component {
     constructor(props) {
       super(props);
@@ -59,7 +60,7 @@ class FavButton extends Component {
                 })
             })
             .then((response) => {
-                console.log(response);
+                notify.show('Favorite success!', "success", 1200);
             }) 
             .catch(error => {
                 console.log(error);
@@ -77,7 +78,8 @@ class FavButton extends Component {
                 })
             })
             .then((response) => {
-                console.log(response);
+                console.log(response.json());
+                notify.show('Unfavorite succuess!', "success", 1200);
             }) 
             .catch(error => {
                 console.log(error);
@@ -94,9 +96,12 @@ class FavButton extends Component {
   
     render() {
       return (
-        <button onClick={this.handleClick}>
-          {this.state.isFavorited ? 'Unfavorite' : 'Favorite'}
-        </button>
+        <div>
+            <Notifications />
+            <button id="favBtn" onClick={this.handleClick}>
+            {this.state.isFavorited ? 'Unfavorite' : 'Favorite'}
+            </button>
+        </div>
       );
     }
   }

@@ -5,6 +5,7 @@ import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import { Redirect } from "react-router-dom";
 import { updateUserInfo, checkAuthenticated } from '../Auth/UserLoginInfo';
+import Notifications, {notify} from 'react-notify-toast';
 
 let muiTheme = getMuiTheme({
     fontFamily: 'Microsoft YaHei'
@@ -22,6 +23,14 @@ class Login extends Component {
 
     handleLogin(event) {
         event.preventDefault();
+        if (this.state.userName.length === 0) {
+            notify.show('Username cannot be null', "error", 1800);
+            return;
+        }
+        if (this.state.password.length === 0) {
+            notify.show('Password cannot be empty', "error", 1600);
+            return;
+        }
         fetch('api/login', {
             method: 'POST',
             headers: {
@@ -34,16 +43,19 @@ class Login extends Component {
             })
         })
         .then((response) => {
-            const status = response.status;
+            const status = String(response.status);
+            const Login = this;
 
             if (status === '401') {
                 this.setState({redirect: 'Invalid username or password'});
                 updateUserInfo({}, false);
+
             } else {
                 this.setState({redirect: 'success'});
                 const func = response.json();
+
                 func.then(function(result) {
-                    updateUserInfo({token: result.retCode}, true);
+                    updateUserInfo({token: result.retCode, username: Login.state.userName}, true);
                 })
             }
         }) 
@@ -83,6 +95,7 @@ class Login extends Component {
         return (
             <MuiThemeProvider muiTheme={muiTheme}>
             <div style={styles.root}>
+                <Notifications />
                 <img style={styles.icon} alt="login" src={require('../img/login.png')}/> 
 
                 <TextField

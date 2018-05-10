@@ -79,6 +79,8 @@ class App extends Component {
               <style>{'body { background-color: #E3DFDB; }'}</style>
           </Helmet>
         </div>
+        <div className="footer" align="center">&copy; 2018 Tech Ninjas. All Rights Reserved.</div>
+
       </div>
   
     );
