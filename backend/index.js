@@ -11,7 +11,7 @@ const token = require("./Auth/token.js");
 const restaurantCache = require("./cache/RestaurantCache.js");
 const request = require('request');
 const fs = require('fs');
-var base64Img = require('base64-img');
+const base64Img = require('base64-img');
 const imageCache = require("./cache/ImageCache.js"); 
 
 app.use(bodyParser.json({limit: '10mb'}));
