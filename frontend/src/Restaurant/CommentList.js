@@ -2,7 +2,7 @@ import React from 'react';
 import Zmage from 'react-zmage'
 
 const rowStyle = {
-	width: '400px',
+	width: '1000px',
 }
 
 const imgStyle = {
@@ -32,12 +32,13 @@ class CommentList extends React.Component {
 					}
 
           			return (
-                    	<div key={i} className="col-md-4" id="commentsDiv">
-                    		<p>{comment.comment}</p>
+                    	<div key={i} className="col-md-2" id="commentsDiv">
+                        <p> {comment.username} </p>
+                    		<p> {comment.comment} </p>
                     		<p>
                     			{imgCom}
                     		</p>
-                    		<p> by {comment.username}</p>
+                    		
                     		<p> at {comment.date}</p>
                     	</div>
                     );

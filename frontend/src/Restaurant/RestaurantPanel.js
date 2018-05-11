@@ -82,7 +82,7 @@ class ContactForm extends Component {
             let ContactForm = this;
             func.then(function(result) {
             	let comments = JSON.parse(result.comments);
-                ContactForm.setState({comments: object2Array(comments)});
+                ContactForm.state.parent.setState({comments: object2Array(comments)});
             })
             this.clearComment();
         }) 
@@ -93,30 +93,17 @@ class ContactForm extends Component {
     }
 
     render() {
-    	let commentsCom;
-        if (this.state && this.state.comments) {
-        	//console.log("show comment list:" + this.state.comments);
-    		commentsCom = (
-    			<CommentList comments = {this.state.comments}/>
-    		)
-    	} else {
-    		commentsCom = (
-    			<div></div> 
-    		)
-    	}
-
 　　　　return (
                 <div>
                     <Notifications /> 
-                    { commentsCom }
                     <div className="form-group">
-                    <label for="commentText" id="commentLabel">Comment here</label>
+                    <label htmlFor="commentText" id="commentLabel">Comment here</label>
                     <table></table>
                     <textarea placeholder="please enter your comment" id="commentText" value={this.state.comment} onChange={this.onChangeCommentText} name="bbxi" required></textarea>
                     </div>
                     <table></table>
                     <div id="commentCmd">
-                        <label for="choosefile" id="chooseFileLabel">Choose pic</label>
+                        <label htmlFor="choosefile" id="chooseFileLabel">Choose pic</label>
                         <input id="choosefile" type="file" accept="image/x-png, image/jpeg" multiple="" onChange={(e) => this.handleChange(e.target.files)}/>
                         <button onClick={this.sendComment.bind(this)} id="commentBtn" type="button">Comment</button>
                     </div>
@@ -229,8 +216,8 @@ class Container extends Component {
             status.innerHTML = statusStr;
 
             let comments = JSON.parse(response.comments);
-
-            this.refs.contactForm.setState({comments: object2Array(comments)});
+            this.setState({comments: object2Array(comments)});
+            this.refs.contactForm.setState({parent:this});
         }
     }
 
@@ -291,6 +278,18 @@ class Container extends Component {
             return <Redirect to="/"/>;
         }
 
+        let commentsCom;
+        if (this.state && this.state.comments) {
+            //console.log("show comment list:" + this.state.comments);
+            commentsCom = (
+                <CommentList comments = {this.state.comments}/>
+            )
+        } else {
+            commentsCom = (
+                <div></div> 
+            )
+        }
+
         return (
             <div className="container">
                 <div>
@@ -346,10 +345,12 @@ class Container extends Component {
                         <table ></table>
                         <span id="status" className="content"></span>
                         <table ></table>
-                        <span id="comment" className="content"><b>Recent comments:</b></span>
-                        <table ></table>
+                        
                         <ContactForm ref="contactForm" />
                     </div>
+                    <span id="comment" className="content"><b>Recent comments:</b></span>
+                    <table ></table>
+                    { commentsCom }
                 </div>
             </div>
         );
