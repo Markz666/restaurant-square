@@ -46,7 +46,7 @@ class SearchForm extends Component {
                       aria-describedby="restaurantHelp"
                       placeholder="Restaurant Name or Category..."
                     />
-                    <label for="restaurantLocation">
+                    <label htmlFor="restaurantLocation">
                         Please specify the location, e.g. 'new york, ny'
                     </label>
                     <input

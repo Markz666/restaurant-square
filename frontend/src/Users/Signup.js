@@ -99,7 +99,7 @@ class Signup extends Component {
             <div style={styles.root}>
                 <img style={styles.icon} alt='login' src={require('../img/login.png')}/> 
                 <div className="form-group"> 
-                    <label for="username" id='usernameLabel' className='myLabel'>Username </label>
+                    <label htmlFor="username" id='usernameLabel' className='myLabel'>Username </label>
                     <TextField
                         placeholder='Please enter username'
                         type='text'
@@ -109,7 +109,7 @@ class Signup extends Component {
                 </div>
 
                 <div className="form-group"> 
-                    <label for="password1" id="passwordLabel" className='myLabel'>Password </label>
+                    <label htmlFor="password1" id="passwordLabel" className='myLabel'>Password </label>
                     <TextField
                         placeholder='Please enter password'
                         id='password1'
@@ -119,7 +119,7 @@ class Signup extends Component {
                 </div>
 
                 <div className="form-group"> 
-                    <label for="password2" id="passwordLabel" className='myLabel'>Password </label>
+                    <label htmlFor="password2" id="passwordLabel" className='myLabel'>Password </label>
                     <TextField
                         placeholder='Please enter password again'
                         id='password2'
@@ -129,7 +129,7 @@ class Signup extends Component {
                 </div>
 
                 <div className="form-group"> 
-                    <label for="email" id="emailLabel" className='myLabel'>Email </label>
+                    <label htmlFor="email" id="emailLabel" className='myLabel'>Email </label>
                     <TextField
                         placeholder='Please enter your email'
                         type='email'
@@ -139,7 +139,7 @@ class Signup extends Component {
                 </div>
                 
                 <div className="form-group"> 
-                    <label for="phone" id="phoneLabel" className='myLabel'>Phone </label>
+                    <label htmlFor="phone" id="phoneLabel" className='myLabel'>Phone </label>
                     <TextField
                         placeholder='Please enter your phone number'
                         type='text'
