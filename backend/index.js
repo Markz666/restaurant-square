@@ -55,7 +55,7 @@ app.post('/api/uploadComment', (req, res) => {
         restaurantCache.addComment(req.body.resId, userName, req.body.comment, req.body.imgData, (result) => {
             res.send(result);
         }, (err) => {
-            res.send({status:200});
+            res.send({status:403});
         });
     } else {
         let imgData = req.body.imgData;
@@ -73,7 +73,7 @@ app.post('/api/uploadComment', (req, res) => {
             restaurantCache.addComment(req.body.resId, userName, req.body.comment, img, (result) => {
                  res.send(result);
              }, (err) => {
-                 res.send({status:200});
+                 res.send({status: 403});
              });
           });
     }
