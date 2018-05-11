@@ -17,7 +17,7 @@ redis-cli -h 127.0.0.1 -p 6379
 flushall
 ```
 
-To create a admin account:
+To create an admin account:
 ```
 cd backend\db
 node dbInit.js
