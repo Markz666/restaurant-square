@@ -34,7 +34,7 @@ class SearchForm extends Component {
             <form onSubmit={this.onSubmit}>
                 <div className="form-group">
                     <label htmlFor="restaurantName">
-                    Which restaurant or position do you wanna search for?
+                    Which restaurant do you wanna search for?
                     </label>
                     <div className="searchInputs">
                     <input
