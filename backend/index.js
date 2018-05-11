@@ -11,7 +11,7 @@ const token = require("./Auth/token.js");
 const restaurantCache = require("./cache/RestaurantCache.js");
 const request = require('request');
 const fs = require('fs');
-var base64Img = require('base64-img');
+const base64Img = require('base64-img');
 const imageCache = require("./cache/ImageCache.js"); 
 
 app.use(bodyParser.json({limit: '10mb'}));
@@ -55,7 +55,7 @@ app.post('/api/uploadComment', (req, res) => {
         restaurantCache.addComment(req.body.resId, userName, req.body.comment, req.body.imgData, (result) => {
             res.send(result);
         }, (err) => {
-            res.send({status:200});
+            res.send({status:403});
         });
     } else {
         let imgData = req.body.imgData;
@@ -73,7 +73,7 @@ app.post('/api/uploadComment', (req, res) => {
             restaurantCache.addComment(req.body.resId, userName, req.body.comment, img, (result) => {
                  res.send(result);
              }, (err) => {
-                 res.send({status:200});
+                 res.send({status: 403});
              });
           });
     }
