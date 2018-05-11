@@ -101,7 +101,7 @@ class Login extends Component {
                 <Notifications />
                 <img style={styles.icon} alt="login" src={require('../img/login.png')}/>
                 <div className="form-group"> 
-                    <label for="username" id="usernameLabel" className='myLabel'>Username </label>
+                    <label htmlFor="username" id="usernameLabel" className='myLabel'>Username </label>
                     <TextField
                         placeholder='Please enter username'
                         type='text'
@@ -110,7 +110,7 @@ class Login extends Component {
                         onChange={(event) => {this.setState({userName: event.target.value})}}/>
                 </div>
                 <div className="form-group"> 
-                    <label for="password" id="passwordLabel" className='myLabel'>Password </label>
+                    <label htmlFor="password" id="passwordLabel" className='myLabel'>Password </label>
                     <TextField
                         placeholder='Please enter password'
                         type='password'

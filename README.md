@@ -16,3 +16,12 @@ run terminal/command prompt, cd into your redis folder. e.g. C:\Program Files\Re
 redis-cli -h 127.0.0.1 -p 6379
 flushall
 ```
+
+To create a admin account:
+```
+cd backend\db
+node dbInit.js
+```
+You are all set! Try to use the following info to login!
+username: admin
+password: admin123

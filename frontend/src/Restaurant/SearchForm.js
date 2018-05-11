@@ -34,7 +34,7 @@ class SearchForm extends Component {
             <form onSubmit={this.onSubmit}>
                 <div className="form-group">
                     <label htmlFor="restaurantName">
-                    Which restaurant or position do you wanna search for?
+                    Which restaurant do you wanna search for?
                     </label>
                     <div className="searchInputs">
                     <input
@@ -46,7 +46,7 @@ class SearchForm extends Component {
                       aria-describedby="restaurantHelp"
                       placeholder="Restaurant Name or Category..."
                     />
-                    <label for="restaurantLocation">
+                    <label htmlFor="restaurantLocation">
                         Please specify the location, e.g. 'new york, ny'
                     </label>
                     <input

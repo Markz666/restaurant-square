@@ -1,13 +1,13 @@
 .restaurant_img_container {
     float: left;
     width: 40%;
-    height: 1000px;
+    height: 500px;
 }
 
 .restaurant_content_container {
     float: left;
     width: 60%;
-    height: 1000px;
+    height: 500px;
     padding-left: 120px;
 }
 
