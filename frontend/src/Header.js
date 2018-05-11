@@ -25,7 +25,7 @@ class Header extends Component {
           </Nav>
           <Nav pullRight>
             {this.renderUsername()}
-            <NavItem eventKey={1} href='/logout'>
+            <NavItem eventKey={4} href='/logout'>
               Logout
             </NavItem>
           </Nav>
@@ -36,14 +36,14 @@ class Header extends Component {
         <Navbar.Collapse className="nav_bar">
           <Nav>
             <NavItem eventKey={1} href="/about">
-              About
+              About Us
             </NavItem>
           </Nav>
           <Nav pullRight>
-            <NavItem eventKey={1} href='/login'>
+            <NavItem eventKey={2} href='/login'>
               Login
             </NavItem>
-            <NavItem eventKey={2} href='/signup'>
+            <NavItem eventKey={3} href='/signup'>
               Signup
             </NavItem>
           </Nav>
