@@ -37,8 +37,7 @@ class CommentList extends React.Component {
                     		<p> {comment.comment} </p>
                     		<p>
                     			{imgCom}
-                    		</p>
-                    		
+                    		</p>                    		
                     		<p> at {comment.date}</p>
                     	</div>
                     );

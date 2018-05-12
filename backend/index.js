@@ -44,24 +44,23 @@ app.get('/api/getRestaurantInfo', (req, res) => {
 
 app.post('/api/uploadComment', (req, res) => {
     console.log("-------------/api/upload-------------");
-    console.log(req.body.name);
-
     const fullToken = req.body.token;
     const userInfo = token.decodeToken(fullToken);
     const userName = userInfo.payload.data.userName;
+    // flush the </> tags to prevent js injection
     req.body.comment = req.body.comment.replace(/</g, "").replace(/>/g, "");
     
     if (req.body.imgData == '') {
         restaurantCache.addComment(req.body.resId, userName, req.body.comment, req.body.imgData, (result) => {
             res.send(result);
         }, (err) => {
-            res.send({status:403});
+            res.send({status: 403});
         });
     } else {
         let imgData = req.body.imgData;
         let base64Data = imgData.replace(/^data:image\/\w+;base64,/, "");
-        let buf = new Buffer(base64Data, 'base64');
-        fs.writeFileSync('old.png', buf);
+        let buffer = new Buffer(base64Data, 'base64');
+        fs.writeFileSync('old.png', buffer);
         im.resize({
             srcData: fs.readFileSync('old.png', 'binary'),
             height:400,
@@ -229,6 +228,7 @@ app.post('/api/getUserProfile', async (req, res) => {
             console.log(error);
         })
     }
+    // Promise all the promises to get the favRestaurant list
     Promise.all(promises).then(() => {
         res.send({
             userName: user.user_name,
