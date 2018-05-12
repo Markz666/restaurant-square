@@ -30,9 +30,9 @@ class ContactForm extends Component {
             let reader = new FileReader();    
             reader.readAsDataURL(file);    
             // listen to the event after the read process    
-            reader.onloadend = function (e) {
-                ContactForm.setState({uploadedFile:e.target.result});
-                ContactForm.setState({uploadedFileName:file.name});
+            reader.onloadend = (e) => {
+                ContactForm.setState({uploadedFile: e.target.result});
+                ContactForm.setState({uploadedFileName: file.name});
             }
         } 
         else {
@@ -45,10 +45,10 @@ class ContactForm extends Component {
     }
 
     clearComment() {
-        const choosefile = document.getElementById("choosefile");
-        const commentText = document.getElementById("commentText");
+        const chooseFile = this.refs.choosefile;
+        const commentText = this.refs.commentText;
 
-        choosefile.value = "";
+        chooseFile.value = "";
         commentText.value = "";
         this.setState({
 　　　　     uploadedFile: '',
@@ -99,12 +99,12 @@ class ContactForm extends Component {
                     <div className="form-group">
                     <label htmlFor="commentText" id="commentLabel">Comment here</label>
                     <table></table>
-                    <textarea placeholder="please enter your comment" id="commentText" value={this.state.comment} onChange={this.onChangeCommentText} name="bbxi" required></textarea>
+                    <textarea placeholder="please enter your comment" id="commentText" ref='commentText' value={this.state.comment} onChange={this.onChangeCommentText} name="bbxi" required></textarea>
                     </div>
                     <table></table>
                     <div id="commentCmd">
                         <label htmlFor="choosefile" id="chooseFileLabel">Choose pic</label>
-                        <input id="choosefile" type="file" accept="image/x-png, image/jpeg" multiple="" onChange={(e) => this.handleChange(e.target.files)}/>
+                        <input id="choosefile" ref='choosefile' type="file" accept="image/x-png, image/jpeg" multiple="" onChange={(e) => this.handleChange(e.target.files)}/>
                         <button onClick={this.sendComment.bind(this)} id="commentBtn" type="button">Comment</button>
                     </div>
                 </div>
@@ -254,7 +254,6 @@ class Container extends Component {
             this.setState({isBad: false});
             badImgComponent.src = badDisableImg;
         }
-
         return this.getObjLength(badObj);
     }
 
@@ -356,8 +355,6 @@ class Container extends Component {
         );
     }
 }
-
-
 
 class RestaurantPanel extends Component {
   	render() {
