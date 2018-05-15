@@ -193,7 +193,7 @@ class Container extends Component {
 
     updateComponent(response) {
         const img = document.getElementById("restaurant_img");
-        //console.log(response);
+        console.log(response);
         if (img) {
             const title = document.getElementById("title");
             const hot = document.getElementById("hot_s");

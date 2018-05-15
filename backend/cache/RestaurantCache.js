@@ -5,7 +5,7 @@ exports.storeRestaurants = async (data) => {
 	for (let i = 0; i < data.length; ++i) {
 		let resObj = translateRestaurantData(data[i]);
 
-		exports.getRestaurant(data[i].id,  function(result) {
+		exports.getRestaurant(data[i].id,  (result) => {
 			result.is_closed = resObj.is_closed;
 			result.category = resObj.category;
 			result.location = resObj.location;
@@ -14,17 +14,17 @@ exports.storeRestaurants = async (data) => {
 			result.src = resObj.src;
 			result.phone = resObj.phone;
 
-			exports.addRestaurant(data[i].id, result, function(res) {
+			exports.addRestaurant(data[i].id, result, (res) => {
 				successCount ++;
 				//console.log("insert restaurant " + data[i].name + " into redis cache");
-			}, function(err){
+			}, (err) => {
 				console.log("can not insert restaurant " + data[i].name + " into redis cache" + err);
 			});
-		}, function(err) {
-			exports.addRestaurant(data[i].id, resObj, function(res) {
+		}, (err) => {
+			exports.addRestaurant(data[i].id, resObj, (res) => {
 				successCount ++;
 				//console.log("insert restaurant " + data[i].name + " into redis cache");
-			}, function(err) {
+			}, (err) => {
 				console.log("can not insert restaurant " + data[i].name + " into redis cache" + err);
 			});
 		})
@@ -32,7 +32,7 @@ exports.storeRestaurants = async (data) => {
 	console.log("cache " + data.length + " restaurants but only " + successCount + " works");
 }
 
-translateRestaurantData = function(data) {
+translateRestaurantData = (data) => {
 	let location = data.location.address1 + ", " + data.location.city + ", " + data.location.state + ", " + data.location.country + ", " + data.location.zip_code;
 	let category = "";
 	for (let k = 0; k < data.categories.length; ++k) {
@@ -40,7 +40,7 @@ translateRestaurantData = function(data) {
 	}
 
 	return {
-		id:data.id, 
+		id: data.id, 
 		src: data.image_url, 
 		title: data.name, 
 		hot: 0,  
@@ -66,9 +66,9 @@ exports.getRestaurant = async (id, resolve, reject) => {
 }
 
 exports.removeRestaurant = async (id, resolve, reject) => {
-	getRestaurant(id, function(info) {
+	getRestaurant(id, (info) => {
 	   cache.delElement(id, info).then(resolve).catch(reject);
-	}, function(error) {
+	}, (error) => {
 	   reject(new Error("no found id " + id));
 	});
 }
@@ -197,5 +197,5 @@ function CurentTime() {
 		clock += '0'
 	}; 
     clock += mm; 
-    return(clock); 
+    return (clock); 
 } 
