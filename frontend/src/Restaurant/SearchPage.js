@@ -14,7 +14,7 @@ class SearchPage extends Component {
         return (
             <div className="row">
                 <div className="col-6">
-                    <SearchForm onSearch={this.onSearch}/>;
+                    <SearchForm onSearch={this.onSearch}/>
                 </div>
             </div>
         );

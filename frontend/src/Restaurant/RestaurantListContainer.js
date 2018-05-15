@@ -23,6 +23,7 @@ class RestaurantListContainer extends Component {
         if (restaurant) {
             const matches = await fetch('/api/getRestaurants?term=' + restaurantName + "&location=" + location);
             const body = await matches.json();
+            console.log(body);
             if (body.message === 'invalid parameters') {
                 this.setState({
                     listOfMatchingRestaurants: [],

@@ -99,7 +99,5 @@ module.exports.getAllRestaurants = async () => {
 module.exports.getRestaurantById = async (id) => {
     const restaurantsCollection = await restaurants();
     const restaurant = await restaurantsCollection.findOne({_id: id});
-    // if (!user)
-    //     throw "User not found";
     return restaurant;
 };

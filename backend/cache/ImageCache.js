@@ -1,29 +1,29 @@
 const redisCache = require("./RedisCache");
 
 exports.getStoredImageCounts = async () => {
-	redisCache.getElement("image_count").then(function(result){
+	redisCache.getElement("image_count").then((result) => {
 		exports.image_count = result;
         console.log("imageCacheCount = " + exports.image_count);
-    }).catch(function(err){
+    }).catch((err) => {
         console.log("init image cache failed");
     });
 }
 
 exports.storeImage = async (id, image, resolve, reject) => {
-	redisCache.setElement(id, image).then(function(result){
+	redisCache.setElement(id, image).then((result) => {
         exports.image_count = exports.image_count + 1;
         console.log("exports.image_count = " + exports.image_count);
         resolve(result);
-    }).catch(function(err){
+    }).catch((err) => {
         console.log("init image cache failed");
         reject(err);
     });
 }
 
 exports.getStoredImage = async (id, resolve, reject) => {
-	redisCache.getElement(id).then(function(result){
+	redisCache.getElement(id).then((result) => {
 		resolve(result);
-    }).catch(function(err){
+    }).catch((err) => {
     	reject(err);
         //console.log("get image cache failed");
     });
