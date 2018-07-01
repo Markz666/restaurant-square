@@ -42,6 +42,34 @@ app.get('/api/getRestaurantInfo', (req, res) => {
     });
 });
 
+htmlEncode = (c) => {
+    switch(c) {
+        case '&':
+            return "&amp";
+        case '<':
+            return "&lt";
+        case '>':
+            return "&gt";
+        case '"':
+            return "&quot";
+        case ' ':
+            return "&nbsp";
+        default:
+            return c + "";
+    }
+};
+
+encodeHTML = (s) => {
+    if (s.length === 0 || s.trim().equals("")) {
+        return s;
+    }
+    let strArray = [];
+    for (let i = 0; i < s.length; i++) {
+        strArray.push(htmlEncode(s.charAt(i)));
+    }
+    return strArray.join("");
+}
+
 app.post('/api/uploadComment', (req, res) => {
     console.log("-------------/api/upload-------------");
     const fullToken = req.body.token;
@@ -69,7 +97,7 @@ app.post('/api/uploadComment', (req, res) => {
             if (err) throw err;
             fs.writeFileSync('new.png', stdout, 'binary');
             let img = base64Img.base64Sync('new.png');
-            restaurantCache.addComment(req.body.resId, userName, req.body.comment, img, (result) => {
+            restaurantCache.addComment(req.body.resId, userName, encodeHTML(req.body.comment), img, (result) => {
                  res.send(result);
              }, (err) => {
                  res.send({status: 403});
