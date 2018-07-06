@@ -60,7 +60,7 @@ htmlEncode = (c) => {
 };
 
 encodeHTML = (s) => {
-    if (s.length === 0 || s.trim().equals("")) {
+    if (s.length === 0 || s.trim() === "") {
         return s;
     }
     let strArray = [];
